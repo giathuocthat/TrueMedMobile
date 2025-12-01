@@ -1,9 +1,8 @@
 {
-    "english": "Toeee",
-    "bangla": "বাংলা",
-    "arabic": "العربية",
-    "home": "Home",
-    "profile": "Profile",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "home": "Trang chủ",
+    "profile": "Thông tin",
     "login": "Login",
     "createNewPassword": "Create New password",
     "createNewPasswordHint": "Your new password must be different from previous used passwords.",

@@ -9,19 +9,16 @@ class AppLocalizationsVi extends AppLocalizations {
   AppLocalizationsVi([String locale = 'vi']) : super(locale);
 
   @override
-  String get english => 'Toeee';
+  String get english => 'Tiếng Anh';
 
   @override
-  String get bangla => 'বাংলা';
+  String get vietnamese => 'Tiếng Việt';
 
   @override
-  String get arabic => 'العربية';
+  String get home => 'Trang chủ';
 
   @override
-  String get home => 'Home';
-
-  @override
-  String get profile => 'Profile';
+  String get profile => 'Thông tin';
 
   @override
   String get login => 'Login';

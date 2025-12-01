@@ -104,17 +104,11 @@ abstract class AppLocalizations {
   /// **'English'**
   String get english;
 
-  /// No description provided for @bangla.
+  /// No description provided for @vietnamese.
   ///
   /// In en, this message translates to:
-  /// **'বাংলা'**
-  String get bangla;
-
-  /// No description provided for @arabic.
-  ///
-  /// In en, this message translates to:
-  /// **'العربية'**
-  String get arabic;
+  /// **'vietnamese'**
+  String get vietnamese;
 
   /// No description provided for @home.
   ///

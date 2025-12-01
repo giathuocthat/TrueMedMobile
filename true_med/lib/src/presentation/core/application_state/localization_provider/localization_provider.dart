@@ -10,7 +10,9 @@ part 'localization_provider.g.dart';
 class Localization extends _$Localization {
   @override
   Locale build() {
-    return const Locale('en');
+    //LOCTB set default locale to Vi
+    //return const Locale('en');
+    return const Locale('vi');
   }
 
   Future<void> changeLocale(Locale locale) async {
