@@ -3,6 +3,7 @@ part of '../colors.dart';
 abstract class AppBarColors {
   const AppBarColors();
 
+  Color get appBar;
   Color get background;
   Color get icon;
   Color get surfaceTint;
@@ -11,6 +12,9 @@ abstract class AppBarColors {
 
 class _LightAppBarColors extends AppBarColors {
   const _LightAppBarColors();
+
+  @override
+  Color get appBar => _Primitive.brand;
 
   @override
   Color get background => _Primitive.neutral0;
@@ -27,6 +31,9 @@ class _LightAppBarColors extends AppBarColors {
 
 class _DarkAppBarColors extends AppBarColors {
   const _DarkAppBarColors();
+
+  @override
+  Color get appBar => _Primitive.brand;
 
   @override
   Color get background => _Primitive.neutral60;

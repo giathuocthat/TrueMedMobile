@@ -12,6 +12,7 @@ class Routes {
 
   static const String home = '/home';
   static const String promo = '/promo';
+  static const String search = '/search';
   static const String quickOrder = '/quick-order';
   static const String orders = '/orders';
   static const String reward = '/reward';

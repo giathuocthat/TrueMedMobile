@@ -6,16 +6,19 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
-import 'widget/home_heaher.dart';
+import 'widget/search_hearder.dart';
+//import 'widget/home_heaher.dart';
 
-class HomePage extends ConsumerStatefulWidget {
-  const HomePage({super.key});
+class SearchPage extends ConsumerStatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
+  ConsumerState<SearchPage> createState() => _SearchPageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _SearchPageState extends ConsumerState<SearchPage> {
+  final searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +34,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          const HomeHeader(), // ⭐ đặt header lên đầu
+          SearchHeader(controller: searchController), // ⭐ đặt header lên đầu
 
           Expanded(
             // ⭐ nội dung HomePage phía dưới
@@ -40,7 +43,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.locale.home),
+                  Text(context.locale.search),
                   const SizedBox(height: 16),
                   FilledButton(
                     onPressed: () {

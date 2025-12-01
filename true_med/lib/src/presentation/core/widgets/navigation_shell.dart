@@ -16,7 +16,9 @@ class _NavigationShellState extends State<NavigationShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Template')),
+      // appBar: AppBar(title: const Text('Flutter Template')),
+      appBar: null, // ⭐ Tắt AppBar
+      extendBodyBehindAppBar: true, // ⭐ Cho phép nội dung nằm sát top
       body: widget.statefulNavigationShell,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: widget.statefulNavigationShell.currentIndex,
