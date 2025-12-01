@@ -12,6 +12,7 @@ import '../../features/authentication/forgot_password/view/reset_password_succes
 import '../../features/authentication/login/view/login_page.dart';
 import '../../features/authentication/registration/view/registration_page.dart';
 import '../../features/home/view/home_page.dart';
+import '../../features/home/view/promotion_page.dart';
 import '../../features/onboarding/view/onboarding_page.dart';
 import '../../features/profile/view/profile_page.dart';
 import '../../features/splash/view/splash_page.dart';

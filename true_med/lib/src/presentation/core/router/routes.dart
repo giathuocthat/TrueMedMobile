@@ -11,5 +11,9 @@ class Routes {
   static const String registration = 'registration';
 
   static const String home = '/home';
+  static const String promo = '/promo';
+  static const String quickOrder = '/quick-order';
+  static const String orders = '/orders';
+  static const String reward = '/reward';
   static const String profile = '/profile';
 }

@@ -25,12 +25,28 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   ) async {
     return asyncGuard(() async {
       final model = LoginRequestModel.fromEntity(data);
-      final response = await remote.login(model.toJson());
+      //LOCTB HARD CODE
+      //final response = await remote.login(model.toJson());
 
       // Save the session if the user has selected the "Remember Me" option
+      //if (data.shouldRemeber ?? false) await _saveSession();
+
+      //return LoginResponseModel.fromJson(response.data);
+
+      //await remote.login(model.toJson());
       if (data.shouldRemeber ?? false) await _saveSession();
 
-      return LoginResponseModel.fromJson(response.data);
+      return LoginResponseModel(
+        id: 1,
+        username: 'hardcoded_user',
+        email: 'user@example.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        image: 'https://example.com/image.png',
+        accessToken: 'hardcoded_access_token',
+        gender: 'male',
+        refreshToken: 'hardcoded_refresh_token',
+      );
     });
   }
 
