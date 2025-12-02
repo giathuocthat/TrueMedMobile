@@ -174,26 +174,6 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 6),
             const Spacer(),
 
-            // Container(
-            //   height: 42,
-            //   width: double.infinity,
-            //   alignment: Alignment.center,
-            //   decoration: const BoxDecoration(
-            //     color: Colors.white,
-            //     borderRadius: BorderRadius.only(
-            //       bottomLeft: Radius.circular(16),
-            //       bottomRight: Radius.circular(16),
-            //     ),
-            //   ),
-            //   child: const Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       Icon(Icons.remove),
-            //       Text("0"),
-            //       Icon(Icons.add, color: Colors.green),
-            //     ],
-            //   ),
-            // ),
             ProductFooter(quantity: 990, onAdd: () {}, onRemove: () {}),
           ],
         ),

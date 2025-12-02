@@ -31,17 +31,6 @@ StatefulShellRoute _shellRoutes(ref) {
       StatefulShellBranch(
         routes: [
           GoRoute(
-            path: Routes.search,
-            name: Routes.search,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: SearchPage());
-            },
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
             path: Routes.profile,
             name: Routes.profile,
             pageBuilder: (context, state) {

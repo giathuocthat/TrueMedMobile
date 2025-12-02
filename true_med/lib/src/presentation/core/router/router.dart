@@ -24,6 +24,7 @@ import 'routes.dart';
 
 part 'parts/authentication_routes.dart';
 part 'parts/on_boarding_routes.dart';
+part 'parts/modal_routes.dart';
 part 'parts/shell_routes.dart';
 part 'router.g.dart';
 
@@ -62,6 +63,7 @@ GoRouter goRouter(Ref ref) {
       ),
       ..._onboardingRoutes(ref),
       ..._authenticationRoutes(ref),
+      ..._modalRoutes(ref),
       _shellRoutes(ref),
     ],
   );
