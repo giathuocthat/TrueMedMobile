@@ -10,13 +10,14 @@ List<GoRoute> _modalRoutes(ref) {
       },
     ),
     //profile
-    GoRoute(
-      path: Routes.profile,
-      name: Routes.profile,
-      pageBuilder: (context, state) {
-        return const MaterialPage(child: SearchPage());
-      },
-    ),
+    // GoRoute(
+    //   path: Routes.profile,
+    //   name: Routes.profile,
+    //   pageBuilder: (context, state) {
+    //     return const MaterialPage(child: SearchPage());
+    //   },
+    // ),
+
     //oder history
     // GoRoute(
     //   path: Routes.search,

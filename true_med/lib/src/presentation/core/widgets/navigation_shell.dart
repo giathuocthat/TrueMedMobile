@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/app_localization.dart';
+import 'bottom_nav.dart';
+import 'convex_bottom_nav.dart';
 
 class NavigationShell extends StatefulWidget {
   const NavigationShell({super.key, required this.statefulNavigationShell});
@@ -31,15 +33,22 @@ class _NavigationShellState extends State<NavigationShell> {
             label: context.locale.home,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.local_offer),
+            icon: const Icon(Icons.shopping_cart),
             label: context.locale.promotion,
           ),
-          // BottomNavigationBarItem(
-          //   icon: const Icon(Icons.person),
-          //   label: context.locale.profile,
-          // ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.local_offer),
+            label: context.locale.profile,
+          ),
         ],
       ),
+      // bottomNavigationBar: CustomBottomNav(
+      //   navShell: widget.statefulNavigationShell,
+      // ),
+
+      // bottomNavigationBar: ConvexBottomNav(
+      //   navShell: widget.statefulNavigationShell,
+      // ),
     );
   }
 }

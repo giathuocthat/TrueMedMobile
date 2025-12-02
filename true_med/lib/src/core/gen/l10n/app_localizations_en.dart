@@ -21,6 +21,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get promotion => 'Promotion';
 
   @override
+  String get quickOrder => 'Quick Order';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get cart => 'Cart';
+
+  @override
   String get search => 'Search';
 
   @override

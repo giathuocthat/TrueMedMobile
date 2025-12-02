@@ -28,6 +28,28 @@ StatefulShellRoute _shellRoutes(ref) {
           ),
         ],
       ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: Routes.profile,
+            name: Routes.profile,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ProfilePage());
+            },
+          ),
+        ],
+      ),
+      // StatefulShellBranch(
+      //   routes: [
+      //     GoRoute(
+      //       path: Routes.profile,
+      //       name: Routes.profile,
+      //       pageBuilder: (context, state) {
+      //         return const MaterialPage(child: ProfilePage());
+      //       },
+      //     ),
+      //   ],
+      // ),
       // StatefulShellBranch(
       //   routes: [
       //     GoRoute(
