@@ -35,14 +35,17 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     final screenWidth = MediaQuery.of(context).size.width;
     final itemWidth = (screenWidth - 36) / 2; // padding tổng
-    final itemHeight = 330; // ⬅️ chiều cao bạn muốn
+    double itemHeight = 350; // ⬅️ chiều cao bạn muốn
     final ratio = itemWidth / itemHeight;
 
     return Scaffold(
       body: Column(
         children: [
           SearchHeader(controller: searchController), // ⭐ đặt header lên đầu
-          //ProductCard(product: mockProducts[0]),
+          // Padding(
+          //   padding: EdgeInsets.all(8),
+          //   child: ProductCard(product: mockProducts[0]),
+          // ),
           Expanded(
             // ⭐ nội dung HomePage phía dưới
             child: SingleChildScrollView(

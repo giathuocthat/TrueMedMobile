@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/extensions/string.dart';
 import '../../model/product_mock.dart';
+import 'discount_badge.dart';
+import 'text_bage.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductMock product;
@@ -9,48 +12,31 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      //300 +30 chieu cao hien thi day du thong tin san pham
+      height: 320,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF8F3E7),
+          color: const Color.fromARGB(255, 219, 244, 239),
           borderRadius: BorderRadius.circular(16),
         ),
         //child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top section
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                children: [
-                  if (product.discount > 0)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        "-${product.discount}%",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  const Spacer(),
-                  const Icon(Icons.favorite_border, color: Colors.grey),
-                ],
-              ),
+            Row(
+              children: [
+                if (product.discount > 0)
+                  //
+                  discountBadge('-${product.discount}%'),
+                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(Icons.favorite_border, color: Colors.grey),
+                ),
+              ],
             ),
-
             SizedBox(
-              height: 90,
+              height: 80,
               child: Center(
                 child: AspectRatio(
                   aspectRatio: 4 / 3,
@@ -59,26 +45,56 @@ class ProductCard extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
+            // BADGE TAG TEXT
+            SizedBox(
+              height: 30,
+              child: Container(
+                child: Row(
+                  children: [
+                    if (product.isDiscount)
+                      //
+                      const SizedBox(
+                        width: 65, // hoặc MediaQuery.of(context).size.width / 2
+                        child: TagBadge(
+                          background: Colors.blueAccent,
+                          text: "BĂT BUỘC LẤY HOÁ ĐƠN ",
+                          icon: null,
+                        ),
+                      ),
+                    if (product.discount > 0)
+                      const SizedBox(
+                        width: 65, // hoặc MediaQuery.of(context).size.width / 2
+                        child: TagBadge(
+                          background: Colors.red,
+                          text: "KHUYẾN MÃI",
+                          icon: null,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
                   Text(
-                    "${product.price.toStringAsFixed(0)}đ",
+                    product.price.toCurrency(true),
                     style: const TextStyle(
                       color: Colors.green,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(width: 6),
                   if (product.oldPrice > 0)
                     Text(
-                      "${product.oldPrice.toStringAsFixed(0)}đ",
+                      //"${product.oldPrice.toStringAsFixed(0)}đ",
+                      product.oldPrice.toCurrency(true),
                       style: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                         color: Colors.grey,
                         decoration: TextDecoration.lineThrough,
                       ),
@@ -86,16 +102,15 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            const SizedBox(height: 8),
-
+            Spacer(),
+            //const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 13),
               ),
             ),
 
@@ -105,9 +120,9 @@ class ProductCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 product.name,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 10, color: Colors.grey),
+                style: const TextStyle(fontSize: 7, color: Colors.grey),
               ),
             ),
 
@@ -123,12 +138,13 @@ class ProductCard extends StatelessWidget {
                     child: Text(
                       product.manufacturer,
                       style: const TextStyle(fontSize: 12, color: Colors.blue),
+                      maxLines: 1,
                     ),
                   ),
                 ],
               ),
             ),
-
+            Spacer(),
             const SizedBox(height: 4),
 
             Padding(
@@ -140,7 +156,7 @@ class ProductCard extends StatelessWidget {
             ),
 
             const SizedBox(height: 6),
-
+            Spacer(),
             Container(
               height: 42,
               width: double.infinity,
