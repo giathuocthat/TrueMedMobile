@@ -10,6 +10,8 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  errors:
+    prefer_single_quotes: ignore
   plugins:
     - custom_lint
 

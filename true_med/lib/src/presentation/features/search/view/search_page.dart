@@ -6,6 +6,8 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
+import '../../home/model/product_mock.dart';
+import '../../home/view/widget/product_card.dart';
 import 'widget/search_hearder.dart';
 //import 'widget/home_heaher.dart';
 
@@ -31,27 +33,35 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(logoutProvider);
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final itemWidth = (screenWidth - 36) / 2; // padding tổng
+    final itemHeight = 330; // ⬅️ chiều cao bạn muốn
+    final ratio = itemWidth / itemHeight;
+
     return Scaffold(
       body: Column(
         children: [
           SearchHeader(controller: searchController), // ⭐ đặt header lên đầu
-
+          //ProductCard(product: mockProducts[0]),
           Expanded(
             // ⭐ nội dung HomePage phía dưới
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.locale.search),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: () {
-                      ref.read(logoutProvider.notifier).call();
+                  GridView.builder(
+                    padding: const EdgeInsets.all(12),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: ratio,
+                    ),
+                    itemCount: mockProducts.length,
+                    itemBuilder: (context, index) {
+                      return ProductCard(product: mockProducts[index]);
                     },
-                    child: state.isLoading
-                        ? const LoadingIndicator()
-                        : Text(context.locale.logout),
                   ),
                 ],
               ),
