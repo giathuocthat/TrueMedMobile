@@ -6,17 +6,15 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
-import 'widget/home_heaher.dart';
-import 'widget/page_header.dart';
 
-class PromotionPage extends ConsumerStatefulWidget {
-  const PromotionPage({super.key});
+class QuickOrderPage extends ConsumerStatefulWidget {
+  const QuickOrderPage({super.key});
 
   @override
-  ConsumerState<PromotionPage> createState() => _PromotionPageState();
+  ConsumerState<QuickOrderPage> createState() => _QuickOrderPageState();
 }
 
-class _PromotionPageState extends ConsumerState<PromotionPage> {
+class _QuickOrderPageState extends ConsumerState<QuickOrderPage> {
   @override
   void initState() {
     super.initState();
@@ -32,8 +30,6 @@ class _PromotionPageState extends ConsumerState<PromotionPage> {
     return Scaffold(
       body: Column(
         children: [
-          PageHeader(title: context.locale.promotion), // ⭐ đặt header lên đầu
-
           Expanded(
             // ⭐ nội dung HomePage phía dưới
             child: Padding(
@@ -41,7 +37,7 @@ class _PromotionPageState extends ConsumerState<PromotionPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.locale.promotion),
+                  Text(context.locale.home),
                   const SizedBox(height: 16),
                   FilledButton(
                     onPressed: () {

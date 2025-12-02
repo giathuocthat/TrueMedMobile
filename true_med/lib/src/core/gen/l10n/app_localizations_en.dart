@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home => 'Home';
 
   @override
+  String get promotion => 'Promotion';
+
+  @override
   String get search => 'Search';
 
   @override
