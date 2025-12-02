@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../../core/extensions/string.dart';
 import '../../model/product_mock.dart';
 import 'discount_badge.dart';
+import 'product_footer.dart';
+import 'sold_progress_bar.dart';
 import 'text_bage.dart';
 
 class ProductCard extends StatelessWidget {
@@ -13,7 +15,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       //300 +30 chieu cao hien thi day du thong tin san pham
-      height: 320,
+      height: 310,
       child: Container(
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 219, 244, 239),
@@ -102,8 +104,9 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
+            //Spacer(),
             //const SizedBox(height: 8),
+            // Name
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
@@ -114,69 +117,84 @@ class ProductCard extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 4),
-
+            const SizedBox(height: 2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                product.name,
+                product.name_stock,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 7, color: Colors.grey),
+                style: const TextStyle(fontSize: 8, color: Colors.grey),
               ),
             ),
 
             const SizedBox(height: 4),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  const Icon(Icons.house, color: Colors.blue, size: 16),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      product.manufacturer,
-                      style: const TextStyle(fontSize: 12, color: Colors.blue),
-                      maxLines: 1,
+            // Manufacturer show  here
+            if (product.isShowStock)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    const Icon(Icons.house, color: Colors.blue, size: 16),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        product.manufacturer,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.blue,
+                        ),
+                        maxLines: 1,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Spacer(),
-            const SizedBox(height: 4),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                "Đặt tối đa ${product.stock} sản phẩm",
-                style: const TextStyle(fontSize: 10, color: Colors.grey),
-              ),
-            ),
-
-            const SizedBox(height: 6),
-            Spacer(),
-            Container(
-              height: 42,
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
+                  ],
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(Icons.remove),
-                  Text("0"),
-                  Icon(Icons.add, color: Colors.green),
-                ],
+            Spacer(),
+            const SizedBox(height: 4),
+            if (product.discount > 0 ? true : false)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SoldProgressBar(
+                  sold: 55,
+                  total: 100,
+                  iSShowSold: product.isShowStock,
+                ),
+              ),
+
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  "Đặt tối đa ${product.stock} sản phẩm",
+                  style: const TextStyle(fontSize: 10, color: Colors.grey),
+                ),
               ),
             ),
+            const SizedBox(height: 6),
+            const Spacer(),
+
+            // Container(
+            //   height: 42,
+            //   width: double.infinity,
+            //   alignment: Alignment.center,
+            //   decoration: const BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.only(
+            //       bottomLeft: Radius.circular(16),
+            //       bottomRight: Radius.circular(16),
+            //     ),
+            //   ),
+            //   child: const Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       Icon(Icons.remove),
+            //       Text("0"),
+            //       Icon(Icons.add, color: Colors.green),
+            //     ],
+            //   ),
+            // ),
+            ProductFooter(quantity: 990, onAdd: () {}, onRemove: () {}),
           ],
         ),
         //  ),

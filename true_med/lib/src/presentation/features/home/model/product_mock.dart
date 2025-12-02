@@ -7,6 +7,7 @@ class ProductMock {
   final double oldPrice;
   final int stock;
   final int discount;
+  final bool isShowStock;
   final bool isDiscount;
   final bool isCombo;
   final bool isNearOut;
@@ -22,6 +23,7 @@ class ProductMock {
     this.oldPrice = 0,
     this.stock = 0,
     this.discount = 0,
+    this.isShowStock = true,
     this.isDiscount = false,
     this.isCombo = false,
     this.isNearOut = false,
@@ -40,6 +42,7 @@ final mockProducts = [
     price: 127100,
     oldPrice: 141800,
     discount: 3,
+    isShowStock: true,
     hasAlternative: true,
     isDiscount: true,
     isCombo: false,
@@ -56,6 +59,7 @@ final mockProducts = [
     price: 32000,
     oldPrice: 0,
     discount: 0,
+    isShowStock: false,
     hasAlternative: false,
     isDiscount: false,
     isCombo: false,
@@ -71,6 +75,7 @@ final mockProducts = [
     price: 32000,
     oldPrice: 35300,
     discount: 8,
+    isShowStock: true,
     hasAlternative: true,
     isDiscount: false,
     isCombo: false,
@@ -86,6 +91,7 @@ final mockProducts = [
     price: 32000,
     oldPrice: 35300,
     discount: 10,
+    isShowStock: true,
     hasAlternative: true,
     isDiscount: true,
     isCombo: false,
@@ -101,6 +107,7 @@ final mockProducts = [
     price: 32000,
     oldPrice: 35300,
     discount: 18,
+    isShowStock: true,
     hasAlternative: true,
     isDiscount: true,
     isCombo: false,
@@ -116,6 +123,7 @@ final mockProducts = [
     price: 32000,
     oldPrice: 35300,
     discount: 28,
+    isShowStock: true,
     hasAlternative: true,
     isDiscount: false,
     isCombo: false,
