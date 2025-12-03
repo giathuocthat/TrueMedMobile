@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/app_localization.dart';
+import '../../../../shared/widget/price_row.dart';
 import '../../../../shared/widget/product_card_cart.dart';
 import '../../../../shared/widget/payment_footer.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
@@ -15,6 +16,8 @@ import '../model/cart_oder_mock.dart';
 import 'cart_product_item.dart';
 import 'cart_product_item_swipe.dart';
 import 'cart_shop_header.dart';
+import 'cart_shop_voucher_section.dart';
+import 'total_discount_section.dart';
 
 class CartOrderPage extends ConsumerStatefulWidget {
   const CartOrderPage({super.key});
@@ -59,7 +62,6 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
                       shopName: shop.shopName,
                       logoUrl: shop.shopLogo,
                     ),
-                    // ...shop.products.map((p) => CartProductItem(product: p)),
                     ...shop.products.map(
                       (p) => CartProductItemWithSwipe(
                         product: p,
@@ -67,8 +69,11 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
                         child: CartProductItem(product: p),
                       ),
                     ),
-                    //CartShopVoucherSection(shop.shopId),
-                    SizedBox(height: 12),
+                    const Divider(height: 1, color: Colors.grey),
+                    CartShopVoucherSection(shopId: shop.shopId),
+                    TotalDiscountSection(shopId: shop.shopId),
+
+                    const SizedBox(height: 12),
                   ],
                 );
               }).toList(),
