@@ -3,10 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/app_localization.dart';
+import '../../../../shared/widget/payment_footer.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
 import '../../../core/widgets/page_header.dart';
+import '../../home/model/product_mock.dart';
+import '../../home/view/widget/product_card.dart';
 
 class CartOrderPage extends ConsumerStatefulWidget {
   const CartOrderPage({super.key});
@@ -27,6 +30,10 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(logoutProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final itemWidth = (screenWidth - 36) / 2; // padding tổng
+    double itemHeight = 340; // ⬅️ chiều cao bạn muốn
+    final ratio = itemWidth / itemHeight;
 
     return Scaffold(
       body: Column(
@@ -38,25 +45,29 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
           ), // ⭐ đặt header lên đầu
           Expanded(
             // ⭐ nội dung HomePage phía dưới
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.locale.cart),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: () {
-                      ref.read(logoutProvider.notifier).call();
+                  GridView.builder(
+                    padding: const EdgeInsets.all(12),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: ratio,
+                    ),
+                    itemCount: mockProducts.length,
+                    itemBuilder: (context, index) {
+                      return ProductCard(product: mockProducts[index]);
                     },
-                    child: state.isLoading
-                        ? const LoadingIndicator()
-                        : Text(context.locale.logout),
                   ),
                 ],
               ),
             ),
           ),
+          SizedBox(height: 230, child: PaymentFooter(context)),
         ],
       ),
     );
