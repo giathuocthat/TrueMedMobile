@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/extensions/go_router_extension.dart';
+import '../../../../../shared/widget/icon_with_badge.dart';
 import '../../../../core/router/routes.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -55,47 +55,28 @@ class HomeHeader extends StatelessWidget {
 
           const SizedBox(width: 16),
 
-          // ----------------- ICONS WITH BADGE -----------------
-          _iconWithBadge(icon: Icons.notifications, badge: "88"),
+          IconWithBadge(
+            icon: Icons.notifications,
+            badge: '3',
+            onTap: () => context.pushNamed(Routes.notification),
+          ),
 
           const SizedBox(width: 16),
 
-          _iconWithBadge(icon: Icons.shopping_cart, badge: "18"),
+          IconWithBadge(
+            icon: Icons.shopping_cart,
+            badge: '13',
+            onTap: () => context.pushNamed(Routes.cartOrder),
+          ),
 
           const SizedBox(width: 16),
 
-          const Icon(Icons.person, color: Colors.white, size: 26),
+          IconWithBadge(
+            icon: Icons.person,
+            onTap: () => context.pushNamed(Routes.profile),
+          ),
         ],
       ),
-    );
-  }
-
-  // Badge component
-  Widget _iconWithBadge({required IconData icon, required String badge}) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Icon(icon, color: Colors.white, size: 26),
-        Positioned(
-          right: -6,
-          top: -6,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              badge,
-              style: const TextStyle(
-                fontSize: 10,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

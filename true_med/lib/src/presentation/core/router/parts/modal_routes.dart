@@ -10,21 +10,30 @@ List<GoRoute> _modalRoutes(ref) {
       },
     ),
     //profile
-    // GoRoute(
-    //   path: Routes.profile,
-    //   name: Routes.profile,
-    //   pageBuilder: (context, state) {
-    //     return const MaterialPage(child: SearchPage());
-    //   },
-    // ),
+    GoRoute(
+      path: Routes.profile,
+      name: Routes.profile,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: ProfilePage());
+      },
+    ),
 
-    //oder history
-    // GoRoute(
-    //   path: Routes.search,
-    //   name: Routes.search,
-    //   pageBuilder: (context, state) {
-    //     return const MaterialPage(child: SearchPage());
-    //   },
-    // ),
+    //notification
+    GoRoute(
+      path: Routes.notification,
+      name: Routes.notification,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: NotificationPage());
+      },
+    ),
+
+    //cart order
+    GoRoute(
+      path: Routes.cartOrder,
+      name: Routes.cartOrder,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: CartOrderPage());
+      },
+    ),
   ];
 }

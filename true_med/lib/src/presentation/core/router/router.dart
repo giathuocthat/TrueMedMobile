@@ -15,6 +15,8 @@ import '../../features/home/view/home_page.dart';
 import '../../features/home/view/promotion_page.dart';
 import '../../features/onboarding/view/onboarding_page.dart';
 import '../../features/profile/view/profile_page.dart';
+import '../../features/notification/view/notification_page.dart';
+import '../../features/cart_order/view/cart_order_page.dart';
 import '../../features/search/view/search_page.dart';
 import '../../features/splash/view/splash_page.dart';
 import '../widgets/app_startup/startup_widget.dart';

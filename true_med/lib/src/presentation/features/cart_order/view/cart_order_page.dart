@@ -8,14 +8,14 @@ import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
 import '../../../core/widgets/page_header.dart';
 
-class ProfilePage extends ConsumerStatefulWidget {
-  const ProfilePage({super.key});
+class CartOrderPage extends ConsumerStatefulWidget {
+  const CartOrderPage({super.key});
 
   @override
-  ConsumerState<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<CartOrderPage> createState() => _CartOrderPageState();
 }
 
-class _ProfilePageState extends ConsumerState<ProfilePage> {
+class _CartOrderPageState extends ConsumerState<CartOrderPage> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +33,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         children: [
           //PageHeader(title: context.locale.profile), // ⭐ đặt header lên đầu
           PageHeader(
-            title: context.locale.profile,
+            title: context.locale.cart,
             showBack: true,
           ), // ⭐ đặt header lên đầu
           Expanded(
@@ -43,7 +43,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.locale.profile),
+                  Text(context.locale.cart),
                   const SizedBox(height: 16),
                   FilledButton(
                     onPressed: () {

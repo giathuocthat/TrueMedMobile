@@ -8,14 +8,14 @@ import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
 import '../../../core/widgets/page_header.dart';
 
-class ProfilePage extends ConsumerStatefulWidget {
-  const ProfilePage({super.key});
+class NotificationPage extends ConsumerStatefulWidget {
+  const NotificationPage({super.key});
 
   @override
-  ConsumerState<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _ProfilePageState extends ConsumerState<ProfilePage> {
+class _NotificationPageState extends ConsumerState<NotificationPage> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +33,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         children: [
           //PageHeader(title: context.locale.profile), // ⭐ đặt header lên đầu
           PageHeader(
-            title: context.locale.profile,
+            title: context.locale.notifications,
             showBack: true,
           ), // ⭐ đặt header lên đầu
           Expanded(
@@ -43,7 +43,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.locale.profile),
+                  Text(context.locale.notifications),
                   const SizedBox(height: 16),
                   FilledButton(
                     onPressed: () {

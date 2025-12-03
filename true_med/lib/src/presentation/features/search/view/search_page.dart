@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
-import '../../../core/widgets/loading_indicator.dart';
 import '../../home/model/product_mock.dart';
 import '../../home/view/widget/product_card.dart';
 import 'widget/search_hearder.dart';

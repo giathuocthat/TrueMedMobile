@@ -6,7 +6,8 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
-import 'widget/page_header.dart';
+import '../../../core/widgets/page_header.dart';
+//import 'widget/page_header.dart';
 
 class PromotionPage extends ConsumerStatefulWidget {
   const PromotionPage({super.key});
