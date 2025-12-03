@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../shared/widget/price_section.dart';
 import '../../home/model/product_mock.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
