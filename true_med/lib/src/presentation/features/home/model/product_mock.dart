@@ -64,7 +64,7 @@ final mockProducts = [
     isDiscount: false,
     isCombo: false,
     isNearOut: false,
-    stock: 133,
+    stock: 0,
   ),
   ProductMock(
     name: "Cefixim 200mg",

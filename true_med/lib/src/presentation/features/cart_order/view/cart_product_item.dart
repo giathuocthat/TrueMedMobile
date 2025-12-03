@@ -7,6 +7,7 @@ import '../../home/view/widget/product_footer.dart';
 
 class CartProductItem extends StatelessWidget {
   final ProductMock product;
+  final bool checked;
   final int quantity;
   final VoidCallback? onIncrease;
   final VoidCallback? onDecrease;
@@ -15,14 +16,16 @@ class CartProductItem extends StatelessWidget {
   const CartProductItem({
     super.key,
     required this.product,
+    this.checked = false,
     this.quantity = 1,
     this.onIncrease,
     this.onDecrease,
     this.onToggle,
   });
-
+  bool get isOutOfStock => product.stock <= 0;
   @override
   Widget build(BuildContext context) {
+    final grayText = Colors.grey.shade500;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       color: Colors.white,
@@ -32,26 +35,61 @@ class CartProductItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Checkbox
-              GestureDetector(
-                onTap: onToggle,
-                child: Icon(
-                  Icons.check_box_outline_blank,
-                  color: Colors.grey.shade400,
-                ),
-              ),
+              // ---------- CHECKBOX (ẩn khi hết hàng) ----------
+              if (!isOutOfStock)
+                GestureDetector(
+                  onTap: onToggle,
+                  child: Icon(
+                    checked ? Icons.check_box : Icons.check_box_outline_blank,
+                    color: checked ? Colors.green : Colors.grey.shade400,
+                  ),
+                )
+              else
+                const SizedBox(width: 24),
 
-              const SizedBox(width: 10),
+              // ---------- IMAGE + OUT OF STOCK OVERLAY ----------
+              Stack(
+                children: [
+                  // Ảnh sản phẩm mờ nếu hết hàng
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Opacity(
+                      opacity: isOutOfStock ? 0.35 : 1.0,
+                      child: Image.network(
+                        product.image,
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
 
-              // Image
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  product.image,
-                  width: 70,
-                  height: 70,
-                  fit: BoxFit.cover,
-                ),
+                  // Overlay “Hết hàng”
+                  if (isOutOfStock)
+                    Container(
+                      width: 70,
+                      height: 70,
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red.shade600.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Text(
+                          "Hết hàng",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
 
               const SizedBox(width: 10),
@@ -66,22 +104,26 @@ class CartProductItem extends StatelessWidget {
                       product.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 11,
+                      style: TextStyle(
+                        fontSize: 15,
                         fontWeight: FontWeight.w600,
+                        color: isOutOfStock ? grayText : Colors.black,
                       ),
                     ),
-
                     const SizedBox(height: 6),
 
-                    PriceSection(price: product.price),
+                    PriceSection(
+                      price: product.price,
+                      isInStock: !isOutOfStock,
+                    ),
                     const SizedBox(height: 2),
                     Text(
                       product.name_stock,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 9,
+                        color: isOutOfStock ? grayText : Colors.black,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -94,28 +136,66 @@ class CartProductItem extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          Row(
-            children: [
-              const Spacer(),
-              Text(
-                "Đặt tối đa ${product.stock} sản phẩm",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(width: 10),
-
-              QuantitySelector(
-                qty: quantity,
-                onIncrease: onIncrease,
-                onDecrease: onDecrease,
-              ),
-            ],
-          ),
           const SizedBox(height: 10),
+          if (isOutOfStock)
+            Row(
+              children: [
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: Colors.orange.shade300),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.warning_amber_rounded,
+                        size: 16,
+                        color: Colors.orange.shade700,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        "Sản phẩm này đã hết hàng",
+                        style: TextStyle(
+                          color: Colors.orange.shade700,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          if (!isOutOfStock) ...[
+            Row(
+              children: [
+                const Spacer(),
+                Text(
+                  "Đặt tối đa ${product.stock} sản phẩm",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(width: 10),
+
+                QuantitySelector(
+                  qty: quantity,
+                  onIncrease: onIncrease,
+                  onDecrease: onDecrease,
+                ),
+              ],
+            ),
+          ],
           //const Divider(height: 1, color: Colors.grey),
         ],
       ),
