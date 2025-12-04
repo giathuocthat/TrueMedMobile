@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../price_row.dart';
+import 'price_row.dart';
 
 Widget MoneySection({VoidCallback? onCheckout}) {
   return Row(
