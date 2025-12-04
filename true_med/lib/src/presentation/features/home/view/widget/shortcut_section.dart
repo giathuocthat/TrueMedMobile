@@ -69,10 +69,7 @@ class _ShortcutSectionState extends State<ShortcutSection> {
             ),
           ),
 
-          // indicator phía dưới (như hình)
           const SizedBox(height: 8),
-          //ScrollProgressBar(progress: 0.9),
-          //PageProgressBar(currentPage: 1, totalPages: 3),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(pageCount, (index) {

@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
 import '../model/category_mock.dart';
 import '../model/product_mock.dart';
-import '../model/shortcut_Item_mock.dart';
 import 'widget/banner_carousel.dart';
 import 'widget/category_section.dart';
 import 'widget/header_tab.dart';
 import 'widget/home_heaher.dart';
 import 'widget/product_card.dart';
 import 'widget/promotion_section.dart';
-import 'widget/shortcurt_card.dart';
 import 'widget/shortcut_section.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -80,21 +77,29 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ),
-            // Promo chips
-            const SliverToBoxAdapter(
-              child: PromoChips(
-                items: [
-                  "Giảm liền 14K",
-                  "Tặng sửa tắm Lifbuoy",
-                  "Khuyến mãi 3",
-                  "Khuyến mãi 4",
-                  "Tặng sửa tắm Lifbuoy 122",
-                  "Khuyến mãi 5",
-                ],
+
+            SliverToBoxAdapter(
+              child: Container(
+                color: Colors.grey.shade200, // chung background
+                padding: const EdgeInsets.only(bottom: 10, top: 12),
+                child: const Column(
+                  children: [
+                    PromoChips(
+                      items: [
+                        "Giảm liền 14K",
+                        "Tặng sữa tắm Lifebuoy",
+                        "Khuyến mãi 3",
+                        "Khuyến mãi 4",
+                        "Tặng sữa tắm Lifebuoy 122",
+                        "Khuyến mãi 5",
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    BannerCarousel(),
+                  ],
+                ),
               ),
             ),
-
-            const SliverToBoxAdapter(child: BannerCarousel()),
 
             // Banner
             SliverToBoxAdapter(
@@ -119,6 +124,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
             // Banner
             SliverToBoxAdapter(child: ShortcutSection()),
+
             // “Sản phẩm mới”
             SliverToBoxAdapter(
               child: Padding(
@@ -176,84 +182,5 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
       ),
     );
-  }
-}
-
-class _HeaderDelegate extends SliverPersistentHeaderDelegate {
-  @override
-  double get minExtent => 55;
-  @override
-  double get maxExtent => 55;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      alignment: Alignment.centerLeft,
-      child: Row(
-        children: [
-          Text(
-            "Sản phẩm",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(width: 24),
-          Text("Mã giảm giá", style: TextStyle(fontSize: 16)),
-          const SizedBox(width: 24),
-          Text("Tổng quan", style: TextStyle(fontSize: 16)),
-        ],
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
-}
-
-class _HeaderTabs extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _TabItem(icon: Icons.store, text: "Sản phẩm"),
-          _Divider(),
-          _TabItem(icon: Icons.discount, text: "Mã giảm giá"),
-          _Divider(),
-          _TabItem(icon: Icons.grid_view, text: "Tổng quan"),
-        ],
-      ),
-    );
-  }
-}
-
-class _TabItem extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  const _TabItem({required this.icon, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.green),
-        const SizedBox(width: 8),
-        Text(text, style: const TextStyle(fontSize: 16)),
-      ],
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(width: 1, height: 24, color: Colors.grey.shade300);
   }
 }
