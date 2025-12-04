@@ -18,11 +18,11 @@ class ScrollIndicator extends StatelessWidget {
     const activeColor = Color(0xFF0B4D2C);
 
     return SizedBox(
-      height: 8,
+      height: 6,
       child: Center(
         child: SizedBox(
           width: barWidth,
-          height: 8,
+          height: 6,
           child: Stack(
             children: [
               // Nền xám

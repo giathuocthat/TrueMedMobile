@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../model/shortcut_Item_mock.dart';
-import 'page_progress_bar.dart';
+import 'scroll_indicator_bar.dart';
 import 'shortcurt_card.dart';
 
 class ShortcutSection extends StatefulWidget {
@@ -12,15 +12,29 @@ class ShortcutSection extends StatefulWidget {
 }
 
 class _ShortcutSectionState extends State<ShortcutSection> {
-  final PageController _pageController = PageController(viewportFraction: 0.94);
-  int _currentPage = 0;
+  final ScrollController _scrollController = ScrollController();
+  double progress = 0; // 0–1
 
   static const int itemsPerPage = 6; // 2 hàng x 3 cột
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(() {
+      if (!_scrollController.hasClients) return;
+      final max = _scrollController.position.maxScrollExtent;
+
+      setState(() {
+        progress = max == 0 ? 0 : (_scrollController.offset / max);
+      });
+    });
   }
 
   @override
@@ -28,66 +42,32 @@ class _ShortcutSectionState extends State<ShortcutSection> {
     final pageCount = (shortcutItems.length / itemsPerPage).ceil();
 
     return SizedBox(
-      height: 300, // đủ cho 2 hàng card + indicator
+      height: 280, // đủ cho 2 hàng card + indicator
       child: Column(
         children: [
           Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: pageCount,
-              onPageChanged: (index) {
-                setState(() => _currentPage = index);
-              },
-              itemBuilder: (context, pageIndex) {
-                final start = pageIndex * itemsPerPage;
-                final end = (start + itemsPerPage).clamp(
-                  0,
-                  shortcutItems.length,
-                );
-                final pageItems = shortcutItems.sublist(start, end);
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(top: 4, bottom: 4),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // 2 hàng
-                          mainAxisSpacing: 6,
-                          crossAxisSpacing: 4,
-                          childAspectRatio: 1.2, // tỉ lệ card
-                        ),
-                    itemCount: shortcutItems.length,
-                    itemBuilder: (context, index) {
-                      final item = shortcutItems[index];
-                      return ShortcutCard(item: item);
-                    },
-                  ),
-                );
-              },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: GridView.builder(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(top: 8, bottom: 4),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 hàng
+                  mainAxisSpacing: 6,
+                  crossAxisSpacing: 4,
+                  childAspectRatio: 1.2, // tỉ lệ card
+                ),
+                itemCount: shortcutItems.length,
+                itemBuilder: (context, index) {
+                  final item = shortcutItems[index];
+                  return ShortcutCard(item: item);
+                },
+              ),
             ),
           ),
-
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(pageCount, (index) {
-              final bool active = index == _currentPage;
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                margin: const EdgeInsets.symmetric(horizontal: 3),
-                height: 6,
-                width: active ? 32 : 18,
-                decoration: BoxDecoration(
-                  color: active
-                      ? const Color(0xFF0B8A3B)
-                      : Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              );
-            }),
-          ),
+          ScrollIndicator(progress: progress, indicatorWidth: 18, barWidth: 60),
         ],
       ),
     );

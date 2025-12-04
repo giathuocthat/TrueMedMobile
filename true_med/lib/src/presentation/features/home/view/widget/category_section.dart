@@ -19,14 +19,10 @@ class CategorySection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(
             title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ),
-        const SizedBox(height: 12),
-
-        // Grid + Scroll ngang + progress bar
-        //ShortcutSection(items: items),
-        //ShortcutSection(),
+        const SizedBox(height: 8),
         DrugCategoriesSection(items: items),
       ],
     );

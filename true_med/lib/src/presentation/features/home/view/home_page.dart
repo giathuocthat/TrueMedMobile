@@ -78,6 +78,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
+            // Promotion section + Banner carousel
             SliverToBoxAdapter(
               child: Container(
                 color: Colors.grey.shade200, // chung background
@@ -101,7 +102,28 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
-            // Banner
+            // Shortcut section
+            //SliverToBoxAdapter(child: ShortcutSection()),
+            SliverToBoxAdapter(
+              child: Container(
+                color: Colors.white30, // chung background
+                padding: const EdgeInsets.only(bottom: 10, top: 12),
+                child: const ShortcutSection(),
+              ),
+            ),
+
+            // “Sản phẩm mới 1”
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16, left: 12, right: 12),
+                child: Text(
+                  "Sản phẩm mới 1",
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                ),
+              ),
+            ),
+
+            // // Banner
             SliverToBoxAdapter(
               child: Container(
                 margin: const EdgeInsets.symmetric(
@@ -122,8 +144,40 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
-            // Banner
-            SliverToBoxAdapter(child: ShortcutSection()),
+            // Category section
+            SliverToBoxAdapter(
+              child: Container(
+                color: const Color.fromARGB(
+                  255,
+                  210,
+                  248,
+                  221,
+                ), // chung background
+                padding: const EdgeInsets.only(bottom: 10, top: 12),
+                child: CategorySection(
+                  title: "Nhóm thuốc",
+                  items: drugCategories,
+                ),
+              ),
+            ),
+
+            // Grid sản phẩm
+            SliverPadding(
+              padding: const EdgeInsets.all(12),
+              sliver: SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: ratio,
+                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return ProductCard(product: mockProducts[index]);
+                }, childCount: mockProducts.length),
+              ),
+            ),
+            // // Banner
+            // SliverToBoxAdapter(child: ShortcutSection()),
 
             // “Sản phẩm mới”
             SliverToBoxAdapter(
@@ -154,28 +208,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            ),
-
-            SliverToBoxAdapter(
-              child: CategorySection(
-                title: "Nhóm thuốc",
-                items: drugCategories,
-              ),
-            ),
-            // Grid sản phẩm
-            SliverPadding(
-              padding: const EdgeInsets.all(12),
-              sliver: SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: ratio,
-                ),
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return ProductCard(product: mockProducts[index]);
-                }, childCount: mockProducts.length),
               ),
             ),
           ],

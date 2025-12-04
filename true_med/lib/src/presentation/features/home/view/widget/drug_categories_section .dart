@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../model/category_mock.dart';
 import '../../model/shortcut_Item_mock.dart';
 import 'drug_card.dart';
-import 'page_progress_bar.dart';
 import 'scroll_indicator_bar.dart';
 import 'shortcurt_card.dart';
 
