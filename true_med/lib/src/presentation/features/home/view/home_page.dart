@@ -72,6 +72,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                 },
               ),
             ),
+            SliverToBoxAdapter(
+              child: Container(
+                color: Colors.grey.shade200,
+                child: Column(
+                  children: [if (state.isLoading) const LoadingIndicator()],
+                ),
+              ),
+            ),
             // Promo chips
             const SliverToBoxAdapter(
               child: PromoChips(
@@ -142,16 +150,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ),
-            // SliverToBoxAdapter(
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 16, left: 12, right: 12),
-            //     child: Text(
-            //       "Nhóm thuốc",
-            //       style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-            //     ),
-            //   ),
-            // ),
-            // Banner
+
             SliverToBoxAdapter(
               child: CategorySection(
                 title: "Nhóm thuốc",
