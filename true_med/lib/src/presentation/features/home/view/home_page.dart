@@ -6,12 +6,17 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
+import '../model/category_mock.dart';
 import '../model/product_mock.dart';
+import '../model/shortcut_Item_mock.dart';
 import 'widget/banner_carousel.dart';
+import 'widget/category_section.dart';
 import 'widget/header_tab.dart';
 import 'widget/home_heaher.dart';
 import 'widget/product_card.dart';
 import 'widget/promotion_section.dart';
+import 'widget/shortcurt_card.dart';
+import 'widget/shortcut_section.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -82,6 +87,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
 
             const SliverToBoxAdapter(child: BannerCarousel()),
+
             // Banner
             SliverToBoxAdapter(
               child: Container(
@@ -103,6 +109,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
+            // Banner
+            SliverToBoxAdapter(child: ShortcutSection()),
             // “Sản phẩm mới”
             SliverToBoxAdapter(
               child: Padding(
@@ -114,6 +122,42 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
+            // Banner
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 12,
+                ),
+                height: 120,
+                decoration: BoxDecoration(
+                  color: Colors.green.shade200,
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            // SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(top: 16, left: 12, right: 12),
+            //     child: Text(
+            //       "Nhóm thuốc",
+            //       style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+            //     ),
+            //   ),
+            // ),
+            // Banner
+            SliverToBoxAdapter(
+              child: CategorySection(
+                title: "Nhóm thuốc",
+                items: drugCategories,
+              ),
+            ),
             // Grid sản phẩm
             SliverPadding(
               padding: const EdgeInsets.all(12),
