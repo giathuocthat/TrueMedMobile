@@ -39,9 +39,16 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
         (json) => AuthenResponseModel.fromJson(json),
       );
 
+      // Save the session if the user has selected the "Remember Me" option
+      if (data.shouldRemeber ?? false) await _saveSession();
+
       //return base.data!;
       return LoginResponseEntity(accessToken: base.data?.accessToken ?? '');
     });
+  }
+
+  Future<void> _saveSession() async {
+    await local.save(CacheKey.isLoggedIn, true);
   }
 
   /// Manages the "Remember Me" functionality.

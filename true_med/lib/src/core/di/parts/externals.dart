@@ -35,6 +35,7 @@ Dio dio(Ref ref) {
   final dio = Dio(
     BaseOptions(
       baseUrl: Endpoints.base,
+
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
       headers: {'Content-Type': 'application/json'},

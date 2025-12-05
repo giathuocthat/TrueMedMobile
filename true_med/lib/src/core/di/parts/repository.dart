@@ -9,6 +9,14 @@ AuthenticationRepository authenticationRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
+ProductRepository productRepository(Ref ref) {
+  return ProductRepositoryImpl(
+    remote: ref.read(restClientServiceProvider),
+    local: ref.read(cacheServiceProvider),
+  );
+}
+
+@Riverpod(keepAlive: true)
 RouterRepository routerRepository(Ref ref) {
   return RouterRepositoryImpl(cacheService: ref.read(cacheServiceProvider));
 }

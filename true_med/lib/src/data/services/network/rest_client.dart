@@ -12,4 +12,10 @@ abstract class RestClient {
 
   @POST(Endpoints.login)
   Future<HttpResponse> login(@Body() Map<String, dynamic> request);
+
+  @GET(Endpoints.products)
+  Future<HttpResponse> getProducts();
+
+  // @POST("/product")
+  // Future<HttpResponse> productX(@Body() Map<String, dynamic> request);
 }
