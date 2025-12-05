@@ -3,6 +3,8 @@ import '../../core/base/result.dart';
 import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/sign_up_entity.dart';
 import '../../domain/repositories/authentication_repository.dart';
+import '../models/authen_model.dart';
+import '../models/base_model.dart';
 import '../models/login_model.dart';
 import '../services/cache/cache_service.dart';
 import '../services/network/rest_client.dart';
@@ -25,33 +27,21 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   ) async {
     return asyncGuard(() async {
       final model = LoginRequestModel.fromEntity(data);
-      //LOCTB HARD CODE
-      //final response = await remote.login(model.toJson());
+      final response = await remote.login(model.toJson());
 
-      // Save the session if the user has selected the "Remember Me" option
-      //if (data.shouldRemeber ?? false) await _saveSession();
+      // final base = BaseResponseModel.fromJson(
+      //   response.data,
+      //   (json) => LoginResponseModel.fromJson(json),
+      // );
 
-      //return LoginResponseModel.fromJson(response.data);
-
-      //await remote.login(model.toJson());
-      if (data.shouldRemeber ?? false) await _saveSession();
-
-      return LoginResponseModel(
-        id: 1,
-        username: 'hardcoded_user',
-        email: 'user@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        image: 'https://example.com/image.png',
-        accessToken: 'hardcoded_access_token',
-        gender: 'male',
-        refreshToken: 'hardcoded_refresh_token',
+      final base = BaseResponseModel.fromJson(
+        response.data,
+        (json) => AuthenResponseModel.fromJson(json),
       );
-    });
-  }
 
-  Future<void> _saveSession() async {
-    await local.save(CacheKey.isLoggedIn, true);
+      //return base.data!;
+      return LoginResponseEntity(accessToken: base.data?.accessToken ?? '');
+    });
   }
 
   /// Manages the "Remember Me" functionality.

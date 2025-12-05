@@ -2,12 +2,12 @@ interface class LoginEntity {}
 
 class LoginRequestEntity extends LoginEntity {
   LoginRequestEntity({
-    required this.username,
+    required this.phoneNumber,
     required this.password,
     this.shouldRemeber = false,
   });
 
-  final String username;
+  final String phoneNumber;
   final String password;
   final bool? shouldRemeber;
 }

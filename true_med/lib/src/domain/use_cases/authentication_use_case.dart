@@ -24,7 +24,7 @@ final class LoginUseCase {
     bool? shouldRemember,
   }) async {
     final request = LoginRequestEntity(
-      username: email,
+      phoneNumber: email,
       password: password,
       shouldRemeber: shouldRemember,
     );
