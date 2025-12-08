@@ -54,3 +54,8 @@ MarkOnboardingCompletedUseCase markOnboardingCompletedUseCase(Ref ref) {
 GetProductsUseCase getProductsUseCase(Ref ref) {
   return GetProductsUseCase(ref.read(productRepositoryProvider));
 }
+
+@riverpod
+Get2ProductsUseCase get2ProductsUseCase(Ref ref) {
+  return Get2ProductsUseCase(ref.read(productRepositoryProvider));
+}

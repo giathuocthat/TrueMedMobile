@@ -22,4 +22,17 @@ final class ProductRepositoryImpl extends ProductRepository {
       return products; // ProductModel extends ProductEntity
     });
   }
+
+  // LOCTB Hard Code
+  @override
+  Future<Result<List<ProductEntity>, Failure>> get2Products() async {
+    return asyncGuard(() async {
+      final response = await remote.getProducts();
+
+      // response.data is List<ProductModel>
+      final products = response.data;
+
+      return products; // ProductModel extends ProductEntity
+    });
+  }
 }

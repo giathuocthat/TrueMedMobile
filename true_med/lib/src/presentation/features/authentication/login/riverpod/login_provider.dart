@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../domain/use_cases/authentication_use_case.dart';
-import 'login_state.dart';
+import 'product_state.dart';
 
 part 'login_provider.g.dart';
 
