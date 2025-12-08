@@ -1,7 +1,3 @@
-import '../../data/models/brand_model.dart';
-import '../../data/models/category_model.dart';
-import '../../data/models/image_model.dart';
-import '../../data/models/product_variants_model.dart';
 import 'brand_entity.dart';
 import 'category_entity.dart';
 import 'image_entity.dart';
@@ -17,17 +13,17 @@ class ProductResponseEntity extends ProductEntity {
     required this.categoryId,
     required this.name,
     required this.shortDescription,
-    required this.fullDescription,
-    required this.slug,
-    required this.thumbnailUrl,
-    required this.ingredients,
-    required this.usageInstructions,
+    this.fullDescription,
+    this.slug,
+    this.thumbnailUrl,
+    this.ingredients,
+    this.usageInstructions,
     this.storageInstructions,
-    required this.registrationNumber,
-    required this.isPrescriptionDrug,
-    required this.isActive,
-    required this.isFeatured,
-    required this.createdDate,
+    this.registrationNumber,
+    this.isPrescriptionDrug,
+    this.isActive,
+    this.isFeatured,
+    this.createdDate,
     this.updatedDate,
     this.drugEfficacy,
     this.dosageInstructions,
@@ -41,17 +37,17 @@ class ProductResponseEntity extends ProductEntity {
   final int categoryId;
   final String name;
   final String shortDescription;
-  final String fullDescription;
-  final String slug;
-  final String thumbnailUrl;
-  final String ingredients;
-  final String usageInstructions;
+  final String? fullDescription;
+  final String? slug;
+  final String? thumbnailUrl;
+  final String? ingredients;
+  final String? usageInstructions;
   final String? storageInstructions;
-  final String registrationNumber;
-  final bool isPrescriptionDrug;
-  final bool isActive;
-  final bool isFeatured;
-  final String createdDate;
+  final String? registrationNumber;
+  final bool? isPrescriptionDrug;
+  final bool? isActive;
+  final bool? isFeatured;
+  final String? createdDate;
   final String? updatedDate;
   final String? drugEfficacy;
   final String? dosageInstructions;

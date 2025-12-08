@@ -18,7 +18,6 @@ final class ProductRepositoryImpl extends ProductRepository {
 
       // response.data is List<ProductModel>
       final products = response.data;
-
       return products; // ProductModel extends ProductEntity
     });
   }
@@ -30,7 +29,8 @@ final class ProductRepositoryImpl extends ProductRepository {
       final response = await remote.getProducts();
 
       // response.data is List<ProductModel>
-      final products = response.data;
+      //final products = response.data;
+      final products = response.data.map((e) => e as ProductEntity).toList();
 
       return products; // ProductModel extends ProductEntity
     });
