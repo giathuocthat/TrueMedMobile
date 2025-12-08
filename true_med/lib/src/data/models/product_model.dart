@@ -1,6 +1,10 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
 import '../../domain/entities/product_entity.dart';
+import 'brand_model.dart';
+import 'category_model.dart';
+import 'image_model.dart';
+import 'product_variants_model.dart';
 
 part 'product_model.mapper.dart';
 
@@ -26,7 +30,16 @@ class ProductResponseModel extends ProductResponseEntity
     super.updatedDate,
     super.drugEfficacy,
     super.dosageInstructions,
-  });
+    BrandResponseModel? brand,
+    CategoryResponseModel? category,
+    ProductVariantsResponseModel? variants,
+    required List<ImageResponseModel> images,
+  }) : super(
+         brand: brand,
+         category: category,
+         variants: variants,
+         images: images,
+       );
 
   static const fromJson = ProductResponseModelMapper.fromJson;
 }

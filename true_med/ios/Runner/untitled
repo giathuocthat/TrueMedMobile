@@ -1,0 +1,98 @@
+
+final int id;
+final int categoryId;
+final int categoryId;
+final String name;
+final String shortDescription;
+final String fullDescription;
+final String slug;
+final String thumbnailUrl;
+final String ingredients;
+final String usageInstructions;
+final String? storageInstructions;
+final String registrationNumber;
+final bool isPrescriptionDrug;
+  "storageInstructions": null,
+  "registrationNumber": "Số ĐKSP: 6467/2023/ĐKSP",
+  "isPrescriptionDrug": true,
+  "isActive": true,
+  "isFeatured": false,
+  "createdDate": "2025-11-27T03:04:07.6091879",
+  "updatedDate": null,
+  "drugEfficacy": null,
+  "dosageInstructions": null,
+{
+  "id": 1,
+  "categoryId": 2,
+  "brandId": 1,
+  "name": "Viên uống Living Healthy Bilberry (Hộp 60 viên)",
+  "shortDescription": "Viên uống Living Healthy Bilberry kết hợp Lutein giúp tăng cường thị lực, hỗ trợ mắt sáng khỏe, giảm mỏi mắt và cải thiện tầm nhìn ban đêm.",
+  "fullDescription": "<h4 class=\"css-8uyn92\">Thành phần</h4>\r\\n<ul>\r\\n \t<li>Thành phần hàm lượng cho mỗi viên nang mềm: dầu cá tự nhiên 500mg (Tương ứng Docosahexaenoic Acid 60mg, Tương ứng eicosapentaenoic acid 90mg, Tương ứng Omega-3 triglycerid nguồn gốc từ biển 150mg), chiết xuất phần trên mặt đất cây sáng mắt (Euphrasia officinalis) 25 mg (tỷ lệ chiết 4:1) (dung môi chiết 50% ethanol: nước) Tương đương phần trên mặt đất cây sáng mắt (Euphrasia officinalis) tươi 100 mg, chiết xuất quả việt quất (Vaccinium myrtillus) 100mg (tỷ lệ chiết 100:1) (dung môi chiết 75% ethanol: nước) Tương đương quả việt quất tươi 10g, Chiết xuất hoa cúc vạn thọ (Tagetes erecta) (tỷ lệ chiết 80:1) (dung môi chiết 70% ethanol: nước) tương đương hoa cúc vạn thọ tươi 4g</li>\r\\n \t<li>Phụ liệu: chất nhũ hóa (glycerol, lecithin), chất tạo màu nhân tạo (Sắt đen oxide, màu đỏ allura AC, titanium dioxide, màu xanh dương FCF), nước tinh khiết, chất chống oxi hóa (d-alpha-tocopherol), chất tạo vỏ nang (gelatin), chất độn (sáp ong vàng, dầu thực vật hydro hóa (dầu đậu nành))</li>\r\\n</ul>\r\\n<h4 class=\"css-8uyn92\">Công dụng</h4>\r\\n<ul>\r\\n \t<li>Hỗ trợ tốt cho mắt</li>\r\\n</ul>\r\\n<h4 class=\"css-8uyn92\">Đối tượng sử dụng</h4>\r\\n<ul>\r\\n \t<li>Người trưởng thành</li>\r\\n</ul>\r\\n<h4 class=\"css-8uyn92\">Hướng dẫn sử dụng</h4>\r\\n<ul>\r\\n \t<li>Người lớn: Uống 1 viên mỗi ngày, trong hoặc ngay sau bữa ăn, hoặc theo chỉ dẫn của chuyên gia chăm sóc sức khỏe</li>\r\\n</ul>\r\\n<h4 class=\"css-8uyn92\">Hướng dẫn bảo quản</h4>\r\\n<ul>\r\\n \t<li>Bảo quản nơi khô ráo thoáng mát, tránh ẩm và tránh nắng mặt trời chiếu trực tiếp và nhiệt độ dưới 30 độ C</li>\r\\n</ul>\r\\n<h4 class=\"css-8uyn92\">Thời hạn sử dụng</h4>\r\\n<ul>\r\\n \t<li>3 năm kể từ ngày sản xuất. Hạn dùng in trực tiếp trên bao bì sản phẩm</li>\r\\n</ul>\r\\n<h4 class=\"css-8uyn92\">Quy cách</h4>\r\\n<ul>\r\\n \t<li>Lọ 60 viên nang mềm. Khối lượng viên 1420,99 mg</li>\r\\n</ul>\r\\n<em>* Thực phẩm này không phải là thuốc, không có tác dụng thay thế thuốc chữa bệnh</em>",
+  "slug": "vien-ung-living-healthy-bilberry-hp-60-vien",
+  "thumbnailUrl": "https://medpharco.com/wp-content/uploads/2025/07/Bilberry-1-1.png",
+  "ingredients": "",
+  "usageInstructions": "<ul><li>Giảm các cơn đau cơ xương nhẹ đến trung bình như đau cổ, đau vai, đau lưng, căng cơ bắp tay hoặc bắp chân, cứng cơ cổ, viêm khớp, thấp khớp, viêm bao hoạt dịch, bong gân, viêm gân.</li><li>Giảm nhức đầu, đau bụng kinh, nhức răng, đau sau nhổ răng và tiểu phẫu.</li></ul>",
+  "contraindications": "<div class=\"[&amp;_*]:m-[revert] [&amp;_iframe]:!max-w-full [&amp;_ul]:[all:revert] [&amp;_ol]:[all:revert] [&amp;_p]:[all:revert] [overflow-wrap:anywhere] [&amp;_table]:inline-block jodit-wysiwyg\"><p>Thuốc Alaxan chống chỉ định trong các trường hợp sau:</p><ul><li>Quá mẫn với paracetamol, ibuprofen hay bất kỳ thành phần nào trong tá dược.</li></ul><p><strong>Paracetamol:</strong></p><ul><li>Bệnh nhân nhiều lần thiếu máu hoặc có bệnh tim, phổi, thận, gan.</li><li>Bệnh nhân thiếu hụt glucose-6-phosphate dehydrogenase.</li></ul><p><strong>Ibuprofen:</strong></p><ul><li>Bệnh nhân có tiền căn quá mẫn (co thắt phế quản, hen, phù mạch, viêm mũi, nổi mề đay) liên quan với acetylsalicylic acid hay các NSAID khác;</li><li>Loét dạ dày tá tràng tiến triển;</li><li>Tiền căn loét/thủng dạ dày tá tràng hay loét tái phát liên quan NSAID;</li><li>Bệnh nhân bị suy gan, suy thận hay suy tim nặng;</li><li>Bệnh nhân đang được điều trị bằng thuốc chống đông coumarin;</li><li>Bệnh nhân bị suy tim sung huyết, bệnh tạo keo;</li><li>3 tháng cuối thai kỳ.</li></ul></div>",
+  "storageInstructions": null,
+  "registrationNumber": "Số ĐKSP: 6467/2023/ĐKSP",
+  "isPrescriptionDrug": true,
+  "isActive": true,
+  "isFeatured": false,
+  "createdDate": "2025-11-27T03:04:07.6091879",
+  "updatedDate": null,
+  "drugEfficacy": null,
+  "dosageInstructions": null,
+  "brand": {
+    "id": 1,
+    "name": "Living Healthy",
+    "slug": "living-healthy",
+    "countryOfOrigin": null,
+    "logoUrl": null
+  },
+  "category": {
+    "id": 2,
+    "name": "Thực phẩm chức năng",
+    "slug": "thuc-pham-chuc-nang",
+    "parentId": null
+  },
+  "productVariants": [
+    {
+      "id": 1,
+      "sku": "sku 1",
+      "barcode": "",
+      "price": 127147,
+      "originalPrice": 135983,
+      "stockQuantity": 944231,
+      "weight": null,
+      "dimensions": null,
+      "imageUrl": "https://medpharco.com/wp-content/uploads/2025/07/Bilberry-1-1.png",
+      "isActive": true
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "imageUrl": "https://medpharco.com/wp-content/uploads/2025/07/Bilberry-1-1.png",
+      "altText": null,
+      "displayOrder": 0
+    },
+    {
+      "id": 2,
+      "imageUrl": " https://medpharco.com/wp-content/uploads/2025/07/CoQ10-4-2-1.png",
+      "altText": null,
+      "displayOrder": 1
+    },
+    {
+      "id": 3,
+      "imageUrl": " https://medpharco.com/wp-content/uploads/2025/07/Bilberry-2-1.png",
+      "altText": null,
+      "displayOrder": 2
+    },
+    {
+      "id": 4,
+      "imageUrl": " https://medpharco.com/wp-content/uploads/2025/07/Bilberry-2-2-1.png",
+      "altText": null,
+      "displayOrder": 3
+    }
+  ]
+}

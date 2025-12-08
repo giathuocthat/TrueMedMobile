@@ -1,3 +1,12 @@
+import '../../data/models/brand_model.dart';
+import '../../data/models/category_model.dart';
+import '../../data/models/image_model.dart';
+import '../../data/models/product_variants_model.dart';
+import 'brand_entity.dart';
+import 'category_entity.dart';
+import 'image_entity.dart';
+import 'product_variants_entity.dart';
+
 interface class ProductEntity {}
 
 class ProductRequestEntity extends ProductEntity {}
@@ -22,6 +31,10 @@ class ProductResponseEntity extends ProductEntity {
     this.updatedDate,
     this.drugEfficacy,
     this.dosageInstructions,
+    this.brand,
+    this.category,
+    this.variants,
+    required this.images,
   });
 
   final int id;
@@ -42,4 +55,8 @@ class ProductResponseEntity extends ProductEntity {
   final String? updatedDate;
   final String? drugEfficacy;
   final String? dosageInstructions;
+  final BrandResponseEntity? brand;
+  final CategoryResponseEntity? category;
+  final ProductVariantsResponseEntity? variants;
+  final List<ImageResponseEntity> images;
 }
