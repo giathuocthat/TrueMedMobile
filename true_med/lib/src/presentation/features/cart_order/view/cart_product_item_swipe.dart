@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../home/model/product_mock.dart';
+import '../../../../domain/entities/product_entity.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 Widget CartProductItemWithSwipe({
-  required ProductMock product,
+  required ProductResponseEntity product,
   required VoidCallback onDelete,
   required Widget child, // nội dung item cũ
 }) {

@@ -10,6 +10,7 @@ import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
 import '../../../core/widgets/page_header.dart';
+import '../../application/cart/riverpod/cart_provider.dart';
 import '../../home/model/product_mock.dart';
 import '../../home/view/widget/product_card.dart';
 import '../model/cart_oder_mock.dart';
@@ -30,18 +31,14 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
   @override
   void initState() {
     super.initState();
-    ref.listenManual(logoutProvider, (previous, next) {
-      if (next.isSuccess) context.pushReplacementNamed(Routes.login);
-    });
+    // ref.listenManual(logoutProvider, (previous, next) {
+    //   if (next.isSuccess) context.pushReplacementNamed(Routes.login);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(logoutProvider);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final itemWidth = (screenWidth - 36) / 2; // padding tổng
-    double itemHeight = 340; // ⬅️ chiều cao bạn muốn
-    final ratio = itemWidth / itemHeight;
+    final listCard = ref.watch(cartProvider);
 
     final cart = mockCartData;
 
@@ -54,25 +51,48 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
         children: [
           Expanded(
             child: ListView(
-              children: cart.map((shop) {
+              // children: cart.map((shop) {
+              //   return Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       CartShopHeader(
+              //         shopName: shop.shopName,
+              //         logoUrl: shop.shopLogo,
+              //       ),
+              //       ...shop.products.map(
+              //         (p) => CartProductItemWithSwipe(
+              //           product: p,
+              //           onDelete: () {},
+              //           child: CartProductItem(product: p),
+              //         ),
+              //       ),
+              //       const Divider(height: 1, color: Colors.grey),
+              //       CartShopVoucherSection(shopId: shop.shopId),
+              //       TotalDiscountSection(shopId: shop.shopId),
+
+              //       const SizedBox(height: 12),
+              //     ],
+              //   );
+              // }).toList(),
+              children: listCard.items.map((item) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CartShopHeader(
-                      shopName: shop.shopName,
-                      logoUrl: shop.shopLogo,
-                    ),
-                    ...shop.products.map(
+                    // CartShopHeader(
+                    //   shopName: shop.shopName,
+                    //   logoUrl: shop.shopLogo,
+                    // ),
+                    ...listCard.items.map(
                       (p) => CartProductItemWithSwipe(
-                        product: p,
+                        product: p.product,
                         onDelete: () {},
-                        child: CartProductItem(product: p),
+                        child: CartProductItem(product: p.product),
                       ),
                     ),
                     const Divider(height: 1, color: Colors.grey),
-                    CartShopVoucherSection(shopId: shop.shopId),
-                    TotalDiscountSection(shopId: shop.shopId),
 
+                    //CartShopVoucherSection(shopId: shop.shopId),
+                    //TotalDiscountSection(shopId: shop.shopId),
                     const SizedBox(height: 12),
                   ],
                 );

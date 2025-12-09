@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/extensions/string.dart';
 import '../../../../../domain/entities/product_entity.dart';
+import '../../../application/cart/riverpod/cart_provider.dart';
 import 'discount_badge.dart';
 import 'product_footer.dart';
 import 'sold_progress_bar.dart';
 import 'text_bage.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerWidget {
   final ProductResponseEntity product;
 
   const ProductCard({super.key, required this.product});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final productVariants = product.productVariants?.firstOrNull;
+    final qty = ref.watch(cartProvider.select((s) => s.totalQuantity));
 
     final percentPrice =
         productVariants?.price.percentChange(
@@ -120,7 +123,7 @@ class ProductCard extends StatelessWidget {
                       Text(
                         productVariants!.originalPrice.toCurrency(true),
                         style: const TextStyle(
-                          fontSize: 10,
+                          fontSize: 12,
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
                           decoration: TextDecoration.lineThrough,
@@ -202,7 +205,11 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 6),
             const Spacer(),
 
-            ProductFooter(quantity: 0, onAdd: () {}, onRemove: () {}),
+            ProductFooter(
+              quantity: 0,
+              onAdd: () => ref.read(cartProvider.notifier).increase(product),
+              onRemove: () => ref.read(cartProvider.notifier).decrease(product),
+            ),
           ],
         ),
       ),

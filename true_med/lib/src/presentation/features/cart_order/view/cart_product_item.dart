@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/extensions/string.dart';
+import '../../../../domain/entities/product_entity.dart';
 import '../../../../shared/widget/price_section.dart';
 import '../../../../shared/widget/quantity_selector.dart';
 import '../../home/model/product_mock.dart';
 import '../../home/view/widget/product_footer.dart';
 
 class CartProductItem extends StatelessWidget {
-  final ProductMock product;
+  final ProductResponseEntity product;
   final bool checked;
   final int quantity;
   final VoidCallback? onIncrease;
@@ -22,9 +24,18 @@ class CartProductItem extends StatelessWidget {
     this.onDecrease,
     this.onToggle,
   });
-  bool get isOutOfStock => product.stock <= 0;
+  //sbool get isOutOfStock => product.stock <= 0;
+  bool get isOutOfStock => false == 0;
   @override
   Widget build(BuildContext context) {
+    final productVariants = product.productVariants?.firstOrNull;
+
+    final percentPrice =
+        productVariants?.price.percentChange(
+          productVariants?.originalPrice ?? 0,
+        ) ??
+        0;
+
     final grayText = Colors.grey.shade500;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -56,7 +67,7 @@ class CartProductItem extends StatelessWidget {
                     child: Opacity(
                       opacity: isOutOfStock ? 0.35 : 1.0,
                       child: Image.network(
-                        product.image,
+                        product.thumbnailUrl ?? '',
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
@@ -113,12 +124,12 @@ class CartProductItem extends StatelessWidget {
                     const SizedBox(height: 6),
 
                     PriceSection(
-                      price: product.price,
+                      price: productVariants!.price,
                       isInStock: !isOutOfStock,
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      product.name_stock,
+                      product.slug ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -178,7 +189,7 @@ class CartProductItem extends StatelessWidget {
               children: [
                 const Spacer(),
                 Text(
-                  "Đặt tối đa ${product.stock} sản phẩm",
+                  "Đặt tối đa ${productVariants!.maxSalesQuantity} sản phẩm",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(

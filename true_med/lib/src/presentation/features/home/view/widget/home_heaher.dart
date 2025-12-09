@@ -3,12 +3,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../shared/widget/icon_with_badge.dart';
 import '../../../../core/router/routes.dart';
+import '../../../application/cart/riverpod/cart_provider.dart';
 
-class HomeHeader extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class HomeHeader extends ConsumerWidget {
   const HomeHeader({super.key});
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final qty = ref.watch(cartProvider.select((s) => s.totalQuantity));
+
     return Container(
       color: const Color(0xFF0B4D2C), // màu xanh đậm
       padding: const EdgeInsets.only(
@@ -65,7 +69,8 @@ class HomeHeader extends StatelessWidget {
 
           IconWithBadge(
             icon: Icons.shopping_cart,
-            badge: '13',
+            badge: '$qty',
+
             onTap: () => context.pushNamed(Routes.cartOrder),
           ),
 
