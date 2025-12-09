@@ -14,7 +14,7 @@ final class ProductRepositoryImpl extends ProductRepository {
   final CacheService local;
 
   @override
-  Future<Result<List<ProductEntity>, Failure>> getProducts() async {
+  Future<Result<List<ProductResponseEntity>, Failure>> getProducts() async {
     return asyncGuard(() async {
       final response = await remote.getProducts();
 
@@ -26,20 +26,19 @@ final class ProductRepositoryImpl extends ProductRepository {
 
   // LOCTB Hard Code
   @override
-  Future<Result<List<ProductEntity>, Failure>> get2Products() async {
+  Future<Result<List<ProductResponseEntity>, Failure>> get2Products() async {
     return asyncGuard(() async {
       final response = await remote.getProducts();
 
       // response.data is List<ProductModel>
-      //final products = response.data;
-      final products = response.data.map((e) => e as ProductEntity).toList();
+      final products = response.data;
 
       return products; // ProductModel extends ProductEntity
     });
   }
 
   @override
-  Future<Result<ProductPageEntity, Failure>> getProductStores(
+  Future<Result<ProductPageResponseEntity, Failure>> getProductStores(
     Map<String, dynamic> query,
   ) async {
     return asyncGuard(() async {

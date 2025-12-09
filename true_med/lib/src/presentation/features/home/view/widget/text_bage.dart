@@ -41,7 +41,7 @@ class TagBadge extends StatelessWidget {
               softWrap: true,
               style: const TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w400,
                 fontSize: 8,
               ),
             ),

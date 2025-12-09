@@ -16,8 +16,11 @@ class ProductVariantsResponseModel extends ProductVariantsResponseEntity
     required super.stockQuantity,
     super.weight,
     super.dimensions,
-    required super.imageUrl,
-    required super.isActive,
+    super.imageUrl,
+    super.isActive,
+    required super.maxSalesQuantity,
+    required super.inventoryStock,
+    required super.soldQuantity,
   });
 
   static const fromJson = ProductVariantsResponseModelMapper.fromJson;

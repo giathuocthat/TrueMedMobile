@@ -1,9 +1,7 @@
 import 'page_entity.dart';
 import 'product_entity.dart';
 
-interface class ProductPageEntity {
-  const ProductPageEntity();
-}
+interface class ProductPageEntity {}
 
 class ProductPageRequestEntity extends ProductPageEntity {}
 

@@ -9,7 +9,7 @@ final class GetProductsUseCase {
 
   final ProductRepository repository;
 
-  Future<Result<List<ProductEntity>, String>> call() async {
+  Future<Result<List<ProductResponseEntity>, String>> call() async {
     final result = await repository.getProducts();
 
     return switch (result) {
@@ -26,7 +26,7 @@ final class Get2ProductsUseCase {
 
   final ProductRepository repository;
 
-  Future<Result<List<ProductEntity>, String>> call() async {
+  Future<Result<List<ProductResponseEntity>, String>> call() async {
     final result = await repository.get2Products();
 
     return switch (result) {
@@ -42,7 +42,7 @@ final class GetProductStoresUseCase {
 
   final ProductRepository repository;
 
-  Future<Result<ProductPageEntity, String>> call({
+  Future<Result<ProductPageResponseEntity, String>> call({
     required int pageNumber,
     required int pageSize,
   }) async {

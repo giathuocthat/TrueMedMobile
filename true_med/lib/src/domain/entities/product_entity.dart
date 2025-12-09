@@ -31,6 +31,8 @@ class ProductResponseEntity extends ProductEntity {
     this.category,
     this.variants,
     this.images,
+    this.productVariants,
+    this.brandName,
   });
 
   final int id;
@@ -51,8 +53,10 @@ class ProductResponseEntity extends ProductEntity {
   final String? updatedDate;
   final String? drugEfficacy;
   final String? dosageInstructions;
+  final String? brandName;
   final BrandResponseEntity? brand;
   final CategoryResponseEntity? category;
   final ProductVariantsResponseEntity? variants;
+  final List<ProductVariantsResponseEntity>? productVariants;
   final List<ImageResponseEntity>? images;
 }

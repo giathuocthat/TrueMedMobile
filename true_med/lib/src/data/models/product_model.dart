@@ -30,14 +30,17 @@ class ProductResponseModel extends ProductResponseEntity
     super.updatedDate,
     super.drugEfficacy,
     super.dosageInstructions,
+    super.brandName,
     BrandResponseModel? brand,
     CategoryResponseModel? category,
     ProductVariantsResponseModel? variants,
+    List<ProductVariantsResponseModel>? productVariants,
     List<ImageResponseModel>? images,
   }) : super(
          brand: brand,
          category: category,
          variants: variants,
+         productVariants: productVariants,
          images: images,
        );
 

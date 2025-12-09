@@ -22,13 +22,13 @@ abstract class ProductState with _$ProductState {
     // @Default(1) int page,
 
     // list dữ liệu từ API 1
-    @Default(<ProductEntity>[]) List<ProductEntity> products,
+    @Default(<ProductResponseEntity>[]) List<ProductResponseEntity> products,
 
     // list dữ liệu từ API 2
-    @Default(<ProductEntity>[]) List<ProductEntity> products2,
+    @Default(<ProductResponseEntity>[]) List<ProductResponseEntity> products2,
 
     // list dữ liệu từ API
-    @Default(ProductPageEntity()) ProductPageEntity productPage,
+    @Default(null) ProductPageResponseEntity? productPage,
   }) = _ProductState;
 
   const ProductState._();

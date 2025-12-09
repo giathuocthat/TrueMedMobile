@@ -8,13 +8,19 @@ import 'sold_progress_bar.dart';
 import 'text_bage.dart';
 
 class ProductCard extends StatelessWidget {
-  final ProductMock product;
-  final ProductEntity productX;
+  final ProductResponseEntity product;
 
-  const ProductCard({super.key, required this.product, required this.productX});
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
+    final productVariants = product.productVariants?.firstOrNull;
+
+    final percentPrice =
+        productVariants?.price.percentChange(
+          productVariants?.originalPrice ?? 0,
+        ) ??
+        0;
     return SizedBox(
       //300 +30 chieu cao hien thi day du thong tin san pham
       height: 310,
@@ -29,9 +35,8 @@ class ProductCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                if (product.discount > 0)
-                  //
-                  discountBadge('-${product.discount}%'),
+                if (percentPrice < 0)
+                  discountBadge(percentPrice.percentChangeText()),
                 const Spacer(),
                 const Padding(
                   padding: EdgeInsets.all(8),
@@ -44,7 +49,10 @@ class ProductCard extends StatelessWidget {
               child: Center(
                 child: AspectRatio(
                   aspectRatio: 4 / 3,
-                  child: Image.network(product.image, fit: BoxFit.contain),
+                  child: Image.network(
+                    product.thumbnailUrl ?? '',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
@@ -56,17 +64,17 @@ class ProductCard extends StatelessWidget {
               child: Container(
                 child: Row(
                   children: [
-                    if (product.isDiscount)
-                      //
-                      const SizedBox(
-                        width: 65, // hoặc MediaQuery.of(context).size.width / 2
-                        child: TagBadge(
-                          background: Colors.blueAccent,
-                          text: "BĂT BUỘC LẤY HOÁ ĐƠN ",
-                          icon: null,
-                        ),
-                      ),
-                    if (product.discount > 0)
+                    // if (product.isDiscount)
+                    //   //
+                    //   const SizedBox(
+                    //     width: 65, // hoặc MediaQuery.of(context).size.width / 2
+                    //     child: TagBadge(
+                    //       background: Colors.blueAccent,
+                    //       text: "BĂT BUỘC LẤY HOÁ ĐƠN ",
+                    //       icon: null,
+                    //     ),
+                    //   ),
+                    if (percentPrice < 0)
                       const SizedBox(
                         width: 65, // hoặc MediaQuery.of(context).size.width / 2
                         child: TagBadge(
@@ -80,32 +88,34 @@ class ProductCard extends StatelessWidget {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  Text(
-                    product.price.toCurrency(true),
-                    style: const TextStyle(
-                      color: Colors.green,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  if (product.oldPrice > 0)
+            if (productVariants != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
                     Text(
-                      //"${product.oldPrice.toStringAsFixed(0)}đ",
-                      product.oldPrice.toCurrency(true),
+                      productVariants!.price.toCurrency(true),
                       style: const TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
+                        color: Colors.green,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                ],
+                    const SizedBox(width: 6),
+                    if (productVariants!.price < productVariants.originalPrice)
+                      Text(
+                        productVariants!.originalPrice.toCurrency(true),
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
+
             //Spacer(),
             //const SizedBox(height: 8),
             // Name
@@ -123,7 +133,7 @@ class ProductCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                product.name_stock,
+                product.slug ?? '',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 8, color: Colors.grey),
@@ -132,43 +142,45 @@ class ProductCard extends StatelessWidget {
 
             const SizedBox(height: 4),
             // Manufacturer show  here
-            if (product.isShowStock)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  children: [
-                    const Icon(Icons.house, color: Colors.blue, size: 16),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        product.manufacturer,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue,
-                        ),
-                        maxLines: 1,
+            //if (product.isShowStock)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  const Icon(Icons.house, color: Colors.blue, size: 16),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      product.brandName ?? '',
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.blue,
                       ),
+                      maxLines: 1,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            Spacer(),
+            ),
+            const Spacer(),
             const SizedBox(height: 4),
-            if (product.discount > 0 ? true : false)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: SoldProgressBar(
-                  sold: 55,
-                  total: 100,
-                  iSShowSold: product.isShowStock,
+            if (productVariants != null)
+              if (percentPrice < 0 ? true : false)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: SoldProgressBar(
+                    sold: productVariants!.soldQuantity,
+                    total: productVariants!.maxSalesQuantity,
+                    iSShowSold: true,
+                  ),
                 ),
-              ),
 
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  "Đặt tối đa ${product.stock} sản phẩm",
+                  "Đặt tối đa ${productVariants!.maxSalesQuantity} sản phẩm",
                   style: const TextStyle(fontSize: 10, color: Colors.grey),
                 ),
               ),
@@ -176,10 +188,9 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 6),
             const Spacer(),
 
-            ProductFooter(quantity: 990, onAdd: () {}, onRemove: () {}),
+            ProductFooter(quantity: 0, onAdd: () {}, onRemove: () {}),
           ],
         ),
-        //  ),
       ),
     );
   }

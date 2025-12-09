@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../domain/entities/product_entity.dart';
+import '../../../../domain/entities/product_page_entity.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
@@ -38,6 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final ratio = itemWidth / itemHeight;
 
     final state = ref.watch(productProvider);
+    final List<ProductResponseEntity> products = state.productPage?.data ?? [];
 
     if (state.status == Status.loading) {
       return const Center(child: CircularProgressIndicator());
@@ -169,11 +172,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   childAspectRatio: ratio,
                 ),
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  return ProductCard(
-                    product: mockProducts[index],
-                    productX: state.products[index],
-                  );
-                }, childCount: state.products.length),
+                  return ProductCard(product: products[index]);
+                }, childCount: products.length),
               ),
             ),
             // // Banner

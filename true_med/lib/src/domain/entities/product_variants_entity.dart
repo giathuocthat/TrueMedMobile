@@ -12,8 +12,11 @@ class ProductVariantsResponseEntity extends ProductVariantsEntity {
     required this.stockQuantity,
     this.weight,
     this.dimensions,
-    required this.imageUrl,
-    required this.isActive,
+    this.imageUrl,
+    this.isActive,
+    required this.maxSalesQuantity,
+    required this.inventoryStock,
+    required this.soldQuantity,
   });
 
   final int id;
@@ -22,8 +25,11 @@ class ProductVariantsResponseEntity extends ProductVariantsEntity {
   final double price;
   final double originalPrice;
   final double stockQuantity;
+  final int maxSalesQuantity;
+  final int inventoryStock;
+  final int soldQuantity;
   final int? weight;
   final String? dimensions;
-  final String imageUrl;
-  final bool isActive;
+  final String? imageUrl;
+  final bool? isActive;
 }
