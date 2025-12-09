@@ -25,8 +25,20 @@ class ProductCard extends StatelessWidget {
       height: 310,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 219, 244, 239),
           borderRadius: BorderRadius.circular(16),
+          gradient: percentPrice < -15
+              ? const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 245, 144, 86), // cam nhạt
+                    Colors.white, // vàng nhạt
+                  ],
+                )
+              : null, // không dùng gradient
+          color: percentPrice > -15
+              ? Colors.white
+              : null, // fallback khi không có gradient
         ),
         //child: SingleChildScrollView(
         child: Column(
@@ -73,7 +85,7 @@ class ProductCard extends StatelessWidget {
                     //       icon: null,
                     //     ),
                     //   ),
-                    if (percentPrice > 0)
+                    if (percentPrice < -10)
                       const SizedBox(
                         width: 65, // hoặc MediaQuery.of(context).size.width / 2
                         child: TagBadge(
