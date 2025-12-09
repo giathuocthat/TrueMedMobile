@@ -15,16 +15,27 @@ abstract class CartState with _$CartState {
 
   const CartState._();
 
-  int quantityFor(int productId) {
-    return items
-        .firstWhere(
-          (e) => e.product.id == productId,
-          // orElse: () => CartItemEntity(
-          //   product: ProductResponseEntity.empty(), // hoặc xử lý khác
-          //   quantity: 0,
-          // ),
-        )
-        .quantity;
+  // int quantityFor(int productId) {
+  //   return items
+  //       .firstWhere(
+  //         (e) => e.product.id == productId,
+  //         // orElse: () => CartItemEntity(
+  //         //   product: ProductResponseEntity.empty(), // hoặc xử lý khác
+  //         //   quantity: 0,
+  //         // ),
+  //       )
+  //       .quantity;
+  // }
+
+  int quantityOf(int productId) {
+    final item = items.firstWhere(
+      (e) => e.product?.id == productId,
+      // orElse: () => const CartItemEntity(
+      //   product: null, // hoặc tạo CartItemEntity? nullable
+      //   quantity: 0,
+      // ),
+    );
+    return item.quantity;
   }
 
   int get totalQuantity => items.fold<int>(0, (sum, e) => sum + e.quantity);

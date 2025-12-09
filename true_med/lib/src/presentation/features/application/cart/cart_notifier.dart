@@ -37,15 +37,25 @@ class CartNotifier extends StateNotifier<CartState> {
     state = state.copyWith(items: list);
   }
 
-  int quantityOf(int productId) {
-    final item = state.items.firstWhere(
-      (e) => e.product.id == productId,
-      // orElse: () => const CartItemEntity(
-      //   product:
-      //       ProductResponseEntity.empty(), // hoặc tạo CartItemEntity? nullable
-      //   quantity: 0,
-      // ),
-    );
-    return item.quantity;
+  void setQuantity(ProductResponseEntity product, int qty) {
+    const maxQty = 9999;
+    qty = qty.clamp(0, maxQty);
+
+    final items = List<CartItemEntity>.from(state.items);
+    final index = items.indexWhere((e) => e.product?.id == product.id);
+
+    if (qty == 0) {
+      if (index != -1) items.removeAt(index);
+    } else {
+      if (index == -1) {
+        items.add(CartItemEntity(product: product, quantity: qty));
+      } else {
+        items[index] = items[index].copyWith(quantity: qty);
+      }
+    }
+
+    state = state.copyWith(items: items);
   }
+
+  void remove(ProductResponseEntity product) => setQuantity(product, 0);
 }

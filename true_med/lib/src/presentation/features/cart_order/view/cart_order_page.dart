@@ -86,7 +86,16 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
                       (p) => CartProductItemWithSwipe(
                         product: p.product,
                         onDelete: () {},
-                        child: CartProductItem(product: p.product),
+                        child: CartProductItem(
+                          product: p.product,
+                          quantity: p.quantity,
+                          onDecrease: () => ref
+                              .read(cartProvider.notifier)
+                              .decrease(p.product),
+                          onIncrease: () => ref
+                              .read(cartProvider.notifier)
+                              .increase(p.product),
+                        ),
                       ),
                     ),
                     const Divider(height: 1, color: Colors.grey),
