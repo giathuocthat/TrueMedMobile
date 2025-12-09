@@ -26,7 +26,7 @@ class ProductVariantsResponseEntity extends ProductVariantsEntity {
   final double originalPrice;
   final double stockQuantity;
   final int maxSalesQuantity;
-  final int inventoryStock;
+  final int? inventoryStock;
   final int soldQuantity;
   final int? weight;
   final String? dimensions;

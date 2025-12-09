@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/extensions/string.dart';
 import '../../../../../domain/entities/product_entity.dart';
-import '../../model/product_mock.dart';
 import 'discount_badge.dart';
 import 'product_footer.dart';
 import 'sold_progress_bar.dart';
@@ -74,7 +73,7 @@ class ProductCard extends StatelessWidget {
                     //       icon: null,
                     //     ),
                     //   ),
-                    if (percentPrice < 0)
+                    if (percentPrice > 0)
                       const SizedBox(
                         width: 65, // hoặc MediaQuery.of(context).size.width / 2
                         child: TagBadge(

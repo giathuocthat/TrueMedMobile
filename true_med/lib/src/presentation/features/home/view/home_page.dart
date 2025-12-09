@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/product_entity.dart';
-import '../../../../domain/entities/product_page_entity.dart';
-import '../../../core/application_state/logout_provider/logout_provider.dart';
-import '../../../core/router/routes.dart';
-import '../../../core/widgets/loading_indicator.dart';
 import '../model/category_mock.dart';
-import '../model/product_mock.dart';
 import '../riverpod/product_provider.dart';
 import '../riverpod/product_state.dart';
 import 'widget/banner_carousel.dart';

@@ -19,7 +19,7 @@ class ProductVariantsResponseModel extends ProductVariantsResponseEntity
     super.imageUrl,
     super.isActive,
     required super.maxSalesQuantity,
-    required super.inventoryStock,
+    super.inventoryStock,
     required super.soldQuantity,
   });
 
