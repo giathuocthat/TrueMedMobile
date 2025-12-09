@@ -24,6 +24,7 @@ class ProductCard extends StatelessWidget {
       //300 +30 chieu cao hien thi day du thong tin san pham
       height: 310,
       child: Container(
+        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           gradient: percentPrice < -15
@@ -45,16 +46,18 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (percentPrice < 0)
                   discountBadge(percentPrice.percentChangeText()),
-                const Spacer(),
                 const Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.only(top: 10, right: 10),
                   child: Icon(Icons.favorite_border, color: Colors.grey),
                 ),
               ],
             ),
+
             SizedBox(
               height: 80,
               child: Center(
