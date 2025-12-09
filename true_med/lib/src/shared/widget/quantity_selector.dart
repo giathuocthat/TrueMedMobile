@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QuantitySelector extends StatelessWidget {
+import '../../domain/entities/product_entity.dart';
+import 'quantity_controller.dart';
+
+class QuantitySelector extends ConsumerWidget {
   final int qty;
+  final ProductResponseEntity product;
   final VoidCallback? onIncrease;
   final VoidCallback? onDecrease;
 
@@ -10,10 +15,11 @@ class QuantitySelector extends StatelessWidget {
     required this.qty,
     this.onIncrease,
     this.onDecrease,
+    required this.product,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: 38,
       decoration: BoxDecoration(
@@ -43,13 +49,15 @@ class QuantitySelector extends StatelessWidget {
                   color: Colors.grey.shade500,
                 ),
                 const SizedBox(width: 6),
-                Text(
-                  "$qty",
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                // Text(
+                //   "$qty",
+                //   style: const TextStyle(
+                //     fontSize: 16,
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                // ),
+                //SizedBox(width: 40, child: ),
+                TextQuantityControl(product: product),
               ],
             ),
           ),

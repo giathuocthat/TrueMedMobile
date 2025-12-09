@@ -200,6 +200,7 @@ class CartProductItem extends StatelessWidget {
                 const SizedBox(width: 10),
 
                 QuantitySelector(
+                  product: product,
                   qty: quantity,
                   onIncrease: onIncrease,
                   onDecrease: onDecrease,
