@@ -61,7 +61,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     ),
                     itemCount: mockProducts.length,
                     itemBuilder: (context, index) {
-                      return ProductCard(product: mockProducts[index]);
+                      //return ProductCard(product: mockProducts[index], productX: null,);
                     },
                   ),
                 ],

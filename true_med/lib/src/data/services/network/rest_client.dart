@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../models/page_model.dart';
+import '../../models/pagination_model.dart';
 import '../../models/product_model.dart';
+import '../../models/product_page_model.dart';
 import 'endpoints.dart';
 
 part 'rest_client.g.dart';
@@ -20,6 +23,8 @@ abstract class RestClient {
   @GET(Endpoints.products)
   Future<HttpResponse<List<ProductResponseModel>>> getProducts();
 
-  // @POST("/product")
-  // Future<HttpResponse> productX(@Body() Map<String, dynamic> request);
+  @GET(Endpoints.productStores)
+  Future<HttpResponse<ProductPageResponseModel>> getProductStores(
+    @Queries() Map<String, dynamic> query,
+  );
 }

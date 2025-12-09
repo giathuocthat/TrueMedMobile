@@ -14,4 +14,7 @@ class Endpoints {
 
   // Product
   static const String products = '/product';
+
+  // Product
+  static const String productStores = '/product/getStoreProduct';
 }

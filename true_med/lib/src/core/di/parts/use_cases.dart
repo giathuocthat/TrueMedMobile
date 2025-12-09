@@ -59,3 +59,8 @@ GetProductsUseCase getProductsUseCase(Ref ref) {
 Get2ProductsUseCase get2ProductsUseCase(Ref ref) {
   return Get2ProductsUseCase(ref.read(productRepositoryProvider));
 }
+
+@riverpod
+GetProductStoresUseCase getProductStoresUseCase(Ref ref) {
+  return GetProductStoresUseCase(ref.read(productRepositoryProvider));
+}

@@ -33,7 +33,7 @@ class ProductResponseModel extends ProductResponseEntity
     BrandResponseModel? brand,
     CategoryResponseModel? category,
     ProductVariantsResponseModel? variants,
-    required List<ImageResponseModel> images,
+    List<ImageResponseModel>? images,
   }) : super(
          brand: brand,
          category: category,

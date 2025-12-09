@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/extensions/string.dart';
+import '../../../../../domain/entities/product_entity.dart';
 import '../../model/product_mock.dart';
 import 'discount_badge.dart';
 import 'product_footer.dart';
@@ -8,8 +9,9 @@ import 'text_bage.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductMock product;
+  final ProductEntity productX;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, required this.productX});
 
   @override
   Widget build(BuildContext context) {

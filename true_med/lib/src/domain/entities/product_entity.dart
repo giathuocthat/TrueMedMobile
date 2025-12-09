@@ -30,7 +30,7 @@ class ProductResponseEntity extends ProductEntity {
     this.brand,
     this.category,
     this.variants,
-    required this.images,
+    this.images,
   });
 
   final int id;
@@ -54,5 +54,5 @@ class ProductResponseEntity extends ProductEntity {
   final BrandResponseEntity? brand;
   final CategoryResponseEntity? category;
   final ProductVariantsResponseEntity? variants;
-  final List<ImageResponseEntity> images;
+  final List<ImageResponseEntity>? images;
 }

@@ -50,17 +50,23 @@ class Product extends _$Product {
   late GetProductsUseCase _getProductsUseCase;
   late Get2ProductsUseCase _get2ProductsUseCase;
 
+  late GetProductStoresUseCase _getProductStoresUseCase;
+
   @override
   ProductState build() {
     _getProductsUseCase = ref.read(getProductsUseCaseProvider);
     _get2ProductsUseCase = ref.read(get2ProductsUseCaseProvider);
 
+    _getProductStoresUseCase = ref.read(getProductStoresUseCaseProvider);
+
     //return const ProductState();
     // set initial state là loading
-    final initialState = const ProductState(status: Status.loading);
+    final initialState = ProductState(status: Status.loading);
 
     // fire-and-forget (không await)
-    Future.microtask(fetchProduct1);
+    //Future.microtask(fetchProduct1);
+
+    Future.microtask(() => fetchProductStores(pageNumber: 1, pageSize: 10));
 
     return initialState;
   }
@@ -159,24 +165,32 @@ class Product extends _$Product {
     state = state.copyWith(isRefreshing: false);
   }
 
-  /// Dùng khi pull-to-refresh
-  Future<void> refreshProduct1() async {
-    // giữ nguyên status (vẫn success), chỉ bật cờ refresh
-    state = state.copyWith(isRefreshing: true, error: null);
+  Future<void> fetchProductStores({
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    // reset state trước
+    state = state.copyWith(status: Status.loading, error: null);
 
-    final r1 = await _getProductsUseCase.call();
-    //final r2 = await _get2ProductsUseCase.call();
+    // 1) Call API 1
+    final result1 = await _getProductStoresUseCase.call(
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+    );
 
-    switch (r1) {
+    switch (result1) {
       case Success(:final data):
-        state = state.copyWith(products: data, status: Status.success);
+        //state = state.copyWith(products: data);
+        state = state.copyWith(status: Status.success, productPage: data);
       case Error(:final error):
-        state = state.copyWith(error: error);
+        state = state.copyWith(status: Status.error, error: error);
+        return; // stop luôn, khỏi call API 2
       default:
-        state = state.copyWith(error: 'Something went wrong');
+        state = state.copyWith(
+          status: Status.error,
+          error: 'Something went wrong',
+        );
+        return;
     }
-
-    // tắt cờ refresh
-    state = state.copyWith(isRefreshing: false);
   }
 }
