@@ -188,7 +188,7 @@ class ProductCard extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: SoldProgressBar(
                     sold: productVariants!.soldQuantity,
-                    total: productVariants!.maxSalesQuantity,
+                    total: productVariants!.maxSalesQuantity ?? 0,
                     iSShowSold: true,
                   ),
                 ),

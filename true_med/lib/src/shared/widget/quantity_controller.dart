@@ -37,10 +37,10 @@ class _TextQuantityControlState extends ConsumerState<TextQuantityControl> {
     super.dispose();
   }
 
-  void _onSubmitted(String value) {
-    final qty = int.tryParse(value) ?? 0;
-    ref.read(cartProvider.notifier).setQuantity(widget.product, qty);
-  }
+  // void _onSubmitted(String value) {
+  //   final qty = int.tryParse(value) ?? 0;
+  //   ref.read(cartProvider.notifier).setQuantity(widget.product, qty);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +58,8 @@ class _TextQuantityControlState extends ConsumerState<TextQuantityControl> {
         }
       },
     );
+
+    final int maxItem = 999;
 
     return Container(
       width: 30,
@@ -78,6 +80,48 @@ class _TextQuantityControlState extends ConsumerState<TextQuantityControl> {
           contentPadding: EdgeInsets.zero,
           filled: false,
         ),
+        // 👉 Khi người dùng nhấn DONE (Enter)
+        onSubmitted: (value) {
+          final qty = int.tryParse(value) ?? 0;
+
+          ref.read(cartProvider.notifier).setQuantity(widget.product, qty);
+
+          // Optional: sync UI (giới hạn từ 0–9999)
+          final clamped = qty.clamp(0, 9999);
+          if (_controller.text != clamped.toString()) {
+            _controller.text = clamped.toString();
+          }
+        },
+        // 👉 Khi người dùng thay đổi text
+        onChanged: (value) {
+          // 1️⃣ Nếu text rỗng → coi như 0
+          if (value.isEmpty) {
+            ref.read(cartProvider.notifier).setQuantity(widget.product, 0);
+
+            // Cập nhật UI (set lại thành 0)
+            _controller.text = "0";
+            _controller.selection = TextSelection.fromPosition(
+              TextPosition(offset: _controller.text.length),
+            );
+            return;
+          }
+
+          // 2️⃣ Parse số
+          int qty = int.tryParse(value) ?? 0;
+
+          // 3️⃣ Check max giới hạn
+          if (qty > maxItem) {
+            qty = maxItem;
+
+            _controller.text = qty.toString();
+            _controller.selection = TextSelection.fromPosition(
+              TextPosition(offset: _controller.text.length),
+            );
+          }
+
+          // 4️⃣ Cập nhật vào giỏ hàng
+          ref.read(cartProvider.notifier).setQuantity(widget.product, qty);
+        },
       ),
     );
   }

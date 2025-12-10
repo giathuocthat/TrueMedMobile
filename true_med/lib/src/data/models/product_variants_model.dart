@@ -10,7 +10,7 @@ class ProductVariantsResponseModel extends ProductVariantsResponseEntity
   ProductVariantsResponseModel({
     required super.id,
     required super.sku,
-    required super.barcode,
+    super.barcode,
     required super.price,
     required super.originalPrice,
     required super.stockQuantity,
@@ -18,7 +18,7 @@ class ProductVariantsResponseModel extends ProductVariantsResponseEntity
     super.dimensions,
     super.imageUrl,
     super.isActive,
-    required super.maxSalesQuantity,
+    super.maxSalesQuantity,
     super.inventoryStock,
     required super.soldQuantity,
   });
