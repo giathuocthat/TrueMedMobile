@@ -50,65 +50,66 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              // children: cart.map((shop) {
-              //   return Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       CartShopHeader(
-              //         shopName: shop.shopName,
-              //         logoUrl: shop.shopLogo,
-              //       ),
-              //       ...shop.products.map(
-              //         (p) => CartProductItemWithSwipe(
-              //           product: p,
-              //           onDelete: () {},
-              //           child: CartProductItem(product: p),
-              //         ),
-              //       ),
-              //       const Divider(height: 1, color: Colors.grey),
-              //       CartShopVoucherSection(shopId: shop.shopId),
-              //       TotalDiscountSection(shopId: shop.shopId),
+            child: ListView.builder(
+              itemCount: listCard.items.length,
+              itemBuilder: (context, index) {
+                final item = listCard.items[index];
 
-              //       const SizedBox(height: 12),
-              //     ],
-              //   );
-              // }).toList(),
-              children: listCard.items.map((item) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // CartShopHeader(
-                    //   shopName: shop.shopName,
-                    //   logoUrl: shop.shopLogo,
-                    // ),
-                    ...listCard.items.map(
-                      (p) => CartProductItemWithSwipe(
-                        product: p.product,
-                        onDelete: () {},
-                        child: CartProductItem(
-                          product: p.product,
-                          quantity: p.quantity,
-                          onDecrease: () => ref
-                              .read(cartProvider.notifier)
-                              .decrease(p.product),
-                          onIncrease: () => ref
-                              .read(cartProvider.notifier)
-                              .increase(p.product),
-                        ),
+                    CartProductItemWithSwipe(
+                      product: item.product,
+                      onDelete: () {
+                        ref.read(cartProvider.notifier).remove(item.product);
+                      },
+                      child: CartProductItem(
+                        product: item.product,
+                        quantity: item.quantity,
+                        onDecrease: () => ref
+                            .read(cartProvider.notifier)
+                            .decrease(item.product),
+                        onIncrease: () => ref
+                            .read(cartProvider.notifier)
+                            .increase(item.product),
                       ),
                     ),
-                    const Divider(height: 1, color: Colors.grey),
 
-                    //CartShopVoucherSection(shopId: shop.shopId),
-                    //TotalDiscountSection(shopId: shop.shopId),
-                    const SizedBox(height: 12),
+                    Divider(height: 1, color: Colors.grey.shade300),
+                    //const SizedBox(height: 12),
                   ],
                 );
-              }).toList(),
+              },
             ),
           ),
 
+          // Expanded(
+          //   child: ListView(
+          //     children: cart.map((shop) {
+          //       return Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           CartShopHeader(
+          //             shopName: shop.shopName,
+          //             logoUrl: shop.shopLogo,
+          //           ),
+          //           ...shop.products.map(
+          //             (p) => CartProductItemWithSwipe(
+          //               product: p,
+          //               onDelete: () {},
+          //               child: CartProductItem(product: p),
+          //             ),
+          //           ),
+          //           const Divider(height: 1, color: Colors.grey),
+          //           CartShopVoucherSection(shopId: shop.shopId),
+          //           TotalDiscountSection(shopId: shop.shopId),
+
+          //           const SizedBox(height: 12),
+          //         ],
+          //       );
+          //     }).toList(),
+          //   ),
+          // ),
           SizedBox(height: 230, child: PaymentFooter(context)),
         ],
       ),

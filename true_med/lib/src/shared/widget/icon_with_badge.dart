@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/string.dart';
+
 class IconWithBadge extends StatelessWidget {
   final IconData icon;
   final String? badge;
@@ -29,11 +31,11 @@ class IconWithBadge extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  badge!,
+                  badge!.formatBadge(),
                   style: const TextStyle(
-                    fontSize: 10,
+                    fontSize: 8,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),

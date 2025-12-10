@@ -43,3 +43,13 @@ extension PriceChangeExtension on num {
   //   return "$sign${value.toStringAsFixed(fractionDigits)}%";
   // }
 }
+
+extension BadgeExtension on String {
+  String _formatBadge(String badge) {
+    final intVal = int.tryParse(badge) ?? 0;
+    if (intVal > 99) return "99+";
+    return badge;
+  }
+
+  String formatBadge() => _formatBadge(this);
+}
