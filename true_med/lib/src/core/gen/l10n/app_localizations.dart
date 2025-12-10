@@ -140,6 +140,12 @@ abstract class AppLocalizations {
   /// **'Cart'**
   String get cart;
 
+  /// No description provided for @detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail'**
+  String get detail;
+
   /// No description provided for @search.
   ///
   /// In en, this message translates to:

@@ -209,45 +209,4 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   final state = ref.watch(productProvider);
-
-  //   if (state.status == Status.loading) {
-  //     return const Center(child: CircularProgressIndicator());
-  //   }
-
-  //   if (state.status == Status.error) {
-  //     return Center(child: Text(state.error ?? 'Có lỗi xảy ra'));
-  //   }
-
-  //   // status == success
-  //   // return Column(
-  //   //   children: [
-  //   //     Container(
-  //   //       color: const Color.fromARGB(255, 210, 248, 221), // chung background
-  //   //       padding: const EdgeInsets.only(bottom: 10, top: 12),
-  //   //       child: CategorySection(title: "Nhóm thuốc", items: drugCategories),
-  //   //     ),
-  //   //     //Expanded(child: ProductsListWidget(items: state.products)),
-  //   //     //Expanded(child: Products2ListWidget(items: state.products2)),
-  //   //   ],
-  //   // );
-  //   return RefreshIndicator(
-  //     onRefresh: () => ref
-  //         .read(productProvider.notifier)
-  //         .refreshProduct1(), // <- dùng hàm mới
-  //     child: ListView(
-  //       children: [
-  //         // build từ state.products, state.products2
-  //         Container(
-  //           color: const Color.fromARGB(255, 210, 248, 221), // chung background
-  //           padding: const EdgeInsets.only(bottom: 10, top: 12),
-  //           child: CategorySection(title: "Nhóm thuốc", items: drugCategories),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

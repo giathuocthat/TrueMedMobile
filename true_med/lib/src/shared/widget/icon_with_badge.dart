@@ -33,9 +33,9 @@ class IconWithBadge extends StatelessWidget {
                 child: Text(
                   badge!.formatBadge(),
                   style: const TextStyle(
-                    fontSize: 8,
+                    fontSize: 9,
                     color: Colors.white,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

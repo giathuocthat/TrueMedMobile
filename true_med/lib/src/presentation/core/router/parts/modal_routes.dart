@@ -35,5 +35,18 @@ List<GoRoute> _modalRoutes(ref) {
         return const MaterialPage(child: CartOrderPage());
       },
     ),
+
+    //product detail
+    GoRoute(
+      path: Routes.productDetail,
+      name: Routes.productDetail,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: ProductDetailPage(
+            productId: int.parse(state.pathParameters['productId']!),
+          ),
+        );
+      },
+    ),
   ];
 }
