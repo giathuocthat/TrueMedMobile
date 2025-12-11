@@ -52,7 +52,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ProductDetailHeader(
-        fadeHeight: 320,
+        fadeHeight: 140,
         searchBar: Container(
           height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 12),
