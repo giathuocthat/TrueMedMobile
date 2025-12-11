@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/extensions/app_localization.dart';
 import '../../../../data/models/product_model.dart';
-import '../../../../domain/entities/product_entity.dart';
-import '../../../../shared/widget/payment_footer.dart';
 import '../../../../shared/widget/product_cart_footer.dart';
-import '../../../core/widgets/page_header.dart';
-import '../../application/cart/riverpod/cart_provider.dart';
-import '../../cart_order/model/cart_oder_mock.dart';
-import '../../cart_order/view/cart_product_item.dart';
-import '../../cart_order/view/cart_product_item_swipe.dart';
 import '../../home/model/product_mock.dart';
-import '../../home/view/widget/banner_carousel.dart';
 import '../../home/view/widget/html_section.dart';
 import '../../home/view/widget/product_banner_carousel.dart';
-import '../../home/view/widget/product_price_feed_back_section.dart';
 import '../../home/view/widget/product_info_section.dart';
 import '../../home/view/widget/product_promotion_header.dart';
 import '../../home/view/widget/product_promotion_section.dart';
@@ -60,88 +50,9 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final listCard = ref.watch(cartProvider);
-
-    final cart = mockCartData;
-
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: PageHeader(title: context.locale.detail, showBack: true),
-      ),
-
-      // body: SingleChildScrollView(
-      //   child: Container(
-      //     color: Colors.transparent,
-      //     child: Column(
-      //       children: [
-      //         const ProducBannerCarousel(),
-      //         const ProductPromoHeader(),
-      //         ProductInfoSection(product: productMock),
-      //         const SizedBox(height: 12),
-
-      //         // Mã giảm giá section
-      //         ProductPromotionSection(product: productMock),
-      //         const SizedBox(height: 12),
-
-      //         // Mua kèm deal tốt
-      //         // const ProductBuyWithDealSection(),
-
-      //         /// Mô tả sản phẩm
-      //         HtmlSection(html: fullDescription),
-      //         const SizedBox(height: 80),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                color: Colors.transparent,
-                child: Column(
-                  children: [
-                    const ProducBannerCarousel(),
-                    const ProductPromoHeader(),
-                    ProductInfoSection(product: productMock),
-                    const SizedBox(height: 12),
-
-                    // Mã giảm giá section
-                    ProductPromotionSection(product: productMock),
-                    const SizedBox(height: 12),
-
-                    // Mua kèm deal tốt
-                    // const ProductBuyWithDealSection(),
-
-                    /// Mô tả sản phẩm
-                    HtmlSection(html: fullDescription),
-                    const SizedBox(height: 80),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 140, child: ProductCartFooter(context)),
-        ],
-      ),
-    );
-  }
-}
-//import 'package:flutter/material.dart';
-//import 'widgets/product_detail_header.dart';
-
-class Product3DetailPage extends StatelessWidget {
-  final int productId;
-
-  const Product3DetailPage({super.key, required this.productId});
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: ProductDetailHeader(
-        fadeHeight: 140,
-
+        fadeHeight: 320,
         searchBar: Container(
           height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -149,8 +60,8 @@ class Product3DetailPage extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(22),
           ),
-          child: Row(
-            children: const [
+          child: const Row(
+            children: [
               Icon(Icons.search, color: Colors.grey),
               SizedBox(width: 8),
               Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
@@ -176,104 +87,32 @@ class Product3DetailPage extends StatelessWidget {
           ),
         ),
 
-        banner: Column(
-          children: [
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-          ],
-        ),
+        body: [
+          const ProducBannerCarousel(),
+          const ProductPromoHeader(),
+          ProductInfoSection(product: productMock),
+          const SizedBox(height: 12),
+
+          // Mã giảm giá section
+          ProductPromotionSection(product: productMock),
+          const SizedBox(height: 12),
+
+          // Mua kèm deal tốt
+          // const ProductBuyWithDealSection(),
+
+          /// Mô tả sản phẩm
+          HtmlSection(html: fullDescription),
+          const SizedBox(height: 80),
+        ],
+        // ========================
+        //     FOOTER PAYMENT
+        // ========================
+        footerPayment: SizedBox(height: 140, child: ProductCartFooter(context)),
       ),
     );
   }
-
-  Widget _img() => Image.network(
-    "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-    height: 280,
-    fit: BoxFit.cover,
-  );
 
   static Widget _floatingBtn(IconData icon) {
-    return Container(
-      width: 38,
-      height: 38,
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.06),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, color: Colors.black54),
-    );
-  }
-}
-
-class ProductXDetailPage extends StatelessWidget {
-  final int productId;
-
-  const ProductXDetailPage({super.key, required this.productId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ProductDetailHeader(
-        fadeHeight: 140,
-
-        searchBar: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(22),
-          ),
-          child: Row(
-            children: const [
-              Icon(Icons.search, color: Colors.grey),
-              SizedBox(width: 8),
-              Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
-            ],
-          ),
-        ),
-
-        floatingActions: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _btn(Icons.arrow_back),
-            Row(
-              children: [
-                _btn(Icons.notifications_none),
-                const SizedBox(width: 10),
-                _btn(Icons.shopping_cart_outlined),
-              ],
-            ),
-          ],
-        ),
-
-        banner: Column(
-          children: [
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _img() => Image.network(
-    "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-    height: 280,
-    width: double.infinity,
-    fit: BoxFit.cover,
-  );
-
-  static Widget _btn(IconData icon) {
     return Container(
       width: 38,
       height: 38,

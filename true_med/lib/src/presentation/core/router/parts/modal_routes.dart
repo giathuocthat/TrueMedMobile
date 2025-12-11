@@ -42,10 +42,7 @@ List<GoRoute> _modalRoutes(ref) {
       name: Routes.productDetail,
       pageBuilder: (context, state) {
         return MaterialPage(
-          // child: ProductDetail4Page(
-          //   productId: int.parse(state.pathParameters['productId']!),
-          // ),
-          child: Product2DetailPage(
+          child: ProductDetailPage(
             productId: int.parse(state.pathParameters['productId']!),
           ),
         );
