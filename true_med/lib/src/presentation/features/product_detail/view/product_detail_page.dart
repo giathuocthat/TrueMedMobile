@@ -19,6 +19,7 @@ import '../../home/view/widget/product_price_feed_back_section.dart';
 import '../../home/view/widget/product_info_section.dart';
 import '../../home/view/widget/product_promotion_header.dart';
 import '../../home/view/widget/product_promotion_section.dart';
+import 'product_detail_header.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   final int productId;
@@ -124,6 +125,140 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
           SizedBox(height: 140, child: ProductCartFooter(context)),
         ],
       ),
+    );
+  }
+}
+//import 'package:flutter/material.dart';
+//import 'widgets/product_detail_header.dart';
+
+class Product2DetailPage extends StatelessWidget {
+  final int productId;
+  const Product2DetailPage({super.key, required this.productId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ProductDetailHeader(
+        fadeHeight: 200,
+
+        // ------------------ Ô TÌM KIẾM TRONG APPBAR ------------------
+        searchBar: Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(22),
+          ),
+          child: Row(
+            children: const [
+              Icon(Icons.search, color: Colors.grey),
+              SizedBox(width: 8),
+              Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
+            ],
+          ),
+        ),
+
+        // ------------------ NÚT NỔI BÊN TRÊN ẢNH ------------------
+        floatingActions: Padding(
+          padding: const EdgeInsets.only(top: 48, left: 12, right: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _floatingBtn(Icons.arrow_back),
+              Row(
+                children: [
+                  _floatingBtn(Icons.notifications_none),
+                  const SizedBox(width: 10),
+                  _floatingBtn(Icons.shopping_cart_outlined),
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // ------------------ BANNER SẢN PHẨM (ẢNH) ------------------
+        banner: Container(
+          color: Colors.white,
+          child: Image.network(
+            "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+            height: 280,
+            fit: BoxFit.contain,
+          ),
+        ),
+        // banner: Column(
+        //   children: [
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     Image.network(
+        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+        //       height: 280,
+        //       fit: BoxFit.contain,
+        //     ),
+        //     const SizedBox(height: 12),
+        //     // Bạn có thể thêm banner voucher ở đây...
+        //   ],
+        // ),
+      ),
+    );
+  }
+
+  static Widget _floatingBtn(IconData icon) {
+    return Container(
+      width: 38,
+      height: 38,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.06),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, color: Colors.black54),
     );
   }
 }
