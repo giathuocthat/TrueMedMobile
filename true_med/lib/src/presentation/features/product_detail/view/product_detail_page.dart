@@ -133,15 +133,15 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
 
 class Product2DetailPage extends StatelessWidget {
   final int productId;
+
   const Product2DetailPage({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ProductDetailHeader(
-        fadeHeight: 200,
+        fadeHeight: 140,
 
-        // ------------------ Ô TÌM KIẾM TRONG APPBAR ------------------
         searchBar: Container(
           height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -158,13 +158,13 @@ class Product2DetailPage extends StatelessWidget {
           ),
         ),
 
-        // ------------------ NÚT NỔI BÊN TRÊN ẢNH ------------------
         floatingActions: Padding(
-          padding: const EdgeInsets.only(top: 48, left: 12, right: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _floatingBtn(Icons.arrow_back),
+
               Row(
                 children: [
                   _floatingBtn(Icons.notifications_none),
@@ -176,81 +176,104 @@ class Product2DetailPage extends StatelessWidget {
           ),
         ),
 
-        // ------------------ BANNER SẢN PHẨM (ẢNH) ------------------
-        banner: Container(
-          color: Colors.white,
-          child: Image.network(
-            "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-            height: 280,
-            fit: BoxFit.contain,
-          ),
+        banner: Column(
+          children: [
+            _img(),
+            const SizedBox(height: 12),
+            _img(),
+            const SizedBox(height: 12),
+            _img(),
+            const SizedBox(height: 12),
+            _img(),
+            const SizedBox(height: 12),
+            _img(),
+          ],
         ),
-        // banner: Column(
-        //   children: [
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     Image.network(
-        //       "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        //       height: 280,
-        //       fit: BoxFit.contain,
-        //     ),
-        //     const SizedBox(height: 12),
-        //     // Bạn có thể thêm banner voucher ở đây...
-        //   ],
-        // ),
       ),
     );
   }
 
+  Widget _img() => Image.network(
+    "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+    height: 280,
+    fit: BoxFit.cover,
+  );
+
   static Widget _floatingBtn(IconData icon) {
+    return Container(
+      width: 38,
+      height: 38,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.06),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, color: Colors.black54),
+    );
+  }
+}
+
+class Product3DetailPage extends StatelessWidget {
+  final int productId;
+
+  const Product3DetailPage({super.key, required this.productId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ProductDetailHeader(
+        fadeHeight: 140,
+
+        searchBar: Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(22),
+          ),
+          child: Row(
+            children: const [
+              Icon(Icons.search, color: Colors.grey),
+              SizedBox(width: 8),
+              Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
+            ],
+          ),
+        ),
+
+        floatingActions: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _btn(Icons.arrow_back),
+            Row(
+              children: [
+                _btn(Icons.notifications_none),
+                const SizedBox(width: 10),
+                _btn(Icons.shopping_cart_outlined),
+              ],
+            ),
+          ],
+        ),
+
+        banner: Column(
+          children: [
+            _img(),
+            const SizedBox(height: 12),
+            _img(),
+            const SizedBox(height: 12),
+            _img(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _img() => Image.network(
+    "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+    height: 280,
+    width: double.infinity,
+    fit: BoxFit.cover,
+  );
+
+  static Widget _btn(IconData icon) {
     return Container(
       width: 38,
       height: 38,
