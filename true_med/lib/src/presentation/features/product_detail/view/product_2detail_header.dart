@@ -53,7 +53,7 @@ class _Product2DetailHeaderState extends State<Product2DetailHeader> {
                     child: Column(
                       children: [
                         // CHỪA CHỖ CHO BANNER
-                        // SizedBox(height: widget.bannerHeight),
+                        //SizedBox(height: widget.bannerHeight),
 
                         // BODY CONTENT
                         ...widget.body,
@@ -180,24 +180,4 @@ class _Product2DetailHeaderState extends State<Product2DetailHeader> {
       ),
     );
   }
-}
-
-class _EmptyHeaderDelegate extends SliverPersistentHeaderDelegate {
-  @override
-  double get minExtent => 0;
-
-  @override
-  double get maxExtent => 0;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container();
-  }
-
-  @override
-  bool shouldRebuild(_EmptyHeaderDelegate oldDelegate) => false;
 }

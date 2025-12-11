@@ -39,7 +39,7 @@ class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
     const green = Color(0xFF0B4D2C);
 
     return SizedBox(
-      height: 200, // chỉnh theo thiết kế của bạn
+      height: 260, // chỉnh theo thiết kế của bạn
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
