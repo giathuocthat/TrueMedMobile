@@ -131,10 +131,10 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
 //import 'package:flutter/material.dart';
 //import 'widgets/product_detail_header.dart';
 
-class Product2DetailPage extends StatelessWidget {
+class Product3DetailPage extends StatelessWidget {
   final int productId;
 
-  const Product2DetailPage({super.key, required this.productId});
+  const Product3DetailPage({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -212,10 +212,10 @@ class Product2DetailPage extends StatelessWidget {
   }
 }
 
-class Product3DetailPage extends StatelessWidget {
+class ProductXDetailPage extends StatelessWidget {
   final int productId;
 
-  const Product3DetailPage({super.key, required this.productId});
+  const ProductXDetailPage({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {

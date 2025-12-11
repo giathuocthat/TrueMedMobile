@@ -19,7 +19,7 @@ import '../../home/view/widget/product_price_feed_back_section.dart';
 import '../../home/view/widget/product_info_section.dart';
 import '../../home/view/widget/product_promotion_header.dart';
 import '../../home/view/widget/product_promotion_section.dart';
-import 'product_detail_3header.dart';
+import 'product_2detail_header.dart';
 import 'product_detail_header.dart';
 
 class Product2DetailPage extends StatelessWidget {
@@ -30,9 +30,8 @@ class Product2DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ProductDetail3Header(
-        fadeHeight: 140,
-
+      body: Product2DetailHeader(
+        fadeHeight: 320,
         searchBar: Container(
           height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -67,19 +66,20 @@ class Product2DetailPage extends StatelessWidget {
           ),
         ),
 
-        banner: Column(
-          children: [
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-          ],
-        ),
+        // banner: Column(
+        //   children: [
+        //     _img(),
+        //     const SizedBox(height: 12),
+        //     _img(),
+        //     const SizedBox(height: 12),
+        //     _img(),
+        //     const SizedBox(height: 12),
+        //     _img(),
+        //     const SizedBox(height: 12),
+        //     _img(),
+        //   ],
+        // ),
+
         // ========================
         //     FOOTER PAYMENT
         // ========================
@@ -110,7 +110,28 @@ class Product2DetailPage extends StatelessWidget {
           _img(),
           const SizedBox(height: 12),
           _img(),
+          _img(),
         ],
+        // ========================
+        //     FOOTER PAYMENT
+        // ========================
+        footerPayment: Container(
+          height: 100,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              const Text(
+                "131.000đ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
+              ),
+              const Spacer(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -134,97 +155,98 @@ class Product2DetailPage extends StatelessWidget {
   }
 }
 
-class Product3DetailPage extends StatelessWidget {
-  final int productId;
+// class Product3DetailPage extends StatelessWidget {
+//   final int productId;
 
-  const Product3DetailPage({super.key, required this.productId});
+//   const Product3DetailPage({super.key, required this.productId});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ProductDetail3Header(
-        fadeHeight: 140,
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Product2DetailHeader(
+//         fadeHeight: 140,
 
-        searchBar: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(22),
-          ),
-          child: Row(
-            children: const [
-              Icon(Icons.search, color: Colors.grey),
-              SizedBox(width: 8),
-              Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
-            ],
-          ),
-        ),
+//         searchBar: Container(
+//           height: 40,
+//           padding: const EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             color: Colors.white,
+//             borderRadius: BorderRadius.circular(22),
+//           ),
+//           child: Row(
+//             children: const [
+//               Icon(Icons.search, color: Colors.grey),
+//               SizedBox(width: 8),
+//               Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
+//             ],
+//           ),
+//         ),
 
-        floatingActions: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _btn(Icons.arrow_back),
-            Row(
-              children: [
-                _btn(Icons.notifications_none),
-                const SizedBox(width: 10),
-                _btn(Icons.shopping_cart_outlined),
-              ],
-            ),
-          ],
-        ),
+//         floatingActions: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             _btn(Icons.arrow_back),
+//             Row(
+//               children: [
+//                 _btn(Icons.notifications_none),
+//                 const SizedBox(width: 10),
+//                 _btn(Icons.shopping_cart_outlined),
+//               ],
+//             ),
+//           ],
+//         ),
 
-        banner: Column(
-          children: [
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-            const SizedBox(height: 12),
-            _img(),
-          ],
-        ),
-        body: [],
-        // ========================
-        //     FOOTER PAYMENT
-        // ========================
-        // footerPayment: Container(
-        //   height: 100,
-        //   padding: const EdgeInsets.symmetric(horizontal: 16),
-        //   child: Row(
-        //     children: [
-        //       const Text(
-        //         "131.000đ",
-        //         style: TextStyle(
-        //           fontSize: 18,
-        //           fontWeight: FontWeight.bold,
-        //           color: Colors.green,
-        //         ),
-        //       ),
-        //       const Spacer(),
-        //     ],
-        //   ),
-        // ),
-      ),
-    );
-  }
+//         banner: Column(
+//           children: [
+//             _img(),
+//             const SizedBox(height: 12),
+//             _img(),
+//             const SizedBox(height: 12),
+//             _img(),
+//           ],
+//         ),
+//         body: [],
+//         //footerPayment: null,
+//         // ========================
+//         //     FOOTER PAYMENT
+//         // ========================
+//         footerPayment: Container(
+//           height: 100,
+//           padding: const EdgeInsets.symmetric(horizontal: 16),
+//           child: Row(
+//             children: [
+//               const Text(
+//                 "131.000đ",
+//                 style: TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   color: Colors.green,
+//                 ),
+//               ),
+//               const Spacer(),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 
-  Widget _img() => Image.network(
-    "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-    height: 280,
-    width: double.infinity,
-    fit: BoxFit.cover,
-  );
+//   Widget _img() => Image.network(
+//     "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+//     height: 280,
+//     width: double.infinity,
+//     fit: BoxFit.cover,
+//   );
 
-  static Widget _btn(IconData icon) {
-    return Container(
-      width: 38,
-      height: 38,
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.06),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, color: Colors.black54),
-    );
-  }
-}
+//   static Widget _btn(IconData icon) {
+//     return Container(
+//       width: 38,
+//       height: 38,
+//       decoration: BoxDecoration(
+//         color: Colors.black.withOpacity(0.06),
+//         shape: BoxShape.circle,
+//       ),
+//       child: Icon(icon, color: Colors.black54),
+//     );
+//   }
+// }

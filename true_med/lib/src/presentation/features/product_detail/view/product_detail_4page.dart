@@ -11,25 +11,39 @@ class ProductDetail4Page extends StatelessWidget {
     return ProductDetail4Header(
       bannerHeight: 320,
 
-      banner: Image.network(
-        "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
-        fit: BoxFit.cover,
-      ),
+      // banner: Image.network(
+      //   "https://raw.githubusercontent.com/TaqBostan/content/refs/heads/main/labeled-2.png",
+      //   fit: BoxFit.cover,
+      // ),
+      // floatingActions: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //   children: [
+      //     _circleBtn(Icons.arrow_back),
+      //     Row(
+      //       children: [
+      //         _circleBtn(Icons.notifications_none),
+      //         const SizedBox(width: 10),
+      //         _circleBtn(Icons.shopping_cart_outlined),
+      //       ],
+      //     ),
+      //   ],
+      // ),
 
-      floatingActions: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _circleBtn(Icons.arrow_back),
-          Row(
-            children: [
-              _circleBtn(Icons.notifications_none),
-              const SizedBox(width: 10),
-              _circleBtn(Icons.shopping_cart_outlined),
-            ],
-          ),
-        ],
-      ),
-
+      // searchBar: Container(
+      //   height: 40,
+      //   padding: const EdgeInsets.symmetric(horizontal: 12),
+      //   decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     borderRadius: BorderRadius.circular(22),
+      //   ),
+      //   child: Row(
+      //     children: const [
+      //       Icon(Icons.search, color: Colors.grey),
+      //       SizedBox(width: 8),
+      //       Text("Tìm kiếm sản phẩm", style: TextStyle(color: Colors.grey)),
+      //     ],
+      //   ),
+      // ),
       searchBar: Container(
         height: 40,
         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -41,17 +55,40 @@ class ProductDetail4Page extends StatelessWidget {
           children: const [
             Icon(Icons.search, color: Colors.grey),
             SizedBox(width: 8),
-            Text("Tìm kiếm sản phẩm", style: TextStyle(color: Colors.grey)),
+            Text("Tìm kiếm", style: TextStyle(color: Colors.grey)),
+          ],
+        ),
+      ),
+
+      floatingActions: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _floatingBtn(Icons.arrow_back),
+
+            Row(
+              children: [
+                _floatingBtn(Icons.notifications_none),
+                const SizedBox(width: 10),
+                _floatingBtn(Icons.shopping_cart_outlined),
+              ],
+            ),
           ],
         ),
       ),
 
       body: [
-        const SizedBox(height: 16),
         _img(),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         _img(),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
+        _img(),
+        const SizedBox(height: 12),
+        _img(),
+        const SizedBox(height: 12),
+        _img(),
+        _img(),
       ],
 
       // ========================
@@ -94,4 +131,15 @@ class ProductDetail4Page extends StatelessWidget {
     height: 280,
     fit: BoxFit.cover,
   );
+  static Widget _floatingBtn(IconData icon) {
+    return Container(
+      width: 38,
+      height: 38,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.06),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(icon, color: Colors.black54),
+    );
+  }
 }

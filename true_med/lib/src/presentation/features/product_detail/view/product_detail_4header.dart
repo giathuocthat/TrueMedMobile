@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProductDetail4Header extends StatefulWidget {
-  final Widget banner; // Banner lớn phía trên
+  //final Widget banner; // Banner lớn phía trên
   final double bannerHeight;
   final List<Widget> body; // Nội dung bên dưới banner
   final Widget searchBar; // Appbar search
@@ -13,12 +13,12 @@ class ProductDetail4Header extends StatefulWidget {
 
   const ProductDetail4Header({
     super.key,
-    required this.banner,
+    //required this.banner,
     required this.body,
     required this.searchBar,
     required this.footerPayment,
     this.floatingActions,
-    this.bannerHeight = 300,
+    this.bannerHeight = 0,
     this.fadeHeight = 140,
     this.appBarColor = const Color(0xFF0B4D2C),
     this.onRefresh,
@@ -56,7 +56,7 @@ class _ProductDetail4HeaderState extends State<ProductDetail4Header> {
                     child: Column(
                       children: [
                         // CHỪA CHỖ CHO BANNER
-                        SizedBox(height: widget.bannerHeight),
+                        // SizedBox(height: widget.bannerHeight),
 
                         // BODY CONTENT
                         ...widget.body,
@@ -73,16 +73,16 @@ class _ProductDetail4HeaderState extends State<ProductDetail4Header> {
           // ==========================================
           //             BANNER OVERLAY – SÁT TOP
           // ==========================================
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SizedBox(
-              height: widget.bannerHeight,
-              width: double.infinity,
-              child: widget.banner,
-            ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: SizedBox(
+          //     height: widget.bannerHeight,
+          //     width: double.infinity,
+          //     child: widget.banner,
+          //   ),
+          // ),
 
           // ==========================================
           //       FLOATING BUTTONS (BACK, CART, BELL)
@@ -110,7 +110,7 @@ class _ProductDetail4HeaderState extends State<ProductDetail4Header> {
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeOut,
               height: offset < 20 ? 0 : 70,
-              padding: EdgeInsets.only(top: safeTop, left: 12, right: 12),
+              padding: EdgeInsets.only(top: 28, left: 12, right: 12),
               decoration: BoxDecoration(
                 color: widget.appBarColor.withOpacity(
                   (offset / widget.fadeHeight).clamp(0, 1),
