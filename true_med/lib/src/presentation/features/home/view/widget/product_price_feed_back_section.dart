@@ -14,12 +14,7 @@ class PriceFeedbackSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const textColor = Color(0xFF3D3D3D);
-    const iconColor = Color.fromARGB(
-      255,
-      129,
-      129,
-      244,
-    ); // xanh tím như thiết kế
+    const iconColor = Color(0xFF2F2F85); // xanh tím như thiết kế
     const priceColor = Color(0xFF0B4D2C);
 
     return Column(
@@ -28,7 +23,7 @@ class PriceFeedbackSection extends StatelessWidget {
         const Text(
           "Hộp 10 vĩ, mỗi vĩ 10 Viên Nén",
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 16,
             color: Color(0xFF3D3D3D),
             fontWeight: FontWeight.w500,
           ),
@@ -50,7 +45,11 @@ class PriceFeedbackSection extends StatelessWidget {
             // 👍 Hợp lí
             Row(
               children: [
-                Icon(Icons.thumb_up_alt_outlined, size: 15, color: iconColor),
+                Icon(
+                  Icons.thumb_up_alt_outlined,
+                  size: 15,
+                  color: Color.fromARGB(255, 129, 129, 244),
+                ),
                 SizedBox(width: 4),
                 Text(
                   "Hợp lí",
@@ -110,7 +109,7 @@ class PriceFeedbackSection extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 12,
                 color: priceColor,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

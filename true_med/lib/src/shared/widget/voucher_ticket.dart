@@ -11,7 +11,7 @@ class VoucherTicket extends StatelessWidget {
     super.key,
     required this.text,
     this.color = const Color(0xFF5B73F3),
-    this.height = 44,
+    this.height = 40,
   });
 
   @override

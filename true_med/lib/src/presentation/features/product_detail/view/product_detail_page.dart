@@ -5,6 +5,7 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../../data/models/product_model.dart';
 import '../../../../domain/entities/product_entity.dart';
 import '../../../../shared/widget/payment_footer.dart';
+import '../../../../shared/widget/product_cart_footer.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
 import '../../cart_order/model/cart_oder_mock.dart';
@@ -16,6 +17,7 @@ import '../../home/view/widget/html_section.dart';
 import '../../home/view/widget/product_banner_carousel.dart';
 import '../../home/view/widget/product_price_feed_back_section.dart';
 import '../../home/view/widget/product_info_section.dart';
+import '../../home/view/widget/product_promotion_header.dart';
 import '../../home/view/widget/product_promotion_section.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
@@ -67,25 +69,60 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
         child: PageHeader(title: context.locale.detail, showBack: true),
       ),
 
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.transparent,
-          child: Column(
-            children: [
-              const ProducBannerCarousel(),
-              ProductInfoSection(product: productMock),
-              const SizedBox(height: 12),
+      // body: SingleChildScrollView(
+      //   child: Container(
+      //     color: Colors.transparent,
+      //     child: Column(
+      //       children: [
+      //         const ProducBannerCarousel(),
+      //         const ProductPromoHeader(),
+      //         ProductInfoSection(product: productMock),
+      //         const SizedBox(height: 12),
 
-              // Mã giảm giá section
-              ProductPromotionSection(product: productMock),
-              const SizedBox(height: 12),
+      //         // Mã giảm giá section
+      //         ProductPromotionSection(product: productMock),
+      //         const SizedBox(height: 12),
 
-              /// Mô tả sản phẩm
-              HtmlSection(html: fullDescription),
-              const SizedBox(height: 80),
-            ],
+      //         // Mua kèm deal tốt
+      //         // const ProductBuyWithDealSection(),
+
+      //         /// Mô tả sản phẩm
+      //         HtmlSection(html: fullDescription),
+      //         const SizedBox(height: 80),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    const ProducBannerCarousel(),
+                    const ProductPromoHeader(),
+                    ProductInfoSection(product: productMock),
+                    const SizedBox(height: 12),
+
+                    // Mã giảm giá section
+                    ProductPromotionSection(product: productMock),
+                    const SizedBox(height: 12),
+
+                    // Mua kèm deal tốt
+                    // const ProductBuyWithDealSection(),
+
+                    /// Mô tả sản phẩm
+                    HtmlSection(html: fullDescription),
+                    const SizedBox(height: 80),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
+          SizedBox(height: 140, child: ProductCartFooter(context)),
+        ],
       ),
     );
   }

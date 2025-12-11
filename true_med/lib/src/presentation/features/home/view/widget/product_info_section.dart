@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../domain/entities/product_entity.dart';
 import '../../model/product_mock.dart';
+import '../price_profit_row.dart';
 import 'product_detail/product_price_row.dart';
 import 'product_price_feed_back_section.dart';
 import 'product_title.dart';
@@ -71,8 +72,12 @@ class _ProductInfoSectionState extends State<ProductInfoSection> {
           oldPrice: widget.product.oldPrice?.toDouble(),
           //badgeIcon: 'assets/icons/badge_discount_orange.png',
         ),
-
+        const SizedBox(height: 4),
+        const ProfitPriceWidget(),
+        const SizedBox(height: 4),
         PriceFeedbackSection(unitPrice: "12,710 đ"),
+
+        //const SizedBox(height: 12),
         const SizedBox(height: 12),
       ],
     );
