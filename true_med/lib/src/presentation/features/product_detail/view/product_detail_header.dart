@@ -162,7 +162,7 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
             right: 0,
             bottom: 0,
             child: Container(
-              padding: EdgeInsets.only(bottom: safeBottom),
+              padding: EdgeInsets.only(bottom: 0),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
