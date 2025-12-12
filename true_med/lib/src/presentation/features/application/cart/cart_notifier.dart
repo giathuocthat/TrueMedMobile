@@ -58,4 +58,33 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   void remove(ProductResponseEntity product) => setQuantity(product, 0);
+
+  void toggleItem(int productId) {
+    final selected = Set<int>.from(state.selectedIds);
+
+    if (selected.contains(productId)) {
+      selected.remove(productId);
+    } else {
+      selected.add(productId);
+    }
+
+    state = state.copyWith(selectedIds: selected);
+  }
+
+  void toggleSelectAll() {
+    final allIds = state.items.map((e) => e.product.id).toSet();
+
+    final isAllSelected = state.selectedIds.length == allIds.length;
+
+    state = state.copyWith(selectedIds: isAllSelected ? {} : allIds);
+  }
+
+  bool isSelected(int productId) {
+    return state.selectedIds.contains(productId);
+  }
+
+  bool get isAllSelected {
+    return state.items.isNotEmpty &&
+        state.selectedIds.length == state.items.length;
+  }
 }

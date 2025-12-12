@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../domain/entities/cart_entity.dart';
@@ -11,32 +13,11 @@ part 'cart_state.freezed.dart';
 abstract class CartState with _$CartState {
   const factory CartState({
     @Default(<CartItemEntity>[]) List<CartItemEntity> items,
+    //@Default(<int>[]) List<int> selectedIds,
+    @Default(<int>{}) Set<int> selectedIds,
   }) = _CartState;
 
   const CartState._();
-
-  // int quantityFor(int productId) {
-  //   return items
-  //       .firstWhere(
-  //         (e) => e.product.id == productId,
-  //         // orElse: () => CartItemEntity(
-  //         //   product: ProductResponseEntity.empty(), // hoặc xử lý khác
-  //         //   quantity: 0,
-  //         // ),
-  //       )
-  //       .quantity;
-  // }
-
-  // int quantityOf(int productId) {
-  //   final item = items.firstWhere(
-  //     (e) => e.product?.id == productId,
-  //     orElse: () => const CartItemEntity(
-  //       product: null, // hoặc tạo CartItemEntity? nullable
-  //       quantity: 0,
-  //     ),
-  //   );
-  //   return item.quantity;
-  // }
 
   int quantityOf(int productId) {
     final list = items.where((e) => e.product?.id == productId);

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/string.dart';
 import '../../../../domain/entities/product_entity.dart';
+import '../../../../shared/widget/circle_check_box.dart';
 import '../../../../shared/widget/price_section.dart';
 import '../../../../shared/widget/quantity_selector.dart';
+import '../../application/cart/riverpod/cart_provider.dart';
 import '../../home/model/product_mock.dart';
 import '../../home/view/widget/product_footer.dart';
 
-class CartProductItem extends StatelessWidget {
+class CartProductItem extends ConsumerWidget {
   final ProductResponseEntity product;
   final bool checked;
   final int quantity;
@@ -27,7 +30,7 @@ class CartProductItem extends StatelessWidget {
   //sbool get isOutOfStock => product.stock <= 0;
   bool get isOutOfStock => false == 0;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final productVariants = product.productVariants?.firstOrNull;
 
     final percentPrice =
@@ -48,33 +51,45 @@ class CartProductItem extends StatelessWidget {
             children: [
               // ---------- CHECKBOX (ẩn khi hết hàng) ----------
               if (!isOutOfStock)
-                GestureDetector(
-                  onTap: onToggle,
-                  child: Icon(
-                    checked ? Icons.check_box : Icons.check_box_outline_blank,
-                    color: checked ? Colors.green : Colors.grey.shade400,
+                CircleCheckBox(
+                  isChecked: ref.watch(
+                    cartProvider.select(
+                      (state) => state.selectedIds.contains(product.id),
+                    ),
                   ),
+                  onTap: () {
+                    ref.read(cartProvider.notifier).toggleItem(product.id);
+                  },
                 )
               else
                 const SizedBox(width: 24),
-
+              const SizedBox(width: 8),
               // ---------- IMAGE + OUT OF STOCK OVERLAY ----------
               Stack(
                 children: [
                   // Ảnh sản phẩm mờ nếu hết hàng
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Opacity(
-                      opacity: isOutOfStock ? 0.35 : 1.0,
-                      child: Image.network(
-                        product.thumbnailUrl ?? '',
-                        width: 70,
-                        height: 70,
-                        fit: BoxFit.cover,
+                  Container(
+                    width: 80,
+                    height: 80,
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: const Color(0xFFE6E6E6)),
+                    ),
+                    child: ClipRRect(
+                      //borderRadius: BorderRadius.circular(8),
+                      child: Opacity(
+                        opacity: isOutOfStock ? 0.35 : 1.0,
+                        child: Image.network(
+                          product.thumbnailUrl ?? '',
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-
                   // Overlay “Hết hàng”
                   if (isOutOfStock)
                     Container(
