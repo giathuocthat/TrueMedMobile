@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/product_entity.dart';
-import 'money_section.dart';
 import 'product_cart_section.dart';
-import 'promotion_section.dart';
 
 Widget ProductCartFooter(
   BuildContext context, {

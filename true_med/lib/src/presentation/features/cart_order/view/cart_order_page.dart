@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/app_localization.dart';
-import '../../../../shared/widget/price_row.dart';
 import '../../../../shared/widget/payment_footer.dart';
-import '../../../core/application_state/logout_provider/logout_provider.dart';
-import '../../../core/router/routes.dart';
-import '../../../core/widgets/loading_indicator.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
-import '../../home/model/product_mock.dart';
-import '../../home/view/widget/product_card.dart';
 import '../model/cart_oder_mock.dart';
 import 'cart_product_item.dart';
 import 'cart_product_item_swipe.dart';
-import 'cart_shop_header.dart';
-import 'cart_shop_voucher_section.dart';
-import 'total_discount_section.dart';
 
 class CartOrderPage extends ConsumerStatefulWidget {
   const CartOrderPage({super.key});

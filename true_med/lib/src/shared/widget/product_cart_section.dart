@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/product_entity.dart';
 import '../../domain/entities/product_variants_entity.dart';
+import '../../presentation/features/application/cart/riverpod/cart_provider.dart';
 import 'quantity_detail_selector.dart';
 
-class ProductCartSection extends StatelessWidget {
+class ProductCartSection extends ConsumerWidget {
   final ProductResponseEntity product;
   final ProductVariantsResponseEntity? productVariants;
   final bool isShowQuantitySelector = true;
@@ -16,7 +18,7 @@ class ProductCartSection extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,9 +42,8 @@ class ProductCartSection extends StatelessWidget {
         // Quantity selector
         QuantityDetailSelector(
           product: product,
-          qty: 0,
-          onIncrease: null,
-          onDecrease: null,
+          onIncrease: () => ref.read(cartProvider.notifier).increase(product),
+          onDecrease: () => ref.read(cartProvider.notifier).decrease(product),
         ),
 
         const SizedBox(height: 12),
