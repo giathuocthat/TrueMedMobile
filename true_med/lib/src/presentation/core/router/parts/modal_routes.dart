@@ -48,5 +48,14 @@ List<GoRoute> _modalRoutes(ref) {
         );
       },
     ),
+
+    //product detail
+    GoRoute(
+      path: Routes.paymentCheckout,
+      name: Routes.paymentCheckout,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: PaymentCheckoutPage());
+      },
+    ),
   ];
 }

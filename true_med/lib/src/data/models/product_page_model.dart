@@ -1,7 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-import '../../domain/entities/page_entity.dart';
-import '../../domain/entities/product_entity.dart';
 import '../../domain/entities/product_page_entity.dart';
 import 'page_model.dart';
 import 'product_model.dart';

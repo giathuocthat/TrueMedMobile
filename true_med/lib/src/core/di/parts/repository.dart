@@ -17,6 +17,14 @@ ProductRepository productRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
+PaymentRepository paymentRepository(Ref ref) {
+  return PaymentRepositoryImpl(
+    remote: ref.read(restClientServiceProvider),
+    local: ref.read(cacheServiceProvider),
+  );
+}
+
+@Riverpod(keepAlive: true)
 RouterRepository routerRepository(Ref ref) {
   return RouterRepositoryImpl(cacheService: ref.read(cacheServiceProvider));
 }
