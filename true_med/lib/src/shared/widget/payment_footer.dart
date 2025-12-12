@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/string.dart';
 import 'money_section.dart';
 import 'promotion_section.dart';
 
-Widget PaymentFooter(BuildContext context) {
+Widget PaymentFooter(
+  BuildContext context,
+  double totalMoney,
+  double totalQuantity,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
     decoration: BoxDecoration(
@@ -27,7 +32,15 @@ Widget PaymentFooter(BuildContext context) {
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-          child: Row(children: [const Spacer(), MoneySection()]),
+          child: Row(
+            children: [
+              const Spacer(),
+              MoneySection(
+                totalMoneyFomart: totalMoney.toCurrency(true),
+                totalMoneyDiscountFomart: 0.toCurrency(true),
+              ),
+            ],
+          ),
         ),
       ],
     ),

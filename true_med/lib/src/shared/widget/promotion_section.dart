@@ -1,60 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PromotionSection extends StatelessWidget {
+import '../../presentation/features/application/cart/riverpod/cart_provider.dart';
+
+class PromotionSection extends ConsumerWidget {
   const PromotionSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ref.watch(
+    //                 cartProvider.select(
+    //                   (state) => state.selectedIds.contains(product.id),
+    //                 ),
+    //               ),
+
+    final totalCartChecked = ref.watch(
+      cartProvider.select((s) => s.totalCartChecked),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
+        Row(
           children: [
-            Text(
+            const Text(
               "Số lượng sản phẩm",
               style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
             ),
 
-            Spacer(),
+            const Spacer(),
 
             Text(
-              "3",
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              "$totalCartChecked",
+              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
             ),
           ],
         ),
         const SizedBox(height: 6),
+
         // --- TITLE ROW: Icon + "Khuyến mãi" + vouchers tags ---
-        Row(
-          children: [
-            const Icon(
-              Icons.confirmation_number,
-              color: Color(0xFFE88939),
-              size: 24,
-            ),
+        // Row(
+        //   children: [
+        //     const Icon(
+        //       Icons.confirmation_number,
+        //       color: Color(0xFFE88939),
+        //       size: 24,
+        //     ),
 
-            const SizedBox(width: 8),
+        //     const SizedBox(width: 8),
 
-            const Text(
-              "Khuyến mãi",
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-            ),
+        //     const Text(
+        //       "Khuyến mãi",
+        //       style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+        //     ),
 
-            const Spacer(),
+        //     const Spacer(),
 
-            _voucherTag("30.000đ"),
-            const SizedBox(width: 6),
-            _voucherTag("22.600đ"),
+        //     _voucherTag("30.000đ"),
+        //     const SizedBox(width: 6),
+        //     _voucherTag("22.600đ"),
 
-            const SizedBox(width: 6),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 18,
-              color: Color(0xFF3F5FFF),
-            ),
-          ],
-        ),
-
+        //     const SizedBox(width: 6),
+        //     const Icon(
+        //       Icons.arrow_forward_ios,
+        //       size: 18,
+        //       color: Color(0xFF3F5FFF),
+        //     ),
+        //   ],
+        // ),
         const SizedBox(height: 12),
 
         // --- LOWER BOX: cảnh báo mua thêm ---

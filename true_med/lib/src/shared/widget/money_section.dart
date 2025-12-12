@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/string.dart';
 import 'price_row.dart';
 
-Widget MoneySection({VoidCallback? onCheckout}) {
+Widget MoneySection({
+  VoidCallback? onCheckout,
+  required String totalMoneyFomart,
+  required String totalMoneyDiscountFomart,
+}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          priceRow("Tạm tính:", "123.000đ", 13),
+          priceRow("Tạm tính:", "${totalMoneyFomart}", 13),
           const SizedBox(height: 2),
-          priceRow("Tổng giảm giá:", "10.000đ", 11),
+          priceRow("Tổng giảm giá:", "${totalMoneyDiscountFomart}", 11),
         ],
       ),
       const SizedBox(width: 12),

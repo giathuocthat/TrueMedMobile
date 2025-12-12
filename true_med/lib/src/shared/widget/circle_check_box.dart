@@ -14,6 +14,7 @@ class CircleCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const green = Color(0xFF0B4D2C);
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -23,11 +24,10 @@ class CircleCheckBox extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: isChecked
-              ? Colors
-                    .blue // xanh giống hình
+              ? green // xanh giống hình
               : Colors.transparent,
           border: Border.all(
-            color: isChecked ? Colors.blue : Colors.grey.shade400,
+            color: isChecked ? green : Colors.grey.shade400,
             width: 2,
           ),
         ),

@@ -25,6 +25,9 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
   @override
   Widget build(BuildContext context) {
     final listCard = ref.watch(cartProvider);
+    final moneyTotal = ref.watch(
+      cartProvider.select((s) => s.selectedTotalAmount),
+    );
 
     return Scaffold(
       appBar: PreferredSize(
@@ -80,7 +83,10 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
                   ),
                 ),
 
-                SizedBox(height: 230, child: PaymentFooter(context)),
+                SizedBox(
+                  height: 230,
+                  child: PaymentFooter(context, moneyTotal, 0),
+                ),
               ],
             ),
     );
