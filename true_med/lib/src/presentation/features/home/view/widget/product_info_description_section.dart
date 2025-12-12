@@ -67,14 +67,6 @@ class _ProductPromotionSectionState extends State<ProductPromotionSection> {
             // Handle favorite tap
           },
         ),
-        ProductPriceRow(
-          price: widget.product.price.toDouble(),
-          oldPrice: widget.product.oldPrice?.toDouble(),
-          //badgeIcon: 'assets/icons/badge_discount_orange.png',
-        ),
-
-        PriceFeedbackSection(unitPrice: "12,710 đ"),
-        const SizedBox(height: 12),
       ],
     );
   }

@@ -45,7 +45,6 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
               onNotification: (n) {
                 if (n.metrics.axis == Axis.vertical) {
                   setState(() => offset = n.metrics.pixels);
-                  print('Offset: $offset');
                 }
 
                 return false;
@@ -92,12 +91,6 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
             right: 0,
 
             child: Container(
-              // color: (offset < 120)
-              //     ? Colors
-              //           .transparent // <--- FIX: không có nền khi chưa scroll
-              //     : widget.appBarColor.withOpacity(
-              //         (offset / widget.fadeHeight).clamp(0, 1),
-              //       ),
               color: widget.appBarColor.withOpacity(
                 (offset / widget.fadeHeight).clamp(0, 1),
               ),

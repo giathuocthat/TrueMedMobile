@@ -34,7 +34,7 @@ class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
     const green = Color(0xFF0B4D2C);
 
     return SizedBox(
-      height: 260, // chỉnh theo thiết kế của bạn
+      height: 240, // chỉnh theo thiết kế của bạn
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -59,7 +59,7 @@ class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
                     child: AspectRatio(
                       aspectRatio: 4 / 3,
                       child: Image.network(
-                        widget.listImages[index].imageUrl ?? '',
+                        widget.listImages[index].imageUrl.trim() ?? '',
                         fit: BoxFit.contain,
                       ),
                     ),

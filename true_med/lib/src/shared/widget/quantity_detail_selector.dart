@@ -6,7 +6,7 @@ import 'quantity_controller.dart';
 
 class QuantityDetailSelector extends ConsumerWidget {
   final int qty;
-  //final ProductResponseEntity product;
+  final ProductResponseEntity product;
   final VoidCallback? onIncrease;
   final VoidCallback? onDecrease;
 
@@ -15,7 +15,7 @@ class QuantityDetailSelector extends ConsumerWidget {
     required this.qty,
     this.onIncrease,
     this.onDecrease,
-    //required this.product,
+    required this.product,
   });
 
   @override
@@ -44,16 +44,7 @@ class QuantityDetailSelector extends ConsumerWidget {
           Container(width: 1, color: Colors.deepOrange.shade200),
 
           Expanded(
-            child: Center(
-              child: Text(
-                "$qty",
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              //TextQuantityControl(product: product),
-            ),
+            child: Center(child: TextQuantityControl(product: product)),
           ),
 
           // Divider

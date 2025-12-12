@@ -11,9 +11,7 @@ import 'product_title.dart';
 import 'product_voucher_section.dart';
 
 class ProductPromotionSection extends StatefulWidget {
-  //  final ProductRequestEntity product;
-  final ProductMock product;
-  const ProductPromotionSection({super.key, required this.product});
+  const ProductPromotionSection({super.key});
 
   @override
   State<ProductPromotionSection> createState() =>

@@ -7,9 +7,14 @@ import 'product_detail/product_price_row.dart';
 import 'product_title.dart';
 
 class PriceFeedbackSection extends StatelessWidget {
+  final String slug;
   final String unitPrice;
 
-  const PriceFeedbackSection({super.key, required this.unitPrice});
+  const PriceFeedbackSection({
+    super.key,
+    required this.slug,
+    required this.unitPrice,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +25,9 @@ class PriceFeedbackSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Hộp 10 vĩ, mỗi vĩ 10 Viên Nén",
-          style: TextStyle(
+        Text(
+          slug,
+          style: const TextStyle(
             fontSize: 16,
             color: Color(0xFF3D3D3D),
             fontWeight: FontWeight.w500,
@@ -34,7 +39,7 @@ class PriceFeedbackSection extends StatelessWidget {
             Text(
               "Bạn thấy giá này?",
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 12,
                 color: textColor,
                 fontWeight: FontWeight.w500,
               ),
@@ -47,13 +52,17 @@ class PriceFeedbackSection extends StatelessWidget {
               children: [
                 Icon(
                   Icons.thumb_up_alt_outlined,
-                  size: 15,
+                  size: 14,
                   color: Color.fromARGB(255, 129, 129, 244),
                 ),
                 SizedBox(width: 4),
                 Text(
                   "Hợp lí",
-                  style: TextStyle(fontSize: 15, color: textColor),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: textColor,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),
@@ -63,11 +72,15 @@ class PriceFeedbackSection extends StatelessWidget {
             // 👎 Cao
             Row(
               children: [
-                Icon(Icons.thumb_down_alt_outlined, size: 15, color: iconColor),
+                Icon(Icons.thumb_down_alt_outlined, size: 14, color: iconColor),
                 const SizedBox(width: 4),
                 const Text(
                   "Cao",
-                  style: TextStyle(fontSize: 15, color: textColor),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: textColor,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),
@@ -98,9 +111,9 @@ class PriceFeedbackSection extends StatelessWidget {
             const Text(
               "Giá mua lẻ trên từng viên ",
               style: TextStyle(
-                fontSize: 11,
-                color: Colors.grey,
-                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                color: Colors.black45,
+                fontWeight: FontWeight.w500,
               ),
             ),
 
@@ -109,7 +122,7 @@ class PriceFeedbackSection extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 12,
                 color: priceColor,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

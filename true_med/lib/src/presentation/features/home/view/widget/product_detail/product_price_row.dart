@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class ProductPriceRow extends StatelessWidget {
-  final double price;
-  final double? oldPrice;
+  final String priceFormat;
+  final String? oldPriceFormat;
   final String? badgeIcon; // asset icon màu cam, tùy chọn
 
   const ProductPriceRow({
     super.key,
-    required this.price,
-    this.oldPrice,
+    required this.priceFormat,
+    this.oldPriceFormat,
     this.badgeIcon,
   });
 
@@ -25,9 +23,9 @@ class ProductPriceRow extends StatelessWidget {
         Row(
           children: [
             Text(
-              "${price.toStringAsFixed(0)}đ",
+              "${priceFormat}",
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 15,
                 color: green,
                 fontWeight: FontWeight.w700,
               ),
@@ -55,11 +53,11 @@ class ProductPriceRow extends StatelessWidget {
         const Spacer(),
 
         // Giá cũ (nếu có)
-        if (oldPrice != null)
+        if (oldPriceFormat != null)
           Text(
-            "${oldPrice!.toStringAsFixed(0)}đ",
+            "${oldPriceFormat}",
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 14,
               color: grey,
               decoration: TextDecoration.lineThrough,
               decorationThickness: 2,
