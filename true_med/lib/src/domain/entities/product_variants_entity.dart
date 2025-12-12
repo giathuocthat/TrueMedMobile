@@ -15,8 +15,8 @@ class ProductVariantsResponseEntity extends ProductVariantsEntity {
     this.imageUrl,
     this.isActive,
     this.maxSalesQuantity,
-    required this.inventoryStock,
-    required this.soldQuantity,
+    this.inventoryStock,
+    this.soldQuantity,
   });
 
   final int id;
@@ -27,7 +27,7 @@ class ProductVariantsResponseEntity extends ProductVariantsEntity {
   final double stockQuantity;
   final int? maxSalesQuantity;
   final int? inventoryStock;
-  final int soldQuantity;
+  final int? soldQuantity;
   final int? weight;
   final String? dimensions;
   final String? imageUrl;

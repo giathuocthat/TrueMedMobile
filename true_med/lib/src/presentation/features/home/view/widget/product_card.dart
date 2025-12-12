@@ -206,7 +206,7 @@ class ProductCard extends ConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: SoldProgressBar(
-                            sold: productVariants!.soldQuantity,
+                            sold: productVariants!.soldQuantity ?? 0,
                             total: productVariants!.maxSalesQuantity ?? 0,
                             iSShowSold: true,
                           ),

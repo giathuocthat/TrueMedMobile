@@ -49,4 +49,17 @@ final class ProductRepositoryImpl extends ProductRepository {
       return products; // ProductModel extends ProductEntity
     });
   }
+
+  @override
+  Future<Result<ProductResponseEntity, Failure>> getProductDetail(
+    String id,
+  ) async {
+    return asyncGuard(() async {
+      final response = await remote.getProductDetail(id);
+
+      final products = response.data;
+
+      return products; // ProductModel extends ProductEntity
+    });
+  }
 }

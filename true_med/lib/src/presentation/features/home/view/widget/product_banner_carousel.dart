@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import '../../../../../domain/entities/image_entity.dart';
+import '../../../../../domain/entities/product_entity.dart';
+
 class ProducBannerCarousel extends StatefulWidget {
-  const ProducBannerCarousel({super.key});
+  final List<ImageResponseEntity> listImages;
+  const ProducBannerCarousel({super.key, required this.listImages});
 
   @override
   State<ProducBannerCarousel> createState() => _ProducBannerCarouselState();
@@ -10,15 +14,6 @@ class ProducBannerCarousel extends StatefulWidget {
 
 class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
   final PageController _pageController = PageController();
-  final List<String> _banners = [
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-    'https://medpharco.com/wp-content/uploads/2025/09/modom.png',
-  ];
 
   int _currentIndex = 0;
   Timer? _timer;
@@ -46,7 +41,7 @@ class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
           // ----- BANNER -----
           PageView.builder(
             controller: _pageController,
-            itemCount: _banners.length,
+            itemCount: widget.listImages.length,
             onPageChanged: (index) {
               setState(() => _currentIndex = index);
             },
@@ -64,7 +59,7 @@ class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
                     child: AspectRatio(
                       aspectRatio: 4 / 3,
                       child: Image.network(
-                        _banners[index] ?? '',
+                        widget.listImages[index].imageUrl ?? '',
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -78,7 +73,7 @@ class _ProducBannerCarouselState extends State<ProducBannerCarousel> {
           Positioned(
             bottom: 8,
             child: Row(
-              children: List.generate(_banners.length, (index) {
+              children: List.generate(widget.listImages.length, (index) {
                 final bool isActive = index == _currentIndex;
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 250),

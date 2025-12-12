@@ -58,3 +58,21 @@ final class GetProductStoresUseCase {
     };
   }
 }
+
+final class GetProductDetailUseCase {
+  GetProductDetailUseCase(this.repository);
+
+  final ProductRepository repository;
+
+  Future<Result<ProductResponseEntity, String>> call({
+    required int productId,
+  }) async {
+    final result = await repository.getProductDetail(productId.toString());
+
+    return switch (result) {
+      Success(:final data) => Success(data),
+      Error(:final error) => Error(error.message),
+      _ => const Error('Something went wrong'),
+    };
+  }
+}

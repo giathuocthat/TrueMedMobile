@@ -13,4 +13,6 @@ abstract base class ProductRepository extends Repository {
   Future<Result<ProductPageResponseEntity, Failure>> getProductStores(
     Map<String, dynamic> query,
   );
+
+  Future<Result<ProductResponseEntity, Failure>> getProductDetail(String id);
 }

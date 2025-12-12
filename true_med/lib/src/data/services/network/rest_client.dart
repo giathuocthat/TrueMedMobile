@@ -27,4 +27,9 @@ abstract class RestClient {
   Future<HttpResponse<ProductPageResponseModel>> getProductStores(
     @Queries() Map<String, dynamic> query,
   );
+
+  @GET(Endpoints.productDetail)
+  Future<HttpResponse<ProductResponseModel>> getProductDetail(
+    @Path('id') String id,
+  );
 }
