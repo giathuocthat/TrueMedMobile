@@ -27,15 +27,21 @@ abstract class CartState with _$CartState {
   //       .quantity;
   // }
 
+  // int quantityOf(int productId) {
+  //   final item = items.firstWhere(
+  //     (e) => e.product?.id == productId,
+  //     orElse: () => const CartItemEntity(
+  //       product: null, // hoặc tạo CartItemEntity? nullable
+  //       quantity: 0,
+  //     ),
+  //   );
+  //   return item.quantity;
+  // }
+
   int quantityOf(int productId) {
-    final item = items.firstWhere(
-      (e) => e.product?.id == productId,
-      // orElse: () => const CartItemEntity(
-      //   product: null, // hoặc tạo CartItemEntity? nullable
-      //   quantity: 0,
-      // ),
-    );
-    return item.quantity;
+    final list = items.where((e) => e.product?.id == productId);
+    if (list.isEmpty) return 0;
+    return list.first.quantity;
   }
 
   int get totalQuantity => items.fold<int>(0, (sum, e) => sum + e.quantity);

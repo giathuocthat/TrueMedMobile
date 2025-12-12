@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/app_localization.dart';
 import '../../../../shared/widget/price_row.dart';
-import '../../../../shared/widget/product_card_cart.dart';
 import '../../../../shared/widget/payment_footer.dart';
 import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';

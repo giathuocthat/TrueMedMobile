@@ -232,6 +232,7 @@ class ProductCard extends ConsumerWidget {
             ),
             ProductFooter(
               quantity: 0,
+              product: product,
               onAdd: () => ref.read(cartProvider.notifier).increase(product),
               onRemove: () => ref.read(cartProvider.notifier).decrease(product),
             ),

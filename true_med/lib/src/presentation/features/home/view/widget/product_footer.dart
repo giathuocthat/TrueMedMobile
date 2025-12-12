@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../domain/entities/product_entity.dart';
+import '../../../../../shared/widget/quantity_controller.dart';
+
 class ProductFooter extends StatelessWidget {
   final int quantity;
+  final ProductResponseEntity product;
   final VoidCallback onAdd;
   final VoidCallback onRemove;
 
   const ProductFooter({
     super.key,
+    required this.product,
     required this.quantity,
     required this.onAdd,
     required this.onRemove,
@@ -60,15 +65,16 @@ class ProductFooter extends StatelessWidget {
                           color: Colors.grey.shade600,
                           size: 20,
                         ),
-                        const SizedBox(width: 6),
-                        Text(
-                          "$quantity",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey.shade700,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        // const SizedBox(width: 6),
+                        // Text(
+                        //   "$quantity",
+                        //   style: TextStyle(
+                        //     fontSize: 14,
+                        //     color: Colors.grey.shade700,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+                        TextQuantityControl(product: product),
                       ],
                     ),
                   ),
