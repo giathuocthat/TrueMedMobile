@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../data/models/product_model.dart';
 import '../../../../domain/entities/product_entity.dart';
+import '../../../../shared/widget/icon_with_badge.dart';
 import '../../../../shared/widget/product_cart_footer.dart';
 import '../../../core/application_state/logout_provider/logout_state.dart';
+import '../../../core/router/routes.dart';
+import '../../application/cart/riverpod/cart_provider.dart';
 import '../../home/view/widget/html_section.dart';
 import '../../home/view/widget/product_banner_carousel.dart';
 import '../../home/view/widget/product_info_section.dart';
@@ -34,6 +38,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(productDetailProvider(widget.productId));
+    final qty = ref.watch(cartProvider.select((s) => s.totalQuantity));
     final ProductResponseEntity? productDetail = state.productDetail;
 
     if (state.status == Status.loading) {
@@ -67,13 +72,34 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _floatingBtn(Icons.arrow_back),
+              _floatingBtn(
+                GestureDetector(
+                  onTap: () => context.pop(),
+                  child: const Icon(Icons.arrow_back, color: Colors.white),
+                ),
+              ),
 
               Row(
                 children: [
-                  _floatingBtn(Icons.notifications_none),
+                  _floatingBtn(
+                    Center(
+                      child: IconWithBadge(
+                        icon: Icons.notifications_none,
+                        badge: '3',
+                        onTap: () => context.pushNamed(Routes.notification),
+                      ),
+                    ),
+                  ),
                   const SizedBox(width: 10),
-                  _floatingBtn(Icons.shopping_cart_outlined),
+                  _floatingBtn(
+                    Center(
+                      child: IconWithBadge(
+                        icon: Icons.shopping_cart_outlined,
+                        badge: qty.toString(),
+                        onTap: () => context.pushNamed(Routes.cartOrder),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -110,15 +136,15 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     );
   }
 
-  static Widget _floatingBtn(IconData icon) {
+  static Widget _floatingBtn(Widget child) {
     return Container(
-      width: 38,
-      height: 38,
+      width: 40,
+      height: 40,
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.06),
         shape: BoxShape.circle,
       ),
-      child: Icon(icon, color: Colors.black54),
+      child: child,
     );
   }
 }

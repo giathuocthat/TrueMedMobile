@@ -20,7 +20,7 @@ class IconWithBadge extends StatelessWidget {
           Icon(icon, color: Colors.white, size: 26),
 
           // chỉ render badge nếu có
-          if (badge != null && badge!.isNotEmpty)
+          if (badge != null && badge!.isNotEmpty && badge != '0')
             Positioned(
               right: -6,
               top: -6,

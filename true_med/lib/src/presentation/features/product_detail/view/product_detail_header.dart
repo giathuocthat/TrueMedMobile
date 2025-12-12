@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class ProductDetailHeader extends StatefulWidget {
+import '../../../../shared/widget/icon_with_badge.dart';
+import '../../../core/router/routes.dart';
+import '../../application/cart/riverpod/cart_provider.dart';
+
+class ProductDetailHeader extends ConsumerStatefulWidget {
   //final Widget banner; // Banner ở trên cùng
   final double bannerHeight; // Chiều cao banner
   final List<Widget> body; // Nội dung bên dưới banner
@@ -25,16 +31,18 @@ class ProductDetailHeader extends StatefulWidget {
   });
 
   @override
-  State<ProductDetailHeader> createState() => _ProductDetailHeaderState();
+  ConsumerState<ProductDetailHeader> createState() =>
+      _ProductDetailHeaderState();
 }
 
-class _ProductDetailHeaderState extends State<ProductDetailHeader> {
+class _ProductDetailHeaderState extends ConsumerState<ProductDetailHeader> {
   double offset = 0;
   //final safeTop = MediaQuery.of(context).padding.top;
   @override
   Widget build(BuildContext context) {
     final safeTop = MediaQuery.of(context).padding.top;
     final safeBottom = MediaQuery.of(context).padding.bottom;
+    final qty = ref.watch(cartProvider.select((s) => s.totalQuantity));
 
     return Scaffold(
       body: Stack(
@@ -129,22 +137,27 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 150),
                             opacity: offset > 30 ? 1 : 0,
-                            child: const Padding(
-                              padding: EdgeInsets.only(right: 12),
-                              child: Icon(
-                                Icons.notifications_none,
-                                color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 12),
+                              child: IconWithBadge(
+                                icon: Icons.notifications,
+                                badge: '3',
+                                onTap: () =>
+                                    context.pushNamed(Routes.notification),
                               ),
                             ),
                           ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 150),
                             opacity: offset > 30 ? 1 : 0,
-                            child: const Padding(
-                              padding: EdgeInsets.only(right: 12),
-                              child: Icon(
-                                Icons.shopping_cart_outlined,
-                                color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 12),
+                              child: IconWithBadge(
+                                icon: Icons.shopping_cart,
+                                badge: '$qty',
+
+                                onTap: () =>
+                                    context.pushNamed(Routes.cartOrder),
                               ),
                             ),
                           ),
