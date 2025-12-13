@@ -106,6 +106,22 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
+            // Grid sản phẩm
+            SliverPadding(
+              padding: const EdgeInsets.all(12),
+              sliver: SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: ratio,
+                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return ProductCard(product: products[index]);
+                }, childCount: products.length),
+              ),
+            ),
+
             // “Sản phẩm mới 1”
             SliverToBoxAdapter(
               child: Padding(
@@ -155,21 +171,6 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
 
-            // Grid sản phẩm
-            SliverPadding(
-              padding: const EdgeInsets.all(12),
-              sliver: SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: ratio,
-                ),
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return ProductCard(product: products[index]);
-                }, childCount: products.length),
-              ),
-            ),
             // // Banner
             // SliverToBoxAdapter(child: ShortcutSection()),
 

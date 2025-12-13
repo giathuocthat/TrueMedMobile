@@ -10,6 +10,7 @@
     "search": "Search",
     "profile": "Profile",
     "login": "Login",
+    "payment": "Payment",
     "createNewPassword": "Create New password",
     "createNewPasswordHint": "Your new password must be different from previous used passwords.",
     "resetPassword": "Reset Password",

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/extensions/string.dart';
-import '../../presentation/core/router/routes.dart';
-import 'money_section.dart';
-import 'promotion_section.dart';
+import '../../../../../core/extensions/string.dart';
+import '../../../../core/router/routes.dart';
+import '../../../../../shared/widget/money_section.dart';
+import 'money_section_checkout.dart';
 
-Widget PaymentFooter(
+Widget PaymentCheckOutFooter(
   BuildContext context,
   double totalMoney,
   double totalMoneyDiscount,
@@ -26,18 +26,12 @@ Widget PaymentFooter(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-          child: PromotionSection(),
-        ),
-        Divider(height: 20, thickness: 1, color: Colors.grey.shade300),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           child: Row(
             children: [
               const Spacer(),
-              MoneySection(
+              MoneySectionCheckout(
                 totalMoneyFomart: totalMoney.toCurrency(true),
                 totalMoneyDiscountFomart: totalMoneyDiscount.toCurrency(true),
                 onCheckout: () => context.pushNamed(Routes.paymentCheckout),

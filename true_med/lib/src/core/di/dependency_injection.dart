@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/repositories/authentication_repository_impl.dart';
 import '../../data/repositories/locale_repository_impl.dart';
+import '../../data/repositories/payment_repository_impl.dart';
 import '../../data/repositories/product_repository_impl.dart';
 import '../../data/repositories/router_repository_impl.dart';
 import '../../data/services/cache/cache_service.dart';
@@ -18,6 +19,7 @@ import '../../data/services/network/interceptor/token_manager.dart';
 import '../../data/services/network/rest_client.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../../domain/repositories/locale_repository.dart';
+import '../../domain/repositories/payment_repository.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../../domain/repositories/router_repository.dart';
 import '../../domain/use_cases/authentication_use_case.dart';

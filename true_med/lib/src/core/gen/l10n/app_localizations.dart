@@ -140,6 +140,12 @@ abstract class AppLocalizations {
   /// **'Cart'**
   String get cart;
 
+  /// No description provided for @paymentPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get paymentPage;
+
   /// No description provided for @detail.
   ///
   /// In en, this message translates to:

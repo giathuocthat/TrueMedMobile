@@ -30,6 +30,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cart => 'Giỏ hàng';
 
   @override
+  String get paymentPage => 'Thanh toán';
+
+  @override
   String get detail => 'Chi tiết sản phẩm';
 
   @override
