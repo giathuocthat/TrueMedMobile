@@ -8,8 +8,12 @@ import '../../application/cart/riverpod/cart_provider.dart';
 import '../../cart_order/view/cart_product_item.dart';
 import '../../cart_order/view/cart_product_item_swipe.dart';
 import 'widget/delivery_info_card.dart';
+import 'widget/delivery_method_card.dart';
+import 'widget/invoice_info_section.dart';
 import 'widget/order_product_section.dart';
+import 'widget/order_summary_section.dart';
 import 'widget/payment_checkout_footer.dart';
+import 'widget/payment_method_card.dart';
 
 class PaymentCheckoutPage extends ConsumerStatefulWidget {
   const PaymentCheckoutPage({super.key});
@@ -39,46 +43,35 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 12),
-          Divider(height: 1, color: Colors.grey.shade300),
-          const DeliveryInfoCard(),
-          const SizedBox(height: 12),
-          Divider(height: 1, color: Colors.grey.shade300),
-          OrderProductSection(),
-          const SizedBox(height: 12),
-          Divider(height: 1, color: Colors.grey.shade300),
-
           Expanded(
-            child: ListView.builder(
-              itemCount: listCard.items.length,
-              itemBuilder: (context, index) {
-                final item = listCard.items[index];
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // const SizedBox(height: 12),
+                  Divider(height: 1, color: Colors.grey.shade300),
+                  const DeliveryInfoCard(),
+                  const SizedBox(height: 12),
+                  Divider(height: 1, color: Colors.grey.shade300),
+                  const OrderProductSection(),
+                  const SizedBox(height: 12),
+                  Divider(height: 1, color: Colors.grey.shade300),
+                  const DeliveryMethodCard(),
+                  const SizedBox(height: 12),
+                  Divider(height: 1, color: Colors.grey.shade300),
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CartProductItemWithSwipe(
-                      product: item.product,
-                      onDelete: () {
-                        ref.read(cartProvider.notifier).remove(item.product);
-                      },
-                      child: CartProductItem(
-                        product: item.product,
-                        quantity: item.quantity,
-                        onDecrease: () => ref
-                            .read(cartProvider.notifier)
-                            .decrease(item.product),
-                        onIncrease: () => ref
-                            .read(cartProvider.notifier)
-                            .increase(item.product),
-                      ),
-                    ),
+                  const PaymentMethodCard(),
+                  const SizedBox(height: 12),
+                  Divider(height: 1, color: Colors.grey.shade300),
 
-                    Divider(height: 1, color: Colors.grey.shade300),
-                    //const SizedBox(height: 12),
-                  ],
-                );
-              },
+                  const InvoiceInfoSection(),
+                  const SizedBox(height: 12),
+                  Divider(height: 1, color: Colors.grey.shade300),
+
+                  const OrderSummarySection(),
+                  const SizedBox(height: 16),
+                  Divider(height: 1, color: Colors.grey.shade300),
+                ],
+              ),
             ),
           ),
           ////

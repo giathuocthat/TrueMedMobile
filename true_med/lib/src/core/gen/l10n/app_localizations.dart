@@ -140,12 +140,6 @@ abstract class AppLocalizations {
   /// **'Cart'**
   String get cart;
 
-  /// No description provided for @paymentPage.
-  ///
-  /// In en, this message translates to:
-  /// **'Payment'**
-  String get paymentPage;
-
   /// No description provided for @detail.
   ///
   /// In en, this message translates to:
@@ -169,6 +163,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login'**
   String get login;
+
+  /// No description provided for @payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
 
   /// No description provided for @createNewPassword.
   ///

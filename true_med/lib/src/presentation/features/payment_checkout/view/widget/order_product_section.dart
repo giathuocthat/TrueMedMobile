@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/widgets/app_sheet.dart';
+import '../../../../core/widgets/app_sheet/app_sheet.dart';
 import '../../../home/model/product_mock.dart';
 import 'dashed_divider.dart';
 import 'product_list_sheet.dart';

@@ -10,7 +10,7 @@
     "search": "Tìm kiếm",
     "profile": "Thông tin",
     "login": "Login",
-    "payment": "Payment"
+    "payment": "Payment",
     "createNewPassword": "Create New password",
     "createNewPasswordHint": "Your new password must be different from previous used passwords.",
     "resetPassword": "Reset Password",

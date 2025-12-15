@@ -30,9 +30,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cart => 'Cart';
 
   @override
-  String get paymentPage => 'Payment';
-
-  @override
   String get detail => 'Detail';
 
   @override
@@ -43,6 +40,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login => 'Login';
+
+  @override
+  String get payment => 'Payment';
 
   @override
   String get createNewPassword => 'Create New password';

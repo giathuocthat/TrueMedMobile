@@ -30,9 +30,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cart => 'Giỏ hàng';
 
   @override
-  String get paymentPage => 'Thanh toán';
-
-  @override
   String get detail => 'Chi tiết sản phẩm';
 
   @override
@@ -43,6 +40,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get login => 'Login';
+
+  @override
+  String get payment => 'Payment';
 
   @override
   String get createNewPassword => 'Create New password';

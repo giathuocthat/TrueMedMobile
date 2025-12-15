@@ -20,7 +20,7 @@ class DeliveryInfoCard extends StatelessWidget {
             children: [
               const Text(
                 'Thông tin giao hàng',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               ),
               TextButton(
                 onPressed: () {
@@ -29,7 +29,7 @@ class DeliveryInfoCard extends StatelessWidget {
                 child: const Text(
                   'Sửa',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     color: Color(0xFF1B5E20),
                     fontWeight: FontWeight.w500,
                   ),
@@ -38,7 +38,7 @@ class DeliveryInfoCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
 
           // ---------- NAME ----------
           const _InfoRow(
@@ -104,7 +104,7 @@ class _InfoRow extends StatelessWidget {
             text,
             maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 16, color: textColor, height: 1.4),
+            style: TextStyle(fontSize: 11, color: textColor, height: 1.4),
           ),
         ),
       ],
