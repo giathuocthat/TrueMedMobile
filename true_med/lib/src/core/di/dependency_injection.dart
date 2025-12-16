@@ -24,6 +24,7 @@ import '../../domain/repositories/locale_repository.dart';
 import '../../domain/repositories/payment_repository.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../../domain/repositories/router_repository.dart';
+import '../../domain/use_cases/address_use_case.dart';
 import '../../domain/use_cases/authentication_use_case.dart';
 import '../../domain/use_cases/locale_use_case.dart';
 import '../../domain/use_cases/product_use_case.dart';

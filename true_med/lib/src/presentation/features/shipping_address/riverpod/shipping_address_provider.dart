@@ -13,7 +13,7 @@ class ShippingAddress extends _$ShippingAddress {
 
   @override
   ShippingAddressState build(int productId) {
-    _getProductDetailUseCase = ref.read(getProductDetailUseCaseProvider);
+    //_getProductDetailUseCase = ref.read(getProductDetailUseCaseProvider);
     //return const ProductDetailState();
     // set initial state là loading
     final initialState = ShippingAddressState(status: Status.loading);

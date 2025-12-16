@@ -69,3 +69,18 @@ GetProductStoresUseCase getProductStoresUseCase(Ref ref) {
 GetProductDetailUseCase getProductDetailUseCase(Ref ref) {
   return GetProductDetailUseCase(ref.read(productRepositoryProvider));
 }
+
+@riverpod
+GetProvinceAllUseCase getProvinceAllUseCase(Ref ref) {
+  return GetProvinceAllUseCase(ref.read(addressRepositoryProvider));
+}
+
+@riverpod
+GetProvinceDetailUseCase getProvinceDetailUseCase(Ref ref) {
+  return GetProvinceDetailUseCase(ref.read(addressRepositoryProvider));
+}
+
+@riverpod
+GetWardDetailUseCase getWardDetailUseCase(Ref ref) {
+  return GetWardDetailUseCase(ref.read(addressRepositoryProvider));
+}

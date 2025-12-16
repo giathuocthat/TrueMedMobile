@@ -5,6 +5,7 @@ import '../../models/page_model.dart';
 import '../../models/pagination_model.dart';
 import '../../models/product_model.dart';
 import '../../models/product_page_model.dart';
+import '../../models/province_detail_model.dart';
 import '../../models/province_model.dart';
 import 'endpoints.dart';
 
@@ -34,7 +35,7 @@ abstract class RestClient {
   Future<HttpResponse<List<ProvinceResponseModel>>> getProvinces();
 
   @GET(Endpoints.provinceDetail)
-  Future<HttpResponse<List<ProvinceResponseModel>>> getProvinceDetail(
+  Future<HttpResponse<ProvinceDetailResponseModel>> getProvinceDetail(
     @Path('id') String id,
   );
 

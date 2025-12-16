@@ -11,7 +11,9 @@ class ProvinceResponseModel extends ProvinceResponseEntity
     required super.name,
     required super.code,
     required super.countryId,
-  });
+  }) : super() {
+    normalizedName = removeVietnameseDiacritics(name).toLowerCase();
+  }
 
   static const fromJson = ProvinceResponseModelMapper.fromJson;
 }

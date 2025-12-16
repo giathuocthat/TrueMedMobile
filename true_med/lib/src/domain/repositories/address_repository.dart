@@ -5,12 +5,13 @@ import '../../data/models/province_model.dart';
 import '../entities/page_entity.dart';
 import '../entities/product_entity.dart';
 import '../entities/product_page_entity.dart';
+import '../entities/province_detail_entity .dart';
 import '../entities/province_entity.dart';
 
 abstract base class AddressRepository extends Repository {
   Future<Result<List<ProvinceResponseEntity>, Failure>> getProvinceAll();
 
-  Future<Result<List<ProvinceResponseEntity>, Failure>> getProvinceDetail(
+  Future<Result<ProvinceDetailResponseEntity, Failure>> getProvinceDetail(
     String id,
   );
 

@@ -1,4 +1,5 @@
 import '../../core/base/result.dart';
+import '../entities/province_detail_entity .dart';
 import '../entities/province_entity.dart';
 import '../repositories/address_repository.dart';
 
@@ -7,9 +8,7 @@ final class GetProvinceAllUseCase {
 
   final AddressRepository repository;
 
-  Future<Result<List<ProvinceResponseEntity>, String>> call({
-    required int productId,
-  }) async {
+  Future<Result<List<ProvinceResponseEntity>, String>> call() async {
     final result = await repository.getProvinceAll();
 
     return switch (result) {
@@ -25,7 +24,7 @@ final class GetProvinceDetailUseCase {
 
   final AddressRepository repository;
 
-  Future<Result<List<ProvinceResponseEntity>, String>> call({
+  Future<Result<ProvinceDetailResponseEntity, String>> call({
     required int proviceId,
   }) async {
     final result = await repository.getProvinceDetail(proviceId.toString());
@@ -44,7 +43,7 @@ final class GetWardDetailUseCase {
   final AddressRepository repository;
 
   Future<Result<List<ProvinceResponseEntity>, String>> call({
-    required String wardId,
+    required int wardId,
   }) async {
     final result = await repository.getWardDetail(wardId.toString());
 

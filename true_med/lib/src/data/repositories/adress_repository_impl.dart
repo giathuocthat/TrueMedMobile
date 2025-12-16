@@ -2,6 +2,7 @@ import '../../core/base/failure.dart';
 import '../../core/base/result.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/entities/product_page_entity.dart';
+import '../../domain/entities/province_detail_entity .dart';
 import '../../domain/entities/province_entity.dart';
 import '../../domain/repositories/address_repository.dart';
 import '../models/province_model.dart';
@@ -25,7 +26,7 @@ final class AddressRepositoryImpl extends AddressRepository {
   }
 
   @override
-  Future<Result<List<ProvinceResponseEntity>, Failure>> getProvinceDetail(
+  Future<Result<ProvinceDetailResponseEntity, Failure>> getProvinceDetail(
     String id,
   ) {
     return asyncGuard(() async {
