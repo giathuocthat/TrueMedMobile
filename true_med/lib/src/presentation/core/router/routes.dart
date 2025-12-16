@@ -16,6 +16,9 @@ class Routes {
   static const String productDetail = '/product-detail/:productId';
 
   static const String paymentCheckout = '/payment-checkout';
+  static const String shippingAddress = '/shipping-address/:addressId';
+  static const String createShippingAddress = '/create-shipping-address';
+  static const String editShippingAddress = '/edit-shipping-address/:addressId';
 
   static const String cartOrder = '/cart-order';
   static const String notification = '/notification';

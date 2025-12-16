@@ -45,6 +45,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get payment => 'Payment';
 
   @override
+  String get address => 'Chọn địa chỉ nhận hàng';
+
+  @override
+  String get editAddress => 'Sửa địa chỉ nhận hàng';
+
+  @override
+  String get addAddress => 'Thêm địa chỉ nhận hàng';
+
+  @override
   String get createNewPassword => 'Create New password';
 
   @override

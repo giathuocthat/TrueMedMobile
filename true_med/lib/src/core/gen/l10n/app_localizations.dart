@@ -170,6 +170,24 @@ abstract class AppLocalizations {
   /// **'Payment'**
   String get payment;
 
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose adress delivery'**
+  String get address;
+
+  /// No description provided for @editAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit address'**
+  String get editAddress;
+
+  /// No description provided for @addAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new address'**
+  String get addAddress;
+
   /// No description provided for @createNewPassword.
   ///
   /// In en, this message translates to:

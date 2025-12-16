@@ -57,5 +57,40 @@ List<GoRoute> _modalRoutes(ref) {
         return const MaterialPage(child: PaymentCheckoutPage());
       },
     ),
+
+    //shipping address
+    GoRoute(
+      path: Routes.shippingAddress,
+      name: Routes.shippingAddress,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: ShippingAddressPage(
+            addressId: int.parse(state.pathParameters['addressId']!),
+          ),
+        );
+      },
+    ),
+
+    //edit shipping address
+    GoRoute(
+      path: Routes.editShippingAddress,
+      name: Routes.editShippingAddress,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: EditShippingAddressPage(
+            addressId: int.parse(state.pathParameters['addressId']!),
+          ),
+        );
+      },
+    ),
+
+    //edit shipping address
+    GoRoute(
+      path: Routes.createShippingAddress,
+      name: Routes.createShippingAddress,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: EditShippingAddressPage());
+      },
+    ),
   ];
 }

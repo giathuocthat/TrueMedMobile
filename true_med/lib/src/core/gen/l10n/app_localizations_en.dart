@@ -45,6 +45,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get payment => 'Payment';
 
   @override
+  String get address => 'Choose adress delivery';
+
+  @override
+  String get editAddress => 'Edit address';
+
+  @override
+  String get addAddress => 'Add new address';
+
+  @override
   String get createNewPassword => 'Create New password';
 
   @override

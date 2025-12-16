@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/app_localization.dart';
-import '../../../../shared/widget/payment_footer.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
-import '../../cart_order/view/cart_product_item.dart';
-import '../../cart_order/view/cart_product_item_swipe.dart';
 import 'widget/delivery_info_card.dart';
 import 'widget/delivery_method_card.dart';
 import 'widget/invoice_info_section.dart';
@@ -35,11 +32,17 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
     final moneyTotal = ref.watch(
       cartProvider.select((s) => s.selectedTotalAmount),
     );
+    final totalItems = ref.watch(
+      cartProvider.select((s) => s.selectedTotalQuantity),
+    );
+    final listProducts = ref.watch(
+      cartProvider.select((s) => s.checkOutSelectItems),
+    );
 
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: PageHeader(title: 'Thanh toán', showBack: true),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: PageHeader(title: context.locale.payment, showBack: true),
       ),
       body: Column(
         children: [
@@ -52,7 +55,10 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
                   const DeliveryInfoCard(),
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
-                  const OrderProductSection(),
+                  OrderProductSection(
+                    listProducts: listProducts,
+                    itemCheckouts: totalItems,
+                  ),
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
                   const DeliveryMethodCard(),

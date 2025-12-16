@@ -41,4 +41,12 @@ abstract class CartState with _$CartState {
         (sum, e) =>
             sum + (e.product.productVariants?[0].price ?? 0) * e.quantity,
       );
+
+  List<CartItemEntity> get checkOutSelectItems {
+    return items.where((e) => selectedIds.contains(e.product.id)).toList();
+  }
+
+  int get selectedTotalQuantityCheckout => items
+      .where((e) => selectedIds.contains(e.product.id))
+      .fold<int>(0, (sum, e) => sum + e.quantity);
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/router/routes.dart';
 
 class DeliveryInfoCard extends StatelessWidget {
   const DeliveryInfoCard({super.key});
@@ -24,7 +27,10 @@ class DeliveryInfoCard extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // TODO: handle edit
+                  context.pushNamed(
+                    Routes.shippingAddress,
+                    pathParameters: {'addressId': 2.toString()},
+                  );
                 },
                 child: const Text(
                   'Sửa',

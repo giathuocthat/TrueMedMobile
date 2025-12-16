@@ -40,7 +40,10 @@ Widget PaymentFooter(
               MoneySection(
                 totalMoneyFomart: totalMoney.toCurrency(true),
                 totalMoneyDiscountFomart: totalMoneyDiscount.toCurrency(true),
-                onCheckout: () => context.pushNamed(Routes.paymentCheckout),
+                onCheckout: () {
+                  //context.pushNamed(AppRoute.paymentCheckout.name);
+                  context.pushNamed(Routes.paymentCheckout);
+                },
               ),
             ],
           ),
