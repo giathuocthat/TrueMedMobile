@@ -2,7 +2,9 @@ import '../../core/base/failure.dart';
 import '../../core/base/result.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/entities/product_page_entity.dart';
+import '../../domain/entities/province_entity.dart';
 import '../../domain/repositories/address_repository.dart';
+import '../models/province_model.dart';
 import '../services/cache/cache_service.dart';
 import '../services/network/rest_client.dart';
 
@@ -13,52 +15,36 @@ final class AddressRepositoryImpl extends AddressRepository {
   final CacheService local;
 
   @override
-  Future<Result<List<ProductResponseEntity>, Failure>> getProducts() async {
+  Future<Result<List<ProvinceResponseEntity>, Failure>> getProvinceAll() {
     return asyncGuard(() async {
-      final response = await remote.getProducts();
+      final response = await remote.getProvinces();
 
-      // response.data is List<ProductModel>
-      final products = response.data;
-      return products; // ProductModel extends ProductEntity
-    });
-  }
-
-  // LOCTB Hard Code
-  @override
-  Future<Result<List<ProductResponseEntity>, Failure>> get2Products() async {
-    return asyncGuard(() async {
-      final response = await remote.getProducts();
-
-      // response.data is List<ProductModel>
-      final products = response.data;
-
-      return products; // ProductModel extends ProductEntity
+      final provinces = response.data;
+      return provinces;
     });
   }
 
   @override
-  Future<Result<ProductPageResponseEntity, Failure>> getProductStores(
-    Map<String, dynamic> query,
-  ) async {
-    return asyncGuard(() async {
-      final response = await remote.getProductStores(query);
-
-      final products = response.data;
-
-      return products; // ProductModel extends ProductEntity
-    });
-  }
-
-  @override
-  Future<Result<ProductResponseEntity, Failure>> getProductDetail(
+  Future<Result<List<ProvinceResponseEntity>, Failure>> getProvinceDetail(
     String id,
-  ) async {
+  ) {
     return asyncGuard(() async {
-      final response = await remote.getProductDetail(id);
+      final response = await remote.getProvinceDetail(id);
 
-      final products = response.data;
+      final provinces = response.data;
+      return provinces;
+    });
+  }
 
-      return products; // ProductModel extends ProductEntity
+  @override
+  Future<Result<List<ProvinceResponseEntity>, Failure>> getWardDetail(
+    String id,
+  ) {
+    return asyncGuard(() async {
+      final response = await remote.getWardDetail(id);
+
+      final provinces = response.data;
+      return provinces;
     });
   }
 }

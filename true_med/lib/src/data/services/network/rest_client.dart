@@ -5,6 +5,7 @@ import '../../models/page_model.dart';
 import '../../models/pagination_model.dart';
 import '../../models/product_model.dart';
 import '../../models/product_page_model.dart';
+import '../../models/province_model.dart';
 import 'endpoints.dart';
 
 part 'rest_client.g.dart';
@@ -17,9 +18,6 @@ abstract class RestClient {
   @POST(Endpoints.login)
   Future<HttpResponse> login(@Body() Map<String, dynamic> request);
 
-  // @GET(Endpoints.products)
-  // Future<HttpResponse> getProducts();
-
   @GET(Endpoints.products)
   Future<HttpResponse<List<ProductResponseModel>>> getProducts();
 
@@ -30,6 +28,18 @@ abstract class RestClient {
 
   @GET(Endpoints.productDetail)
   Future<HttpResponse<ProductResponseModel>> getProductDetail(
+    @Path('id') String id,
+  );
+  @GET(Endpoints.provinceAll)
+  Future<HttpResponse<List<ProvinceResponseModel>>> getProvinces();
+
+  @GET(Endpoints.provinceDetail)
+  Future<HttpResponse<List<ProvinceResponseModel>>> getProvinceDetail(
+    @Path('id') String id,
+  );
+
+  @GET(Endpoints.wardDetail)
+  Future<HttpResponse<List<ProvinceResponseModel>>> getWardDetail(
     @Path('id') String id,
   );
 }

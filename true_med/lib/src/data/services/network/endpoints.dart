@@ -20,4 +20,9 @@ class Endpoints {
 
   // Product
   static const String productDetail = '/product/{id}';
+
+  // Province
+  static const String provinceAll = '/province';
+  static const String provinceDetail = '/province/{id}';
+  static const String wardDetail = '/ward/{id}';
 }

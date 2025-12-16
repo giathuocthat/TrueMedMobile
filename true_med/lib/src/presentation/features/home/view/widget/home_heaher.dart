@@ -62,7 +62,9 @@ class HomeHeader extends ConsumerWidget {
           IconWithBadge(
             icon: Icons.notifications,
             badge: '3',
-            onTap: () => context.pushNamed(Routes.notification),
+            //LOCTB Hard Code
+            //onTap: () => context.pushNamed(Routes.notification),
+            onTap: () => context.pushNamed(Routes.createShippingAddress),
           ),
 
           const SizedBox(width: 16),
