@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../data/models/address_shipping_model.dart';
+import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../domain/entities/product_entity.dart';
 import '../../../../domain/entities/product_page_entity.dart';
 import '../../../core/base/status.dart';
@@ -22,7 +24,7 @@ abstract class ShippingAddressState with _$ShippingAddressState {
     // @Default(1) int page,
 
     // list dữ liệu từ API
-    @Default(null) ProductResponseEntity? productDetail,
+    @Default(null) List<AddressShippingResponseEntity>? listAddressShipping,
   }) = _ShippingAddressState;
 
   const ShippingAddressState._();

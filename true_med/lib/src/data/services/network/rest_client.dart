@@ -1,12 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../models/address_shipping_model.dart';
+import '../../models/base_list_model.dart';
 import '../../models/page_model.dart';
 import '../../models/pagination_model.dart';
 import '../../models/product_model.dart';
 import '../../models/product_page_model.dart';
 import '../../models/province_detail_model.dart';
 import '../../models/province_model.dart';
+import '../../models/ward_detail_model.dart';
+import '../../models/ward_model.dart';
+import '../../models/json_parsing.dart';
 import 'endpoints.dart';
 
 part 'rest_client.g.dart';
@@ -34,13 +39,45 @@ abstract class RestClient {
   @GET(Endpoints.provinceAll)
   Future<HttpResponse<List<ProvinceResponseModel>>> getProvinces();
 
+  @GET(Endpoints.wardAll)
+  Future<HttpResponse<List<WardResponseModel>>> getWards();
+
   @GET(Endpoints.provinceDetail)
   Future<HttpResponse<ProvinceDetailResponseModel>> getProvinceDetail(
     @Path('id') String id,
   );
 
   @GET(Endpoints.wardDetail)
-  Future<HttpResponse<List<ProvinceResponseModel>>> getWardDetail(
+  Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
     @Path('id') String id,
   );
+
+  @GET(Endpoints.addressAll)
+  Future<HttpResponse<BaseListResponseModel<AddressShippingResponseModel>>>
+  getAddressShippingUser(@Path('id') String id);
+
+  // @GET(Endpoints.addressAll)
+  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
+  //   @Path('id') String id,
+  // );
+
+  // @GET(Endpoints.setAddressDefault)
+  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
+  //   @Path('id') String id,
+  // );
+
+  // @DELETE(Endpoints.deleteAddress)
+  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
+  //   @Path('id') String id,
+  // );
+
+  // @POST(Endpoints.newAddress)
+  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
+  //   @Path('id') String id,
+  // );
+
+  // @PUT(Endpoints.editAddress)
+  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
+  //   @Path('id') String id,
+  // );
 }

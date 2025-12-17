@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
+import '../../domain/entities/address_entity.dart';
+import '../../domain/entities/address_shipping_entity.dart';
 import '../../domain/entities/province_entity.dart';
 import '../../domain/entities/ward_entity.dart';
 part 'ward_model.mapper.dart';

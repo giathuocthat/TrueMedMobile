@@ -24,5 +24,13 @@ class Endpoints {
   // Province
   static const String provinceAll = '/province';
   static const String provinceDetail = '/province/{id}';
+  static const String wardAll = '/Ward';
   static const String wardDetail = '/ward/{id}';
+
+  // Address
+  static const String addressAll = '/addresses/customer/{id}';
+  static const String setAddressDefault = '/addresses/customer/{id}/default';
+  static const String newAddress = '/addresses';
+  static const String deleteAddress = '/addresses/{id}';
+  static const String editAddress = '/addresses/{id}';
 }

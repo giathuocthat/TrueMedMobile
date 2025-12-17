@@ -6,7 +6,9 @@ import '../../../../core/extensions/app_localization.dart';
 import '../../../../data/models/product_model.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/page_header.dart';
+import '../../application/cart/riverpod/cart_state.dart';
 import '../model/shipp_addres_mock.dart';
+import '../riverpod/shipping_address_provider.dart';
 import 'widget/shipping_addess_item.dart';
 
 class ShippingAddressPage extends ConsumerStatefulWidget {
@@ -28,6 +30,15 @@ class _ShippingAddressPageState extends ConsumerState<ShippingAddressPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(shippingAddressProvider);
+
+    if (state.status == Status.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state.status == Status.error) {
+      return Center(child: Text(state.error ?? 'Có lỗi xảy ra'));
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -37,13 +48,14 @@ class _ShippingAddressPageState extends ConsumerState<ShippingAddressPage> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: listAdress.length,
+              itemCount: state.listAddressShipping?.length ?? 0,
               itemBuilder: (context, index) {
-                final item = listAdress[index];
+                final item = state.listAddressShipping![index];
                 return Container(
                   padding: const EdgeInsets.all(6),
                   color: Colors.white,
                   child: ShippingAddressItem(
+                    index: index + 1,
                     address: item,
                     isSelected: item.id == widget.addressId,
                   ),

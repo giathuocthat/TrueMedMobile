@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
+import '../../domain/entities/address_entity.dart';
 import '../../domain/entities/province_entity.dart';
 part 'province_model.mapper.dart';
 

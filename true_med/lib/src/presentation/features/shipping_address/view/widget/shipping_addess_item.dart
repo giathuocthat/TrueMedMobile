@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../core/router/routes.dart';
-import '../../model/shipp_addres_mock.dart';
 
 class ShippingAddressItem extends StatelessWidget {
   final bool isSelected;
   final bool isDefault;
-  final AddressEntity address;
+  final int index;
+  final AddressShippingResponseEntity address;
 
   const ShippingAddressItem({
     super.key,
+    this.index = 0,
     this.isSelected = false,
     this.isDefault = false,
     required this.address,
@@ -45,7 +47,7 @@ class ShippingAddressItem extends StatelessWidget {
                 const SizedBox(width: 8),
 
                 Text(
-                  "Thông tin giao hàng ${address.id}",
+                  "Thông tin giao hàng ${index}",
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -79,12 +81,18 @@ class ShippingAddressItem extends StatelessWidget {
             const SizedBox(height: 12),
 
             // ---------- NAME ----------
-            _infoRow(icon: Icons.person_outline, text: "${address.name}"),
+            _infoRow(
+              icon: Icons.person_outline,
+              text: "${address.recipientName}",
+            ),
 
             const SizedBox(height: 8),
 
             // ---------- PHONE ----------
-            _infoRow(icon: Icons.phone_outlined, text: "${address.phone}"),
+            _infoRow(
+              icon: Icons.phone_outlined,
+              text: "${address.phoneNumber}",
+            ),
 
             const SizedBox(height: 8),
 

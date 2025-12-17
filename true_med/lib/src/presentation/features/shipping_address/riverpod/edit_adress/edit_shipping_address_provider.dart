@@ -11,26 +11,63 @@ part 'edit_shipping_address_provider.g.dart';
 
 @riverpod
 class EditShippingAddress extends _$EditShippingAddress {
-  //late GetProductDetailUseCase _getProductDetailUseCase;
-
   late GetProvinceAllUseCase _getProvinceAllUseCase;
+  late GetWardAllUseCase _getWardAllUseCase;
   late GetProvinceDetailUseCase _getProvinceDetailUseCase;
   late GetWardDetailUseCase _getWardDetailUseCase;
 
   @override
   EditShippingAddressState build() {
     _getProvinceAllUseCase = ref.read(getProvinceAllUseCaseProvider);
+    _getWardAllUseCase = ref.read(getWardAllUseCaseProvider);
     _getProvinceDetailUseCase = ref.read(getProvinceDetailUseCaseProvider);
     _getWardDetailUseCase = ref.read(getWardDetailUseCaseProvider);
 
     // set initial state là loading
     final initialState = EditShippingAddressState(status: Status.loading);
     // fire-and-forget (không await)
-    //Future.microtask(fetchProductDetail);
 
-    Future.microtask(() => fetchListProvince());
+    Future.microtask(() => fetchAll());
 
     return initialState;
+  }
+
+  Future<void> fetchAll() async {
+    // reset state trước
+    state = state.copyWith(status: Status.loading, error: null);
+
+    // 1) Call API 1
+    final result1 = await _getProvinceAllUseCase.call();
+
+    switch (result1) {
+      case Success(:final data):
+        state = state.copyWith(status: Status.success, listProvince: data);
+      case Error(:final error):
+        state = state.copyWith(status: Status.error, error: error);
+        return; // stop luôn, khỏi call API 2
+      default:
+        state = state.copyWith(
+          status: Status.error,
+          error: 'Something went wrong',
+        );
+        return;
+    }
+
+    // 2) Call API 2
+    final result2 = await _getWardAllUseCase.call();
+
+    switch (result2) {
+      case Success(:final data):
+        // ✅ Chỉ lúc này mới set Status.success
+        state = state.copyWith(status: Status.success, listWard: data);
+      case Error(:final error):
+        state = state.copyWith(status: Status.error, error: error);
+      default:
+        state = state.copyWith(
+          status: Status.error,
+          error: 'Something went wrong',
+        );
+    }
   }
 
   Future<void> fetchListProvince() async {
@@ -90,7 +127,7 @@ class EditShippingAddress extends _$EditShippingAddress {
 
     switch (result) {
       case Success(:final data):
-        state = state.copyWith(status: Status.success, listProvince: data);
+        state = state.copyWith(status: Status.success, wardDetail: data);
       case Error(:final error):
         state = state.copyWith(status: Status.error, error: error);
       //return; // stop luôn, khỏi call API 2
@@ -101,26 +138,5 @@ class EditShippingAddress extends _$EditShippingAddress {
         );
         return;
     }
-  }
-
-  /// Dùng khi pull-to-refresh
-  Future<void> refreshAll(int productId) async {
-    // giữ nguyên status (vẫn success), chỉ bật cờ refresh
-    state = state.copyWith(isRefreshing: true, error: null);
-
-    //   final r1 = await _getProductDetailUseCase.call(productId: productId);
-
-    //   switch (r1) {
-    //     case Success(:final data):
-    //       //state = state.copyWith(products: data);
-    //       state = state.copyWith(status: Status.success, productDetail: data);
-    //     case Error(:final error):
-    //       state = state.copyWith(error: error);
-    //     default:
-    //       state = state.copyWith(error: 'Something went wrong');
-    //   }
-
-    //   // tắt cờ refresh
-    //   state = state.copyWith(isRefreshing: false);
   }
 }

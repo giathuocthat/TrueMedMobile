@@ -4,6 +4,7 @@ import '../../../../../domain/entities/product_entity.dart';
 
 import '../../../../../domain/entities/province_detail_entity .dart';
 import '../../../../../domain/entities/province_entity.dart';
+import '../../../../../domain/entities/ward_detail_entity.dart';
 import '../../../../../domain/entities/ward_entity.dart';
 import '../shipping_address_state.dart';
 
@@ -28,6 +29,8 @@ abstract class EditShippingAddressState with _$EditShippingAddressState {
     @Default([]) List<ProvinceResponseEntity> listProvince,
     @Default([]) List<WardResponseEntity> listWard,
     @Default(null) ProvinceDetailResponseEntity? provinceDetail,
+    @Default(null) WardDetailResponseEntity? wardDetail,
+    
   }) = _EditShippingAddressState;
 
   const EditShippingAddressState._();

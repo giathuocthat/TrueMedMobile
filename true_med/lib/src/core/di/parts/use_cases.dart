@@ -76,6 +76,11 @@ GetProvinceAllUseCase getProvinceAllUseCase(Ref ref) {
 }
 
 @riverpod
+GetWardAllUseCase getWardAllUseCase(Ref ref) {
+  return GetWardAllUseCase(ref.read(addressRepositoryProvider));
+}
+
+@riverpod
 GetProvinceDetailUseCase getProvinceDetailUseCase(Ref ref) {
   return GetProvinceDetailUseCase(ref.read(addressRepositoryProvider));
 }
@@ -83,4 +88,9 @@ GetProvinceDetailUseCase getProvinceDetailUseCase(Ref ref) {
 @riverpod
 GetWardDetailUseCase getWardDetailUseCase(Ref ref) {
   return GetWardDetailUseCase(ref.read(addressRepositoryProvider));
+}
+
+@riverpod
+GetAddressShippingUseCase getAddressShippingUseCase(Ref ref) {
+  return GetAddressShippingUseCase(ref.read(addressRepositoryProvider));
 }

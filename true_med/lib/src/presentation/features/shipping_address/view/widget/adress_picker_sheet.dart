@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import '../../../../../domain/entities/address_entity.dart';
+import '../../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../../domain/entities/province_entity.dart';
 
 class AdressPickerSheet<T extends AddressItem> extends StatefulWidget {
   final List<T> items;
   final String hint;
+  final int idSelected;
 
-  const AdressPickerSheet({super.key, required this.items, required this.hint});
+  const AdressPickerSheet({
+    super.key,
+    required this.items,
+    required this.hint,
+    required this.idSelected,
+  });
 
   @override
   State<AdressPickerSheet<T>> createState() => _AdressPickerSheetState<T>();
@@ -92,8 +100,8 @@ class _AdressPickerSheetState<T extends AddressItem>
               separatorBuilder: (_, __) => const Divider(height: 1),
               itemBuilder: (context, index) {
                 final item = _filtered[index];
-                //final isSelected = item == selected;
-                final isSelected = false;
+                final isSelected = item.id == widget.idSelected;
+                //final isSelected = false;
                 return ListTile(
                   title: Text(item.name, style: const TextStyle(fontSize: 15)),
                   trailing: isSelected
@@ -121,10 +129,4 @@ class _AdressPickerSheetState<T extends AddressItem>
           .toList();
     });
   }
-}
-
-abstract class AddressItem {
-  int get id;
-  String get name;
-  String get normalizedName;
 }
