@@ -31,3 +31,16 @@ class BaseObjectResponseEntity<T> extends BaseEntity {
   final String message;
   final String timestamp;
 }
+
+class BaseResponseEntity extends BaseEntity {
+  BaseResponseEntity({
+    required this.success,
+    required this.message,
+    required this.timestamp,
+  });
+
+  //final List<T>? data;
+  final bool success;
+  final String message;
+  final String timestamp;
+}

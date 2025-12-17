@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/address_shipping_model.dart';
+import '../../models/api_response_meta_model.dart';
 import '../../models/base_list_model.dart';
+import '../../models/base_model.dart';
 import '../../models/page_model.dart';
 import '../../models/pagination_model.dart';
 import '../../models/product_model.dart';
@@ -71,13 +73,14 @@ abstract class RestClient {
   //   @Path('id') String id,
   // );
 
-  // @POST(Endpoints.newAddress)
-  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
-  //   @Path('id') String id,
-  // );
+  @POST(Endpoints.newAddress)
+  Future<HttpResponse<ApiResponseMetaModel>> newAddress(
+    @Body() Map<String, dynamic> request,
+  );
 
-  // @PUT(Endpoints.editAddress)
-  // Future<HttpResponse<WardDetailResponseModel>> getWardDetail(
-  //   @Path('id') String id,
-  // );
+  @PUT(Endpoints.editAddress)
+  Future<HttpResponse<ApiResponseMetaModel>> editAddress(
+    @Path('id') String id,
+    @Body() Map<String, dynamic> request,
+  );
 }

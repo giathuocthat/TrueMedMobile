@@ -7,16 +7,18 @@ import '../../../../../domain/entities/province_entity.dart';
 import '../../../../../domain/entities/ward_detail_entity.dart';
 import '../../../../../domain/entities/ward_entity.dart';
 import '../shipping_address_state.dart';
-
+import '../../../../core/base/status.dart';
 export 'package:true_med/src/presentation/core/base/status.dart';
 
 part 'edit_shipping_address_state.freezed.dart';
 
 @freezed
-abstract class EditShippingAddressState with _$EditShippingAddressState {
+abstract class EditShippingAddressState<T> with _$EditShippingAddressState<T> {
   const factory EditShippingAddressState({
     @Default(null) final int? provinceId,
     @Default(Status.initial) Status status,
+    @Default(Status.initial) Status statusSummit,
+
     String? error,
 
     // đang kéo để refresh, dùng cho UI
@@ -31,7 +33,7 @@ abstract class EditShippingAddressState with _$EditShippingAddressState {
     @Default([]) List<WardResponseEntity> listWard,
     @Default(null) ProvinceDetailResponseEntity? provinceDetail,
     @Default(null) WardDetailResponseEntity? wardDetail,
-  }) = _EditShippingAddressState;
+  }) = _EditShippingAddressState<T>;
 
   const EditShippingAddressState._();
 }

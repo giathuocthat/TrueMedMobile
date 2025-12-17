@@ -72,8 +72,28 @@ class _ShippingAddressPageState extends ConsumerState<ShippingAddressPage> {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-                onPressed: () =>
-                    context.pushNamed(Routes.createShippingAddress),
+                // onPressed: () =>
+                //     context.pushNamed(Routes.createShippingAddress),
+                onPressed: () async {
+                  // final ctx = context; // giữ context
+
+                  // final result = await ctx.pushNamed(
+                  //   Routes.createShippingAddress,
+                  // );
+
+                  // if (!ctx.mounted) return;
+
+                  // if (result is Map && result['reload'] == true) {
+                  //   ref.invalidate(shippingAddressProvider);
+                  // }
+                  final result = await context.pushNamed(
+                    Routes.createShippingAddress,
+                  );
+
+                  if (result is Map && result['reload'] == true) {
+                    ref.invalidate(shippingAddressProvider); // ✅ reload
+                  }
+                },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

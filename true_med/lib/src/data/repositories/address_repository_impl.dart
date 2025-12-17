@@ -7,6 +7,8 @@ import '../../domain/entities/province_entity.dart';
 import '../../domain/entities/ward_detail_entity.dart';
 import '../../domain/entities/ward_entity.dart';
 import '../../domain/repositories/address_repository.dart';
+import '../models/address_shipping_model.dart';
+import '../models/api_response_meta_model.dart';
 import '../services/cache/cache_service.dart';
 import '../services/network/rest_client.dart';
 
@@ -67,12 +69,27 @@ final class AddressRepositoryImpl extends AddressRepository {
     });
   }
 
-  // @override
-  // Future<Result<WardDetailResponseEntity, Failure>> getWardDetail(String id) {
-  //   return asyncGuard(() async {
-  //     final response = await remote.getWardDetail(id);
+  @override
+  Future<Result<ApiResponseMetaModel, Failure>> addAddressShipping(
+    AddressShippingRequestEntity request,
+  ) {
+    return asyncGuard(() async {
+      final model = AddressShippingRequestModel.fromEntity(request);
+      final response = await remote.newAddress(model.toJson());
 
-  //     return response.data;
-  //   });
-  // }
+      return response.data;
+    });
+  }
+
+  @override
+  Future<Result<ApiResponseMetaModel, Failure>> editAddressShipping(
+    String id,
+    AddressShippingRequestEntity request,
+  ) {
+    return asyncGuard(() async {
+      final model = AddressShippingRequestModel.fromEntity(request);
+      final response = await remote.editAddress(id, model.toJson());
+      return response.data;
+    });
+  }
 }

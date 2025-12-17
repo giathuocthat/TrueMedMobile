@@ -1,6 +1,26 @@
 interface class AddressShippingEntity {}
 
-class AddressShippingequestEntity extends AddressShippingEntity {}
+class AddressShippingRequestEntity extends AddressShippingEntity {
+  AddressShippingRequestEntity({
+    required this.customerId,
+    required this.recipientName,
+    required this.phoneNumber,
+    required this.addressLine,
+    required this.wardId,
+    required this.provinceId,
+    required this.isDefault,
+    this.addressType,
+  });
+
+  final int customerId;
+  final String recipientName;
+  final String phoneNumber;
+  final String addressLine;
+  final int wardId;
+  final int provinceId;
+  final bool isDefault;
+  int? addressType;
+}
 
 class AddressShippingResponseEntity extends AddressShippingEntity {
   AddressShippingResponseEntity({

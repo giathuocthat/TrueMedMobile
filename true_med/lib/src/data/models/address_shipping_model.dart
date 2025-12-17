@@ -27,3 +27,31 @@ class AddressShippingResponseModel extends AddressShippingResponseEntity
   });
   static const fromJson = AddressShippingResponseModelMapper.fromJson;
 }
+
+@MappableClass(generateMethods: GenerateMethods.copy | GenerateMethods.encode)
+class AddressShippingRequestModel extends AddressShippingRequestEntity
+    with AddressShippingRequestModelMappable {
+  AddressShippingRequestModel({
+    required super.phoneNumber,
+    required super.customerId,
+    required super.recipientName,
+    required super.addressLine,
+    required super.wardId,
+    required super.provinceId,
+    required super.isDefault,
+  });
+
+  factory AddressShippingRequestModel.fromEntity(
+    AddressShippingRequestEntity entity,
+  ) {
+    return AddressShippingRequestModel(
+      phoneNumber: entity.phoneNumber,
+      customerId: entity.customerId,
+      recipientName: entity.recipientName,
+      addressLine: entity.addressLine,
+      wardId: entity.wardId,
+      provinceId: entity.provinceId,
+      isDefault: entity.isDefault,
+    );
+  }
+}

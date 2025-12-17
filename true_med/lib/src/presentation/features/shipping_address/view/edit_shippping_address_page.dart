@@ -8,9 +8,10 @@ import '../../../../data/models/ward_model.dart';
 import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../domain/entities/province_entity.dart';
 import '../../../../domain/entities/ward_entity.dart';
+import '../../../core/base/status.dart';
+
 import '../../../core/widgets/page_header.dart';
-import '../model/shipp_addres_mock.dart';
-import '../riverpod/edit_adress/edit_shipping_address_provider.dart';
+import '../riverpod/add/edit_shipping_address_provider.dart';
 import '../riverpod/shipping_address_provider.dart';
 import 'widget/address_form_section.dart';
 import 'widget/adress_picker_sheet.dart';
@@ -53,11 +54,29 @@ class _EditShippingAddressPageState
     phoneCtrl = TextEditingController();
     streetCtrl = TextEditingController();
 
-    if (!isCreate) {
-      //ref
-      ///    .read(editShippingAddressProvider.notifier)
-      //     .loadAddress(widget.addressId!);
-    }
+    ref.listenManual(editShippingAddressProvider(provinceId), (previous, next) {
+      // if (next.statusSummit.isSuccess) {
+      //   Navigator.of(context).pop({
+      //     'reload': true, // 🔑 key quyết định reload
+      //   });
+      // }
+
+      // if (next.statusSummit.isError) {
+      //   ScaffoldMessenger.of(
+      //     context,
+      //   ).showSnackBar(const SnackBar(content: Text('Đã xảy ra lỗi')));
+      // }
+      // if (previous?.statusSummit != next.statusSummit &&
+      //     next.statusSummit.isSuccess) {
+      //   Navigator.of(context).pop({'reload': true});
+      // }
+
+      // if (next.statusSummit.isError) {
+      //   ScaffoldMessenger.of(
+      //     context,
+      //   ).showSnackBar(const SnackBar(content: Text('Đã xảy ra lỗi')));
+      // }
+    });
   }
 
   @override
@@ -66,6 +85,36 @@ class _EditShippingAddressPageState
     phoneCtrl.dispose();
     streetCtrl.dispose();
     super.dispose();
+  }
+
+  void _onAddAddress() {
+    if (!checkValidate()) return;
+    if (isCreate) {
+      ref
+          .read(editShippingAddressProvider(provinceId).notifier)
+          .addAddressShipping(
+            customerId: 11,
+            recipientName: nameCtrl.text,
+            phoneNumber: phoneCtrl.text,
+            addressLine: streetCtrl.text,
+            wardId: wardId,
+            provinceId: provinceId,
+            isDefault: isDefault,
+          );
+    } else {
+      ref
+          .read(editShippingAddressProvider(provinceId).notifier)
+          .editAddressShipping(
+            customerId: 11,
+            recipientName: nameCtrl.text,
+            phoneNumber: phoneCtrl.text,
+            addressLine: streetCtrl.text,
+            wardId: wardId,
+            provinceId: provinceId,
+            isDefault: isDefault,
+            addressId: widget.addressId,
+          );
+    }
   }
 
   void setInitDataFromUI(AddressShippingResponseEntity addressShipEdit) {
@@ -77,6 +126,47 @@ class _EditShippingAddressPageState
     wardId = addressShipEdit.wardId;
     nameCity = addressShipEdit.provinceName;
     nameWard = addressShipEdit.wardName;
+    isDefault = addressShipEdit.isDefault;
+  }
+
+  bool checkValidate() {
+    if (nameCtrl.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng nhập tên người nhận')),
+      );
+      return false;
+    }
+    if (nameCtrl.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng nhập tên người nhận')),
+      );
+      return false;
+    }
+    if (provinceId == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng chọn tỉnh / thành phố')),
+      );
+      return false;
+    }
+    if (wardId == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng chọn Phường / xã')),
+      );
+      return false;
+    }
+    if (phoneCtrl.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng nhập số điện thoại')),
+      );
+      return false;
+    }
+    if (streetCtrl.text.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Vui lòng nhập địa chỉ')));
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -208,7 +298,7 @@ class _EditShippingAddressPageState
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: state.statusSummit.isLoading ? null : _onAddAddress,
                 child: Text('Xác nhận'),
               ),
             ),

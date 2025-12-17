@@ -94,3 +94,13 @@ GetWardDetailUseCase getWardDetailUseCase(Ref ref) {
 GetAddressShippingUseCase getAddressShippingUseCase(Ref ref) {
   return GetAddressShippingUseCase(ref.read(addressRepositoryProvider));
 }
+
+@riverpod
+AddAddressShippingUseCase addAddressShippingUseCase(Ref ref) {
+  return AddAddressShippingUseCase(ref.read(addressRepositoryProvider));
+}
+
+@riverpod
+EditAddressShippingUseCase editAddressShippingUseCase(Ref ref) {
+  return EditAddressShippingUseCase(ref.read(addressRepositoryProvider));
+}

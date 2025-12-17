@@ -8,7 +8,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/repositories/adress_repository_impl.dart';
+import '../../data/repositories/address_repository_impl.dart';
 import '../../data/repositories/authentication_repository_impl.dart';
 import '../../data/repositories/locale_repository_impl.dart';
 import '../../data/repositories/payment_repository_impl.dart';
