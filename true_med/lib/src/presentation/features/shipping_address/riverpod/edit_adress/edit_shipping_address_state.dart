@@ -15,6 +15,7 @@ part 'edit_shipping_address_state.freezed.dart';
 @freezed
 abstract class EditShippingAddressState with _$EditShippingAddressState {
   const factory EditShippingAddressState({
+    @Default(null) final int? provinceId,
     @Default(Status.initial) Status status,
     String? error,
 
@@ -30,7 +31,6 @@ abstract class EditShippingAddressState with _$EditShippingAddressState {
     @Default([]) List<WardResponseEntity> listWard,
     @Default(null) ProvinceDetailResponseEntity? provinceDetail,
     @Default(null) WardDetailResponseEntity? wardDetail,
-    
   }) = _EditShippingAddressState;
 
   const EditShippingAddressState._();

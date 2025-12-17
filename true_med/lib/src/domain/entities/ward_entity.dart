@@ -10,6 +10,7 @@ class WardResponseEntity extends WardEntity implements AddressItem {
     required this.id,
     required this.name,
     required this.code,
+    this.provinceId,
   });
   @override
   final int id;
@@ -18,4 +19,5 @@ class WardResponseEntity extends WardEntity implements AddressItem {
   final String code;
   @override
   late final String normalizedName;
+  final int? provinceId;
 }

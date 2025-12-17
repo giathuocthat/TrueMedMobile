@@ -31,13 +31,13 @@ class _EditShippingAddressPageState
     extends ConsumerState<EditShippingAddressPage> {
   bool _initialized = false;
   late ProductResponseModel product;
-  final listAdress = mockAddressData;
 
   bool get isCreate => widget.addressId == 0;
-  var nameCtrl = TextEditingController(text: "Nhà thuốc Minh Châu");
-  var phoneCtrl = TextEditingController(text: "0933575056");
 
+  var nameCtrl = TextEditingController();
+  var phoneCtrl = TextEditingController();
   var streetCtrl = TextEditingController();
+
   bool isDefault = false;
 
   var provinceId = 0;
@@ -83,20 +83,18 @@ class _EditShippingAddressPageState
   Widget build(BuildContext context) {
     final statePageList = ref.watch(shippingAddressProvider);
 
-    final addressShipEdit = statePageList.listAddressShipping!.firstWhere(
-      (e) => e.id == widget.addressId,
-    );
+    if (!isCreate) {
+      final addressShipEdit = statePageList.listAddressShipping!.firstWhere(
+        (e) => e.id == widget.addressId,
+      );
 
-    //setInitDataFromUI(addressShipEdit);
-    if (!_initialized) {
-      setInitDataFromUI(addressShipEdit);
-      _initialized = true;
-      // ref
-      //     .read(editShippingAddressProvider.notifier)
-      //     .fetchProvinceDetail(provinceId);
+      if (!_initialized) {
+        setInitDataFromUI(addressShipEdit);
+        _initialized = true;
+      }
     }
 
-    final state = ref.watch(editShippingAddressProvider);
+    final state = ref.watch(editShippingAddressProvider(provinceId));
 
     return Scaffold(
       appBar: PreferredSize(
@@ -145,12 +143,15 @@ class _EditShippingAddressPageState
                               provinceId = province.id;
                               nameCity = province.name;
 
-                              // 🔥 RESET WARD
                               wardId = 0;
                               nameWard = '';
                             });
-                            ref
-                                .read(editShippingAddressProvider.notifier)
+                            await ref
+                                .read(
+                                  editShippingAddressProvider(
+                                    provinceId,
+                                  ).notifier,
+                                )
                                 .fetchProvinceDetail(provinceId);
                           }
                         }
@@ -176,7 +177,11 @@ class _EditShippingAddressPageState
                             wardId = ward.id;
 
                             ref
-                                .read(editShippingAddressProvider.notifier)
+                                .read(
+                                  editShippingAddressProvider(
+                                    provinceId,
+                                  ).notifier,
+                                )
                                 .fetchWardDetail(wardId);
                           });
                         }

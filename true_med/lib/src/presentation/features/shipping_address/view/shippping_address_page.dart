@@ -57,7 +57,9 @@ class _ShippingAddressPageState extends ConsumerState<ShippingAddressPage> {
                   child: ShippingAddressItem(
                     index: index + 1,
                     address: item,
-                    isSelected: item.id == widget.addressId,
+                    isSelected:
+                        item.id == widget.addressId ||
+                        (widget.addressId == 0 && item.isDefault),
                   ),
                 );
               },

@@ -13,6 +13,7 @@ class WardResponseModel extends WardResponseEntity
     required super.id,
     required super.name,
     required super.code,
+    super.provinceId,
   }) : super() {
     normalizedName = removeVietnameseDiacritics(name).toLowerCase();
   }
