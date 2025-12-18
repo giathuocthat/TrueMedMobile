@@ -8,10 +8,10 @@ import '../../../../data/models/ward_model.dart';
 import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../domain/entities/province_entity.dart';
 import '../../../../domain/entities/ward_entity.dart';
-import '../../../core/base/status.dart';
 
 import '../../../core/widgets/page_header.dart';
-import '../riverpod/add/edit_shipping_address_provider.dart';
+import '../riverpod/address/address_provider.dart';
+import '../riverpod/province/province_address_provider.dart';
 import '../riverpod/shipping_address_provider.dart';
 import 'widget/address_form_section.dart';
 import 'widget/adress_picker_sheet.dart';
@@ -54,28 +54,19 @@ class _EditShippingAddressPageState
     phoneCtrl = TextEditingController();
     streetCtrl = TextEditingController();
 
-    ref.listenManual(editShippingAddressProvider(provinceId), (previous, next) {
-      // if (next.statusSummit.isSuccess) {
-      //   Navigator.of(context).pop({
-      //     'reload': true, // 🔑 key quyết định reload
-      //   });
-      // }
+    ref.listenManual(addressProvider, (previous, next) {
+      if (previous?.status != next.status && next.status.isSuccess) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Cập nhật địa chỉ thành công')),
+        );
+        Navigator.of(context).pop({'reload': true});
+      }
 
-      // if (next.statusSummit.isError) {
-      //   ScaffoldMessenger.of(
-      //     context,
-      //   ).showSnackBar(const SnackBar(content: Text('Đã xảy ra lỗi')));
-      // }
-      // if (previous?.statusSummit != next.statusSummit &&
-      //     next.statusSummit.isSuccess) {
-      //   Navigator.of(context).pop({'reload': true});
-      // }
-
-      // if (next.statusSummit.isError) {
-      //   ScaffoldMessenger.of(
-      //     context,
-      //   ).showSnackBar(const SnackBar(content: Text('Đã xảy ra lỗi')));
-      // }
+      if (next.status.isError) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Đã xảy ra lỗi')));
+      }
     });
   }
 
@@ -91,7 +82,7 @@ class _EditShippingAddressPageState
     if (!checkValidate()) return;
     if (isCreate) {
       ref
-          .read(editShippingAddressProvider(provinceId).notifier)
+          .read(addressProvider.notifier)
           .addAddressShipping(
             customerId: 11,
             recipientName: nameCtrl.text,
@@ -103,7 +94,7 @@ class _EditShippingAddressPageState
           );
     } else {
       ref
-          .read(editShippingAddressProvider(provinceId).notifier)
+          .read(addressProvider.notifier)
           .editAddressShipping(
             customerId: 11,
             recipientName: nameCtrl.text,
@@ -174,17 +165,20 @@ class _EditShippingAddressPageState
     final statePageList = ref.watch(shippingAddressProvider);
 
     if (!isCreate) {
-      final addressShipEdit = statePageList.listAddressShipping!.firstWhere(
-        (e) => e.id == widget.addressId,
-      );
+      final pageList = statePageList.listAddressShipping;
+      if (pageList != null && pageList.isNotEmpty) {
+        final addressShipEdit = pageList.firstWhere(
+          (e) => e.id == widget.addressId,
+        );
 
-      if (!_initialized) {
-        setInitDataFromUI(addressShipEdit);
-        _initialized = true;
+        if (!_initialized) {
+          setInitDataFromUI(addressShipEdit);
+          _initialized = true;
+        }
       }
     }
 
-    final state = ref.watch(editShippingAddressProvider(provinceId));
+    final state = ref.watch(provinceAddressProvider(provinceId));
 
     return Scaffold(
       appBar: PreferredSize(
@@ -238,9 +232,7 @@ class _EditShippingAddressPageState
                             });
                             await ref
                                 .read(
-                                  editShippingAddressProvider(
-                                    provinceId,
-                                  ).notifier,
+                                  provinceAddressProvider(provinceId).notifier,
                                 )
                                 .fetchProvinceDetail(provinceId);
                           }
@@ -268,9 +260,7 @@ class _EditShippingAddressPageState
 
                             ref
                                 .read(
-                                  editShippingAddressProvider(
-                                    provinceId,
-                                  ).notifier,
+                                  provinceAddressProvider(provinceId).notifier,
                                 )
                                 .fetchWardDetail(wardId);
                           });
@@ -298,7 +288,7 @@ class _EditShippingAddressPageState
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-                onPressed: state.statusSummit.isLoading ? null : _onAddAddress,
+                onPressed: _onAddAddress,
                 child: Text('Xác nhận'),
               ),
             ),

@@ -6,29 +6,24 @@ import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../domain/use_cases/address_use_case.dart';
 export 'package:true_med/src/presentation/core/base/status.dart';
 
-import 'edit_shipping_address_state.dart';
+import 'province_address_state.dart';
 
-part 'edit_shipping_address_provider.g.dart';
+part 'province_address_provider.g.dart';
 
 @riverpod
-class EditShippingAddress extends _$EditShippingAddress {
+class ProvinceAddress extends _$ProvinceAddress {
   late GetProvinceAllUseCase _getProvinceAllUseCase;
-  //late GetWardAllUseCase _getWardAllUseCase;
   late GetProvinceDetailUseCase _getProvinceDetailUseCase;
   late GetWardDetailUseCase _getWardDetailUseCase;
-  late AddAddressShippingUseCase _addAddressShippingUseCase;
-  late EditAddressShippingUseCase _editAddressShippingUseCase;
 
   @override
-  EditShippingAddressState build(int provinceId) {
+  ProvinceAddressState build(int provinceId) {
     _getProvinceAllUseCase = ref.read(getProvinceAllUseCaseProvider);
     _getProvinceDetailUseCase = ref.read(getProvinceDetailUseCaseProvider);
     _getWardDetailUseCase = ref.read(getWardDetailUseCaseProvider);
-    _addAddressShippingUseCase = ref.read(addAddressShippingUseCaseProvider);
-    _editAddressShippingUseCase = ref.read(editAddressShippingUseCaseProvider);
 
     // set initial state là loading
-    final initialState = EditShippingAddressState(status: Status.loading);
+    final initialState = ProvinceAddressState(status: Status.loading);
     // fire-and-forget (không await)
 
     Future.microtask(() => fetchAll(provinceId));
@@ -160,73 +155,5 @@ class EditShippingAddress extends _$EditShippingAddress {
         );
         return;
     }
-  }
-
-  void addAddressShipping({
-    required int customerId,
-    required String recipientName,
-    required String phoneNumber,
-    required String addressLine,
-    required int wardId,
-    required int provinceId,
-    required bool isDefault,
-    int? addressType,
-  }) async {
-    // state = state.copyWith(statusSummit: Status.loading);
-    state = state.copyWith(statusSummit: Status.loading, error: null);
-    final result = await _addAddressShippingUseCase.call(
-      customerId: customerId,
-      recipientName: recipientName,
-      phoneNumber: phoneNumber,
-      addressLine: addressLine,
-      wardId: wardId,
-      provinceId: provinceId,
-      isDefault: isDefault,
-      addressType: addressType,
-    );
-    state = switch (result) {
-      Success() => state.copyWith(statusSummit: Status.success),
-      Error(:final error) => state.copyWith(
-        statusSummit: Status.error,
-        error: error,
-      ),
-      _ => state.copyWith(statusSummit: Status.error),
-    };
-  }
-
-  void editAddressShipping({
-    required int customerId,
-    required String recipientName,
-    required String phoneNumber,
-    required String addressLine,
-    required int wardId,
-    required int provinceId,
-    required bool isDefault,
-    int? addressType,
-    required int addressId,
-  }) async {
-    //state = state.copyWith(statusSummit: Status.loading);
-    state = state.copyWith(statusSummit: Status.loading, error: null);
-
-    final result = await _editAddressShippingUseCase.call(
-      customerId: customerId,
-      recipientName: recipientName,
-      phoneNumber: phoneNumber,
-      addressLine: addressLine,
-      wardId: wardId,
-      provinceId: provinceId,
-      isDefault: isDefault,
-      addressType: addressType,
-      addressId: addressId,
-    );
-
-    state = switch (result) {
-      Success() => state.copyWith(statusSummit: Status.success),
-      Error(:final error) => state.copyWith(
-        statusSummit: Status.error,
-        error: error,
-      ),
-      _ => state.copyWith(statusSummit: Status.error),
-    };
   }
 }

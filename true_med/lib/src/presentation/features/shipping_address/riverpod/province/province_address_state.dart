@@ -10,14 +10,13 @@ import '../shipping_address_state.dart';
 import '../../../../core/base/status.dart';
 export 'package:true_med/src/presentation/core/base/status.dart';
 
-part 'edit_shipping_address_state.freezed.dart';
+part 'province_address_state.freezed.dart';
 
 @freezed
-abstract class EditShippingAddressState<T> with _$EditShippingAddressState<T> {
-  const factory EditShippingAddressState({
+abstract class ProvinceAddressState<T> with _$ProvinceAddressState<T> {
+  const factory ProvinceAddressState({
     @Default(null) final int? provinceId,
     @Default(Status.initial) Status status,
-    @Default(Status.initial) Status statusSummit,
 
     String? error,
 
@@ -33,7 +32,7 @@ abstract class EditShippingAddressState<T> with _$EditShippingAddressState<T> {
     @Default([]) List<WardResponseEntity> listWard,
     @Default(null) ProvinceDetailResponseEntity? provinceDetail,
     @Default(null) WardDetailResponseEntity? wardDetail,
-  }) = _EditShippingAddressState<T>;
+  }) = _ProvinceAddressState<T>;
 
-  const EditShippingAddressState._();
+  const ProvinceAddressState._();
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../core/router/routes.dart';
+import '../../riverpod/shipping_address_provider.dart';
 
-class ShippingAddressItem extends StatelessWidget {
+class ShippingAddressItem extends ConsumerWidget {
   final bool isSelected;
   final bool isDefault;
   final int index;
@@ -19,7 +21,7 @@ class ShippingAddressItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () {
         context.pop();
@@ -60,11 +62,21 @@ class ShippingAddressItem extends StatelessWidget {
                 const Spacer(),
 
                 TextButton(
-                  onPressed: () {
-                    context.pushNamed(
+                  onPressed: () async {
+                    final result = await context.pushNamed(
                       Routes.editShippingAddress,
                       pathParameters: {'addressId': address.id.toString()},
                     );
+                    if (result is Map && result['reload'] == true) {
+                      ref.invalidate(shippingAddressProvider); // ✅ reload
+                    }
+                    //    final result = await context.pushNamed(
+                    //   Routes.createShippingAddress,
+                    // );
+
+                    // if (result is Map && result['reload'] == true) {
+                    //   ref.invalidate(shippingAddressProvider); // ✅ reload
+                    // }
                   },
                   child: const Text(
                     'Sửa',
