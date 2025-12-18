@@ -43,7 +43,10 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
       if (data.shouldRemeber ?? false) await _saveSession();
 
       //return base.data!;
-      return LoginResponseEntity(accessToken: base.data?.accessToken ?? '');
+      return LoginResponseEntity(
+        accessToken: base.data?.accessToken ?? '',
+        customer: base.data?.customer,
+      );
     });
   }
 
@@ -98,5 +101,37 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   @override
   Future<void> logout() async {
     await local.remove([CacheKey.isLoggedIn, CacheKey.rememberMe]);
+  }
+
+  @override
+  Future<Result<LoginResponseEntity, Failure>> refreshToken() async {
+    return asyncGuard(() async {
+      final request = LoginRequestEntity(
+        phoneNumber: '0976973925',
+        password: 'Hgsg@123',
+        shouldRemeber: true,
+      );
+      final model = LoginRequestModel.fromEntity(request);
+      final response = await remote.login(model.toJson());
+
+      // final base = BaseResponseModel.fromJson(
+      //   response.data,
+      //   (json) => LoginResponseModel.fromJson(json),
+      // );
+
+      final base = BaseResponseModel.fromJson(
+        response.data,
+        (json) => AuthenResponseModel.fromJson(json),
+      );
+
+      // Save the session if the user has selected the "Remember Me" option
+      if (request.shouldRemeber ?? false) await _saveSession();
+
+      //return base.data!;
+      return LoginResponseEntity(
+        accessToken: base.data?.accessToken ?? '',
+        customer: base.data?.customer,
+      );
+    });
   }
 }

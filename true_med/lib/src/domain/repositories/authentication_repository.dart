@@ -19,5 +19,7 @@ abstract base class AuthenticationRepository extends Repository {
 
   Future<String> resendOTP(Map<String, dynamic> data);
 
+  Future<Result<LoginResponseEntity, Failure>> refreshToken();
+
   Future<void> logout();
 }

@@ -28,6 +28,7 @@ import '../../domain/use_cases/address_use_case.dart';
 import '../../domain/use_cases/authentication_use_case.dart';
 import '../../domain/use_cases/locale_use_case.dart';
 import '../../domain/use_cases/product_use_case.dart';
+import '../../domain/use_cases/refresh_token_use_case.dart';
 import '../../domain/use_cases/reset_repository_use_case.dart';
 import '../../domain/use_cases/router_use_case.dart';
 import '../../presentation/core/router/router.dart';

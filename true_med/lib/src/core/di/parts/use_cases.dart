@@ -6,6 +6,11 @@ LoginUseCase loginUseCase(Ref ref) {
 }
 
 @riverpod
+RefreshTokenUseCase refreshTokenUseCase(Ref ref) {
+  return RefreshTokenUseCase(ref.read(authenticationRepositoryProvider));
+}
+
+@riverpod
 CheckRememberMeUseCase checkRememberMeUseCase(Ref ref) {
   return CheckRememberMeUseCase(ref.read(authenticationRepositoryProvider));
 }

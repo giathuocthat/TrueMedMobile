@@ -1,3 +1,5 @@
+import 'customer_entity.dart';
+
 interface class LoginEntity {}
 
 class LoginRequestEntity extends LoginEntity {
@@ -13,7 +15,8 @@ class LoginRequestEntity extends LoginEntity {
 }
 
 class LoginResponseEntity extends LoginEntity {
-  LoginResponseEntity({required this.accessToken});
+  LoginResponseEntity({required this.accessToken, this.customer});
 
   final String accessToken;
+  final CustomerResponseEntity? customer;
 }

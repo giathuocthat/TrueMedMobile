@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 
 import '../../domain/entities/authen_entity.dart';
 import '../../domain/entities/login_entity.dart';
+import 'customer_model.dart';
 
 part 'authen_model.mapper.dart';
 
@@ -20,7 +21,8 @@ class AuthenResponseModel extends AuthenResponseEntity
     // required super.accessToken,
     // required this.gender,
     // required this.refreshToken,
-  });
+    CustomerResponseModel? customer,
+  }) : super(customer: customer);
 
   //final int id;
   final String tokenType;

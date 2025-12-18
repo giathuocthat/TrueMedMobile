@@ -1,3 +1,5 @@
+import 'customer_entity.dart';
+
 interface class AuthenEntity {}
 
 class AuthenRequestEntity extends AuthenEntity {
@@ -13,7 +15,8 @@ class AuthenRequestEntity extends AuthenEntity {
 }
 
 class AuthenResponseEntity extends AuthenEntity {
-  AuthenResponseEntity({required this.accessToken});
+  AuthenResponseEntity({required this.accessToken, this.customer});
 
   final String accessToken;
+  final CustomerResponseEntity? customer;
 }
