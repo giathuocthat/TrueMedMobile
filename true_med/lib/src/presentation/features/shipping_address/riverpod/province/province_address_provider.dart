@@ -29,7 +29,6 @@ class ProvinceAddress extends _$ProvinceAddress {
     // fire-and-forget (không await)
 
     Future.microtask(() => fetchAll(provinceId));
-
     return initialState;
   }
 

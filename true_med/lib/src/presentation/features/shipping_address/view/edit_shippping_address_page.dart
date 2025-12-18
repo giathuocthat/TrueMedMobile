@@ -9,6 +9,7 @@ import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../domain/entities/province_entity.dart';
 import '../../../../domain/entities/ward_entity.dart';
 
+import '../../../core/application_state/user/user_provider.dart';
 import '../../../core/widgets/page_header.dart';
 import '../riverpod/address/address_provider.dart';
 import '../riverpod/province/province_address_provider.dart';
@@ -45,6 +46,8 @@ class _EditShippingAddressPageState
   var wardId = 0;
   var nameCity = '';
   var nameWard = '';
+
+  var customerId = 0;
 
   @override
   void initState() {
@@ -84,7 +87,7 @@ class _EditShippingAddressPageState
       ref
           .read(addressProvider.notifier)
           .addAddressShipping(
-            customerId: 11,
+            customerId: customerId,
             recipientName: nameCtrl.text,
             phoneNumber: phoneCtrl.text,
             addressLine: streetCtrl.text,
@@ -96,7 +99,7 @@ class _EditShippingAddressPageState
       ref
           .read(addressProvider.notifier)
           .editAddressShipping(
-            customerId: 11,
+            customerId: customerId,
             recipientName: nameCtrl.text,
             phoneNumber: phoneCtrl.text,
             addressLine: streetCtrl.text,
@@ -163,6 +166,8 @@ class _EditShippingAddressPageState
   @override
   Widget build(BuildContext context) {
     final statePageList = ref.watch(shippingAddressProvider);
+    final user = ref.watch(userProvider).user;
+    customerId = user?.id ?? 0;
 
     if (!isCreate) {
       final pageList = statePageList.listAddressShipping;

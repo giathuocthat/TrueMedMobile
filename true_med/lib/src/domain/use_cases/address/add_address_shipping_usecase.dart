@@ -22,7 +22,7 @@ final class AddAddressShippingUseCase {
       customerId: customerId,
       recipientName: recipientName,
       phoneNumber: phoneNumber,
-      addressLine: '',
+      addressLine: addressLine,
       wardId: wardId,
       provinceId: provinceId,
       isDefault: isDefault,
