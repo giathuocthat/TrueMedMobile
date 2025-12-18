@@ -33,4 +33,5 @@ class Endpoints {
   static const String newAddress = '/addresses';
   static const String deleteAddress = '/addresses/{id}';
   static const String editAddress = '/addresses/{id}';
+  static const String defaultAddress = '/addresses/customer/{id}/default';
 }

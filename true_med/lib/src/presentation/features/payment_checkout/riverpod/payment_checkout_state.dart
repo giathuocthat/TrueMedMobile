@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../domain/entities/product_entity.dart';
-import '../../../../domain/entities/product_page_entity.dart';
+import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../core/base/status.dart';
 
 export 'package:true_med/src/presentation/core/base/status.dart';
@@ -20,9 +19,9 @@ abstract class PaymentCheckoutState with _$PaymentCheckoutState {
     // @Default(false) bool isLoadingMore,
     // @Default(false) bool hasMore,
     // @Default(1) int page,
-
+    @Default(null) AddressShippingResponseEntity? address,
     // list dữ liệu từ API
-    @Default(null) ProductResponseEntity? productDetail,
+    //@Default(null) ProductResponseEntity? productDetail,
   }) = _PaymentCheckoutState;
 
   const PaymentCheckoutState._();

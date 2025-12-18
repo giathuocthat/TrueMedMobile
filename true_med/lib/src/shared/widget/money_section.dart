@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/string.dart';
 import 'price_row.dart';
 
 Widget MoneySection({

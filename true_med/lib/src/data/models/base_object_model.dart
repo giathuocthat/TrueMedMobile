@@ -1,5 +1,3 @@
-import 'package:dart_mappable/dart_mappable.dart';
-
 import '../../domain/entities/base_entity.dart';
 
 //part 'base_object_model.mapper.dart';

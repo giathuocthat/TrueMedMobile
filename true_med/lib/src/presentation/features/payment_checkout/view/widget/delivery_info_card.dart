@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../core/router/routes.dart';
 
-class DeliveryInfoCard extends StatelessWidget {
-  const DeliveryInfoCard({super.key});
+class DeliveryInfoCard extends ConsumerWidget {
+  final AddressShippingResponseEntity? address;
+  const DeliveryInfoCard({super.key, this.address});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const iconColor = Color(0xFF2E3192); // xanh tím giống hình
     const textColor = Colors.black87;
 
@@ -23,18 +26,18 @@ class DeliveryInfoCard extends StatelessWidget {
             children: [
               const Text(
                 'Thông tin giao hàng',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
               TextButton(
                 onPressed: () {
                   context.pushNamed(
                     Routes.shippingAddress,
-                    pathParameters: {'addressId': 2.toString()},
+                    pathParameters: {'addressId': address?.id.toString() ?? ''},
                   );
                 },
-                child: const Text(
-                  'Sửa',
-                  style: TextStyle(
+                child: Text(
+                  address == null ? 'Thêm' : 'Sửa',
+                  style: const TextStyle(
                     fontSize: 15,
                     color: Color(0xFF1B5E20),
                     fontWeight: FontWeight.w500,
@@ -45,36 +48,41 @@ class DeliveryInfoCard extends StatelessWidget {
           ),
 
           const SizedBox(height: 8),
+          if (address == null)
+            const Text(
+              'Chưa có địa chỉ giao hàng, vui lòng thêm địa chỉ',
+              style: TextStyle(fontSize: 11, color: textColor),
+            )
+          else ...[
+            _InfoRow(
+              icon: Icons.person_outline,
+              iconColor: iconColor,
+              text: address?.recipientName ?? '',
+              textColor: textColor,
+            ),
 
+            const SizedBox(height: 10),
+
+            // ---------- PHONE ----------
+            _InfoRow(
+              icon: Icons.phone_outlined,
+              iconColor: iconColor,
+              text: address?.phoneNumber ?? '',
+              textColor: textColor,
+            ),
+
+            const SizedBox(height: 10),
+
+            // ---------- ADDRESS ----------
+            _InfoRow(
+              icon: Icons.location_on_outlined,
+              iconColor: iconColor,
+              text: address?.fullAddress ?? '',
+              textColor: textColor,
+              maxLines: 3,
+            ),
+          ],
           // ---------- NAME ----------
-          const _InfoRow(
-            icon: Icons.person_outline,
-            iconColor: iconColor,
-            text: 'Nhà thuốc',
-            textColor: textColor,
-          ),
-
-          const SizedBox(height: 10),
-
-          // ---------- PHONE ----------
-          const _InfoRow(
-            icon: Icons.phone_outlined,
-            iconColor: iconColor,
-            text: '0933 575 056',
-            textColor: textColor,
-          ),
-
-          const SizedBox(height: 10),
-
-          // ---------- ADDRESS ----------
-          const _InfoRow(
-            icon: Icons.location_on_outlined,
-            iconColor: iconColor,
-            text:
-                '144 Nguyễn Thanh Đằng, Phường Phước Hiệp, Thành phố Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu',
-            textColor: textColor,
-            maxLines: 3,
-          ),
         ],
       ),
     );

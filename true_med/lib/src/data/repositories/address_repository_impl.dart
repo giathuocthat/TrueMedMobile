@@ -92,4 +92,25 @@ final class AddressRepositoryImpl extends AddressRepository {
       return response.data;
     });
   }
+
+  @override
+  Future<Result<ApiResponseMetaModel, Failure>> deleteAddressShipping(
+    String id,
+  ) {
+    return asyncGuard(() async {
+      final response = await remote.deleteAddress(id);
+      return response.data;
+    });
+  }
+
+  @override
+  Future<
+    Result<BaseObjectResponseEntity<AddressShippingResponseEntity>, Failure>
+  >
+  defaultAddressShipping(String customerId) {
+    return asyncGuard(() async {
+      final response = await remote.defaultAddress(customerId);
+      return response.data;
+    });
+  }
 }

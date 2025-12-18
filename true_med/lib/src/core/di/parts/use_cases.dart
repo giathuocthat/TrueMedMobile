@@ -109,3 +109,13 @@ AddAddressShippingUseCase addAddressShippingUseCase(Ref ref) {
 EditAddressShippingUseCase editAddressShippingUseCase(Ref ref) {
   return EditAddressShippingUseCase(ref.read(addressRepositoryProvider));
 }
+
+@riverpod
+DeleteAddressShippingUseCase deleteAddressShippingUseCase(Ref ref) {
+  return DeleteAddressShippingUseCase(ref.read(addressRepositoryProvider));
+}
+
+@riverpod
+DefaultAddressShippingUseCase defaultAddressShippingUseCase(Ref ref) {
+  return DefaultAddressShippingUseCase(ref.read(addressRepositoryProvider));
+}

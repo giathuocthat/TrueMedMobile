@@ -1,8 +1,8 @@
-import '../../core/base/result.dart';
-import '../entities/page_entity.dart';
-import '../entities/product_entity.dart';
-import '../entities/product_page_entity.dart';
-import '../repositories/payment_repository.dart';
+import '../../../core/base/result.dart';
+import '../../entities/page_entity.dart';
+import '../../entities/product_entity.dart';
+import '../../entities/product_page_entity.dart';
+import '../../repositories/payment_repository.dart';
 
 final class GetProductDetailUseCase {
   GetProductDetailUseCase(this.repository);

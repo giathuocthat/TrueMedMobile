@@ -1,7 +1,4 @@
-import 'package:dart_mappable/dart_mappable.dart';
-
 import '../../domain/entities/base_entity.dart';
-import 'json_parsing.dart';
 //part 'base_list_model.mapper.dart';
 
 //@MappableClass(generateMethods: GenerateMethods.decode)

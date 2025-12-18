@@ -30,4 +30,13 @@ abstract base class AddressRepository extends Repository {
     String id,
     AddressShippingRequestEntity request,
   );
+
+  Future<Result<ApiResponseMetaModel, Failure>> deleteAddressShipping(
+    String id,
+  );
+
+  Future<
+    Result<BaseObjectResponseEntity<AddressShippingResponseEntity>, Failure>
+  >
+  defaultAddressShipping(String customerId);
 }

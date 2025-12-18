@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/base/result.dart';
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../domain/use_cases/address/delete_address_shipping_usecase.dart';
 import '../../../../domain/use_cases/address/get_address_shipping_usecase.dart';
 import '../../../core/application_state/user/user_provider.dart';
 import 'shipping_address_state.dart';
@@ -11,11 +12,15 @@ part 'shipping_address_provider.g.dart';
 @riverpod
 class ShippingAddress extends _$ShippingAddress {
   late GetAddressShippingUseCase _getAddressShippingUseCase;
+  late DeleteAddressShippingUseCase _deleteAddressShippingUseCase;
 
   @override
   ShippingAddressState build() {
     // set initial instance của use case
     _getAddressShippingUseCase = ref.read(getAddressShippingUseCaseProvider);
+    _deleteAddressShippingUseCase = ref.read(
+      deleteAddressShippingUseCaseProvider,
+    );
 
     // set initial state là loading
     final initialState = ShippingAddressState(status: Status.loading);
@@ -50,6 +55,29 @@ class ShippingAddress extends _$ShippingAddress {
       case Error(:final error):
         state = state.copyWith(status: Status.error, error: error);
       //return; // stop luôn, khỏi call API 2
+      default:
+        state = state.copyWith(
+          status: Status.error,
+          error: 'Something went wrong',
+        );
+        return;
+    }
+  }
+
+  Future<void> deleteAddressShipping(int addressId) async {
+    // reset state trước
+    state = state.copyWith(status: Status.loading, error: null);
+
+    // 1) Call API 1
+    final result = await _deleteAddressShippingUseCase.call(
+      addressId: addressId,
+    );
+
+    switch (result) {
+      case Success():
+        state = state.copyWith(status: Status.success);
+      case Error(:final error):
+        state = state.copyWith(status: Status.error, error: error);
       default:
         state = state.copyWith(
           status: Status.error,

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/app_localization.dart';
+import '../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
+import '../../../core/base/status.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
+import '../riverpod/payment_checkout_provider.dart';
 import 'widget/delivery_info_card.dart';
 import 'widget/delivery_method_card.dart';
 import 'widget/invoice_info_section.dart';
@@ -28,7 +31,8 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    final listCard = ref.watch(cartProvider);
+    final selectedAddress = ref.watch(selectedShippingAddressProvider);
+
     final moneyTotal = ref.watch(
       cartProvider.select((s) => s.selectedTotalAmount),
     );
@@ -38,6 +42,16 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
     final listProducts = ref.watch(
       cartProvider.select((s) => s.checkOutSelectItems),
     );
+
+    final state = ref.watch(paymentCheckoutProvider);
+
+    if (state.status == Status.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state.status == Status.error) {
+      return Center(child: Text(state.error ?? 'Có lỗi xảy ra'));
+    }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -52,7 +66,8 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
                 children: [
                   // const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
-                  const DeliveryInfoCard(),
+
+                  DeliveryInfoCard(address: selectedAddress ?? state.address),
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
                   OrderProductSection(

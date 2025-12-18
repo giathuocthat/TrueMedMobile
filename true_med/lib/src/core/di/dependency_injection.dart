@@ -25,6 +25,8 @@ import '../../domain/repositories/payment_repository.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../../domain/repositories/router_repository.dart';
 import '../../domain/use_cases/address/add_address_shipping_usecase.dart';
+import '../../domain/use_cases/address/default_address_shipping_usecase.dart';
+import '../../domain/use_cases/address/delete_address_shipping_usecase.dart';
 import '../../domain/use_cases/address/edit_address_shipping_usecase.dart';
 import '../../domain/use_cases/address/get_address_shipping_usecase.dart';
 import '../../domain/use_cases/address/get_province_all_usecase.dart';

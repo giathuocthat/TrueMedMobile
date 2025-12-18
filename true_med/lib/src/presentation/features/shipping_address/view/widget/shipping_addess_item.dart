@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../domain/entities/address_shipping_entity.dart';
+import '../../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
 import '../../../../core/router/routes.dart';
 import '../../riverpod/shipping_address_provider.dart';
 
@@ -24,6 +25,7 @@ class ShippingAddressItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () {
+        ref.read(selectedShippingAddressProvider.notifier).set(address);
         context.pop();
       },
       child: Container(
