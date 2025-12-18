@@ -3,9 +3,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
-import '../../../../../domain/use_cases/address_use_case.dart';
+import '../../../../../domain/use_cases/address/get_province_all_usecase.dart';
+import '../../../../../domain/use_cases/address/get_province_detail_usecase.dart';
 export 'package:true_med/src/presentation/core/base/status.dart';
 
+import '../../../../../domain/use_cases/address/get_ward_detail_usecase.dart';
 import 'province_address_state.dart';
 
 part 'province_address_provider.g.dart';

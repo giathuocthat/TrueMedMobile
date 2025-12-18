@@ -2,8 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/base/result.dart';
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../domain/use_cases/address_use_case.dart';
-import '../../../../domain/use_cases/product_use_case.dart';
+import '../../../../domain/use_cases/address/get_address_shipping_usecase.dart';
 import 'shipping_address_state.dart';
 
 part 'shipping_address_provider.g.dart';

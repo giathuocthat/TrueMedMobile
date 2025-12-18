@@ -1,9 +1,9 @@
-import 'package:riverpod/src/framework.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
-import '../../../../../domain/use_cases/address_use_case.dart';
+import '../../../../../domain/use_cases/address/add_address_shipping_usecase.dart';
+import '../../../../../domain/use_cases/address/edit_address_shipping_usecase.dart';
 export 'package:true_med/src/presentation/core/base/status.dart';
 
 import 'address_state.dart';
