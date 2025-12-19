@@ -85,7 +85,13 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
 
                 SizedBox(
                   height: 230,
-                  child: PaymentFooter(context, moneyTotal, 0),
+                  child: PaymentFooter(
+                    context,
+                    items: listCard.selectedTotalQuantity.toDouble(),
+                    totalMoney: moneyTotal,
+                    totalMoneyDiscount: 0,
+                    totalItems: listCard.selectedTotalQuantity,
+                  ),
                 ),
               ],
             ),

@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../domain/entities/cart_entity.dart';
-import '../../../../../domain/entities/oder_entity.dart';
+import '../../../../../domain/entities/order_entity.dart';
 import '../../../../../domain/entities/product_entity.dart';
 
 export 'package:true_med/src/presentation/core/base/status.dart';

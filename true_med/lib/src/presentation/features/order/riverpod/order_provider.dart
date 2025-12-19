@@ -2,14 +2,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/base/result.dart';
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../domain/entities/customer_entity.dart';
-import '../../../../domain/entities/money_entity.dart';
 import '../../../../domain/use_cases/payment_checkout/create_oder_usecase.dart';
 import '../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
 import '../../../core/application_state/user/user_provider.dart';
 import '../../checkout/riverpod/checkout_order_items_provider.dart';
-import '../../shipping_address/riverpod/shipping_address_provider.dart';
 import 'order_state.dart';
 
 part 'order_provider.g.dart';
@@ -77,7 +74,7 @@ class Order extends _$Order {
 
     switch (result1) {
       case Success(:final data):
-        state = state.copyWith(status: Status.success);
+        state = state.copyWith(status: Status.success, orderSuccess: data.data);
       case Error(:final error):
         state = state.copyWith(status: Status.error, error: error);
         return; // stop luôn, khỏi call API 2

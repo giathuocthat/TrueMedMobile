@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/app_localization.dart';
+import '../../../../core/extensions/string.dart';
 import '../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
 import '../../../core/base/status.dart';
 import '../../../core/widgets/page_header.dart';
@@ -101,7 +102,7 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
 
-                  const PaymentMethodCard(),
+                  const PaymentMethodCard(isCash: true, isNoChagePay: true),
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
 
@@ -109,7 +110,15 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
 
-                  const OrderSummarySection(),
+                  OrderSummarySection(
+                    itemsFormat: '$totalItems sản phẩm',
+                    moneyTotalFormat: moneyTotal.toCurrency(true),
+                    moneySubFormat: moneyTotal.toCurrency(true),
+                    moneyServiceFeeFormat: 0.toCurrency(true),
+                    moneyShippingFormat: 0.toCurrency(true),
+                    moneyFinalFormat: moneyTotal.toCurrency(true),
+                    //moneyTotalDiscountFormart: "-${0.toCurrency(true)}",
+                  ),
                   const SizedBox(height: 16),
                   Divider(height: 1, color: Colors.grey.shade300),
                 ],

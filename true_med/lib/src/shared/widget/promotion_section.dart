@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../presentation/features/application/cart/riverpod/cart_provider.dart';
-
-class PromotionSection extends ConsumerWidget {
-  const PromotionSection({super.key});
+class PromotionSection extends StatelessWidget {
+  final int totalCartChecked;
+  const PromotionSection({super.key, required this.totalCartChecked});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // ref.watch(
-    //                 cartProvider.select(
-    //                   (state) => state.selectedIds.contains(product.id),
-    //                 ),
-    //               ),
-
-    final totalCartChecked = ref.watch(
-      cartProvider.select((s) => s.totalCartChecked),
-    );
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

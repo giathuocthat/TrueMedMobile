@@ -5,6 +5,7 @@ import '../../models/address_shipping_model.dart';
 import '../../models/api_response_meta_model.dart';
 import '../../models/base_list_model.dart';
 import '../../models/base_object_model.dart';
+import '../../models/order_model.dart';
 import '../../models/product_model.dart';
 import '../../models/product_page_model.dart';
 import '../../models/province_detail_model.dart';
@@ -81,7 +82,7 @@ abstract class RestClient {
   );
 
   @POST(Endpoints.placeOrder)
-  Future<HttpResponse<ApiResponseMetaModel>> order(
+  Future<HttpResponse<BaseObjectResponseModel<OrderResponseModel>>> order(
     @Body() Map<String, dynamic> request,
   );
 }

@@ -1,5 +1,6 @@
 import '../../../core/base/result.dart';
 import '../../../data/models/api_response_meta_model.dart';
+import '../../entities/base_entity.dart';
 import '../../entities/order_entity.dart';
 import '../../entities/order_item_entity.dart';
 import '../../repositories/order_repository.dart';
@@ -9,7 +10,7 @@ final class CreateOrderUseCase {
 
   final OrderRepository repository;
 
-  Future<Result<ApiResponseMetaModel, String>> call({
+  Future<Result<BaseObjectResponseEntity<OrderResponseEntity>, String>> call({
     required String customerFullName,
     required String customerEmail,
     required String customerPhone,

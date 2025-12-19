@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
 
 class OrderSummarySection extends StatelessWidget {
-  const OrderSummarySection({super.key});
+  final String itemsFormat;
+  final String moneyTotalFormat;
+  final String moneySubFormat;
+  final String moneyServiceFeeFormat;
+  final String? moneyServiceFeeSubTitle;
+  final String moneyShippingFormat;
+  final String? moneyTotalDiscountFormart;
+  final String moneyFinalFormat;
+  final List<String>? promoCodes;
+
+  const OrderSummarySection({
+    super.key,
+    required this.itemsFormat,
+    required this.moneyTotalFormat,
+    required this.moneySubFormat,
+    required this.moneyServiceFeeFormat,
+    this.moneyServiceFeeSubTitle,
+    required this.moneyShippingFormat,
+    required this.moneyFinalFormat,
+    this.moneyTotalDiscountFormart,
+    this.promoCodes,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,40 +34,47 @@ class OrderSummarySection extends StatelessWidget {
         children: [
           _title("Chi tiết đơn hàng"),
 
-          _row("Tổng số lượng", "2 sản phẩm"),
-          _row("Tổng tiền hàng", "2.957.000đ"),
+          _row("Tổng số lượng", itemsFormat),
+          _row("Tổng tiền hàng", moneySubFormat),
 
           _dashedDivider(),
 
-          _row("Phí vận chuyển", "0đ"),
+          _row("Phí vận chuyển", moneyShippingFormat),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _row("Phí tiện ích", "71.500đ"),
-              const SizedBox(height: 4),
-              Text(
-                "Phí 2.200đ + 2.30% giao dịch",
-                style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-              ),
+              _row("Phí tiện ích", moneyServiceFeeFormat),
+              if (moneyServiceFeeSubTitle != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  moneyServiceFeeSubTitle!,
+                  style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+                ),
+              ],
             ],
           ),
 
           _dashedDivider(),
+          if (moneyTotalDiscountFormart != null) ...[
+            _row(
+              "Tổng ưu đãi",
+              moneyTotalDiscountFormart ?? '',
+              valueColor: Colors.red,
+            ),
+            if (promoCodes != null)
+              ...promoCodes!.map(
+                (code) =>
+                    _bulletRow("Mã $code", "x1 🎁", valueColor: Colors.blue),
+              ),
 
-          _row("Tổng ưu đãi", "-15.000đ", valueColor: Colors.red),
-
-          const SizedBox(height: 8),
-
-          _bulletRow("Mã DDMEDX-DEC13-1238-BD", "-15.000đ"),
-
-          _bulletRow("Mã BMSE_T12_AMOXSP", "x1 🎁", valueColor: Colors.blue),
-
-          _dashedDivider(),
+            //_bulletRow("Mã BMSE_T12_AMOXSP", "x1 🎁", valueColor: Colors.blue),
+            _dashedDivider(),
+          ],
 
           _row(
             "Tổng thanh toán",
-            "3.013.500đ",
+            moneyFinalFormat,
             isBold: true,
             valueColor: Colors.green.shade700,
           ),
@@ -196,11 +224,11 @@ class OrderSummarySection extends StatelessWidget {
   }
 
   Widget _policyText() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
-          "1. Buymed được phép huỷ đơn của bạn nếu giá thị trường biến động lớn hơn 5% giá trị đơn hàng.",
+          "1. TrueMed được phép huỷ đơn của bạn nếu giá thị trường biến động lớn hơn 5% giá trị đơn hàng.",
           style: TextStyle(fontSize: 13),
         ),
         SizedBox(height: 4),
