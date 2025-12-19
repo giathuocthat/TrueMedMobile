@@ -28,6 +28,17 @@ StatefulShellRoute _shellRoutes(ref) {
           ),
         ],
       ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: Routes.myOrder,
+            name: Routes.myOrder,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: OrderListPage());
+            },
+          ),
+        ],
+      ),
       // StatefulShellBranch(
       //   routes: [
       //     GoRoute(

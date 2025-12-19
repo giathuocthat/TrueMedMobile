@@ -21,6 +21,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get promotion => 'Khuyến mãi';
 
   @override
+  String get myOrder => 'Đơn hàng';
+
+  @override
   String get quickOrder => 'Đặt hàng nhanh';
 
   @override

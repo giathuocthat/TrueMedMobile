@@ -1,27 +1,27 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../core/base/result.dart';
-import '../../../../core/di/dependency_injection.dart';
-import '../../../../domain/entities/customer_entity.dart';
-import '../../../../domain/use_cases/payment_checkout/create_oder_usecase.dart';
-import '../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
-import '../../../core/application_state/user/user_provider.dart';
-import '../../checkout/riverpod/checkout_order_items_provider.dart';
-import 'order_state.dart';
+import '../../../../../core/base/result.dart';
+import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../domain/entities/customer_entity.dart';
+import '../../../../../domain/use_cases/order/create_order_usecase.dart';
+import '../../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
+import '../../../../core/application_state/user/user_provider.dart';
+import '../../../checkout/riverpod/checkout_order_items_provider.dart';
+import 'create_order_state.dart';
 
-part 'order_provider.g.dart';
+part 'create_order_provider.g.dart';
 
 @riverpod
-class Order extends _$Order {
+class CreateOrder extends _$CreateOrder {
   late CreateOrderUseCase _createOrderUseCase;
   late CustomerResponseEntity? _customer;
   @override
-  OrderState build() {
+  CreateOrderState build() {
     _createOrderUseCase = ref.read(createOrderUseCaseProvider);
 
     //return const ProductDetailState();
     // set initial state là loading
-    final initialState = OrderState(status: Status.loading);
+    final initialState = CreateOrderState(status: Status.loading);
 
     // fire-and-forget (không await)
     //Future.microtask(fetchProductDetail);
@@ -29,7 +29,7 @@ class Order extends _$Order {
 
     // 🚫 Chưa login → không gọi API
     if (user == null) {
-      return const OrderState(status: Status.initial);
+      return const CreateOrderState(status: Status.initial);
     }
     _customer = user;
     //Future.microtask(() => fetchAll(user.id));

@@ -5,6 +5,8 @@ import '../../models/address_shipping_model.dart';
 import '../../models/api_response_meta_model.dart';
 import '../../models/base_list_model.dart';
 import '../../models/base_object_model.dart';
+import '../../models/order/order_list_item_model.dart';
+import '../../models/order/order_list_model.dart';
 import '../../models/order_model.dart';
 import '../../models/product_model.dart';
 import '../../models/product_page_model.dart';
@@ -85,4 +87,8 @@ abstract class RestClient {
   Future<HttpResponse<BaseObjectResponseModel<OrderResponseModel>>> order(
     @Body() Map<String, dynamic> request,
   );
+
+  @GET(Endpoints.orderList)
+  Future<HttpResponse<BaseObjectResponseModel<OrderListResponseModel>>>
+  listOrder(@Queries() Map<String, dynamic> query);
 }

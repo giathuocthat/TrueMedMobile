@@ -122,6 +122,12 @@ abstract class AppLocalizations {
   /// **'Promotion'**
   String get promotion;
 
+  /// No description provided for @myOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Order'**
+  String get myOrder;
+
   /// No description provided for @quickOrder.
   ///
   /// In en, this message translates to:

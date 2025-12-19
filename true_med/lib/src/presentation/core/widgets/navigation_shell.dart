@@ -37,9 +37,13 @@ class _NavigationShellState extends State<NavigationShell> {
             label: context.locale.promotion,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.local_offer),
-            label: context.locale.profile,
+            icon: const Icon(Icons.list_alt),
+            label: context.locale.myOrder,
           ),
+          // BottomNavigationBarItem(
+          //   icon: const Icon(Icons.local_offer),
+          //   label: context.locale.profile,
+          // ),
         ],
       ),
       // bottomNavigationBar: CustomBottomNav(

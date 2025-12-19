@@ -8,8 +8,8 @@ import '../../../core/base/status.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
 import '../../checkout/riverpod/checkout_order_items_provider.dart';
-import '../../order/riverpod/order_provider.dart';
-import '../../order/riverpod/order_state.dart';
+import '../../order/create_order/riverpod/create_order_provider.dart';
+import '../../order/create_order/riverpod/create_order_state.dart';
 import '../riverpod/payment_checkout_provider.dart';
 import 'widget/delivery_info_card.dart';
 import 'widget/delivery_method_card.dart';
@@ -35,7 +35,7 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<OrderState>(orderProvider, (prev, next) {
+    ref.listen<CreateOrderState>(createOrderProvider, (prev, next) {
       if (prev?.status != next.status && next.status.isSuccess) {
         // final order = next.order; // ✅ DATA Ở ĐÂY
 
@@ -132,7 +132,7 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
               totalMoney: moneyTotal,
               totalMoneyDiscount: 0,
               onCheckout: () {
-                ref.read(orderProvider.notifier).creatOrder();
+                ref.read(createOrderProvider.notifier).creatOrder();
               },
             ),
           ),
