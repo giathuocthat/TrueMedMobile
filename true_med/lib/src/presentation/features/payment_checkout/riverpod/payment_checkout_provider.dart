@@ -2,8 +2,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/base/result.dart';
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../domain/use_cases/address/default_address_shipping_usecase.dart';
 import '../../../../domain/use_cases/product_use_case.dart';
+import '../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
 import '../../../core/application_state/user/user_provider.dart';
 import 'payment_checkout_state.dart';
 
@@ -49,7 +51,9 @@ class PaymentCheckout extends _$PaymentCheckout {
 
     switch (result1) {
       case Success(:final data):
-        state = state.copyWith(status: Status.success, address: data.data);
+        final address = data.data;
+        ref.read(selectedShippingAddressProvider.notifier).set(address);
+        state = state.copyWith(status: Status.success, address: address);
       case Error(:final error):
         state = state.copyWith(status: Status.error, error: error);
         return; // stop luôn, khỏi call API 2

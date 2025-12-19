@@ -6,6 +6,9 @@ import '../../../core/application_state/address_shipping/selected_shipping_addre
 import '../../../core/base/status.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
+import '../../checkout/riverpod/checkout_order_items_provider.dart';
+import '../../order/riverpod/order_provider.dart';
+import '../../order/riverpod/order_state.dart';
 import '../riverpod/payment_checkout_provider.dart';
 import 'widget/delivery_info_card.dart';
 import 'widget/delivery_method_card.dart';
@@ -31,11 +34,29 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<OrderState>(orderProvider, (prev, next) {
+      if (prev?.status != next.status && next.status.isSuccess) {
+        // final order = next.order; // ✅ DATA Ở ĐÂY
+
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Đặt hàng thành công - Mã đơn: ${order?.id}')),
+        // );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Đặt hàng thành công')));
+      }
+
+      if (next.status.isError) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Đặt hàng thất bại')));
+      }
+    });
     final selectedAddress = ref.watch(selectedShippingAddressProvider);
 
-    final moneyTotal = ref.watch(
-      cartProvider.select((s) => s.selectedTotalAmount),
-    );
+    final pricing = ref.watch(checkoutPricingProvider);
+    final moneyTotal = pricing.total;
+
     final totalItems = ref.watch(
       cartProvider.select((s) => s.selectedTotalQuantity),
     );
@@ -98,7 +119,13 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
           ////
           SizedBox(
             height: 100,
-            child: PaymentCheckOutFooter(context, moneyTotal, 0),
+            child: PaymentCheckOutFooter(
+              totalMoney: moneyTotal,
+              totalMoneyDiscount: 0,
+              onCheckout: () {
+                ref.read(orderProvider.notifier).creatOrder();
+              },
+            ),
           ),
         ],
       ),

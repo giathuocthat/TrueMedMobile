@@ -14,7 +14,7 @@ class SelectedShippingAddressNotifier
     extends StateNotifier<AddressShippingResponseEntity?> {
   SelectedShippingAddressNotifier() : super(null);
 
-  void set(AddressShippingResponseEntity address) {
+  void set(AddressShippingResponseEntity? address) {
     state = address;
   }
 

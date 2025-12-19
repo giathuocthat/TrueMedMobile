@@ -119,3 +119,8 @@ DeleteAddressShippingUseCase deleteAddressShippingUseCase(Ref ref) {
 DefaultAddressShippingUseCase defaultAddressShippingUseCase(Ref ref) {
   return DefaultAddressShippingUseCase(ref.read(addressRepositoryProvider));
 }
+
+@riverpod
+CreateOrderUseCase createOrderUseCase(Ref ref) {
+  return CreateOrderUseCase(ref.read(orderRepositoryProvider));
+}

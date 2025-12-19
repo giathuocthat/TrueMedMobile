@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/extensions/string.dart';
+import '../../domain/mappers/cart_to_order_item_mapper.dart';
 import '../../presentation/core/router/routes.dart';
+import '../../presentation/features/application/cart/riverpod/cart_provider.dart';
 import 'money_section.dart';
 import 'promotion_section.dart';
 
@@ -41,7 +43,6 @@ Widget PaymentFooter(
                 totalMoneyFomart: totalMoney.toCurrency(true),
                 totalMoneyDiscountFomart: totalMoneyDiscount.toCurrency(true),
                 onCheckout: () {
-                  //context.pushNamed(AppRoute.paymentCheckout.name);
                   context.pushNamed(Routes.paymentCheckout);
                 },
               ),

@@ -79,4 +79,9 @@ abstract class RestClient {
     @Path('id') String id,
     @Body() Map<String, dynamic> request,
   );
+
+  @POST(Endpoints.placeOrder)
+  Future<HttpResponse<ApiResponseMetaModel>> order(
+    @Body() Map<String, dynamic> request,
+  );
 }
