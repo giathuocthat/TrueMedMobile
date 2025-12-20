@@ -55,9 +55,6 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
   }
 
   Widget _buildBody(BuildContext context, OrderListState state) {
-    // if (state.status.isLoading) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
     if (state.status.isLoading && state.orders.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -67,32 +64,44 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
     }
 
     if (state.orders.isEmpty) {
-      return const Center(child: Text('Chưa có đơn hàng'));
+      return RefreshIndicator(
+        onRefresh: () async {
+          await ref.read(orderListProvider.notifier).refresh();
+        },
+        child: ListView(
+          children: const [
+            SizedBox(height: 200),
+            Center(child: Text('Chưa có đơn hàng')),
+          ],
+        ),
+      );
     }
-
-    return ListView.builder(
-      controller: _scrollController, // ⭐ QUAN TRỌNG
-      padding: const EdgeInsets.only(bottom: 16),
-      //itemCount: state.orders.length,
-      itemCount: state.orders.length + (state.isLoadingMore ? 1 : 0),
-      itemBuilder: (context, index) {
-        // ⭐ Footer loading nhỏ
-
-        if (index == state.orders.length && state.isLoadingMore) {
-          return const LoadMoreFooter();
-        }
-        final order = state.orders[index];
-
-        return OrderListItem(
-          orderCode: order.orderNumber,
-          statusText: order.orderStatus,
-          statusColor: orderStatusColor(order.orderStatus),
-          productCount: 99,
-          totalQuantity: 19,
-          totalPrice: order.totalAmount.toCurrency(true),
-          timeText: order.createdDate?.hhmmss_ddMMyyyy ?? '',
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        await ref.read(orderListProvider.notifier).refresh();
       },
+      child: ListView.builder(
+        controller: _scrollController,
+        padding: const EdgeInsets.only(bottom: 16),
+        itemCount: state.orders.length + (state.isLoadingMore ? 1 : 0),
+        itemBuilder: (context, index) {
+          // ⭐ Footer loading more
+          if (index == state.orders.length && state.isLoadingMore) {
+            return const LoadMoreFooter();
+          }
+
+          final order = state.orders[index];
+          return OrderListItem(
+            orderCode: order.orderNumber,
+            statusText: order.orderStatus,
+            statusColor: orderStatusColor(order.orderStatus),
+            productCount: 99,
+            totalQuantity: 19,
+            totalPrice: order.totalAmount.toCurrency(true),
+            timeText: order.createdDate?.hhmmss_ddMMyyyy ?? '',
+          );
+        },
+      ),
     );
   }
 
