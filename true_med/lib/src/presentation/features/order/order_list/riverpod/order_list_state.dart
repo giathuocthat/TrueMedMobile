@@ -16,6 +16,10 @@ abstract class OrderListState with _$OrderListState {
 
     // đang kéo để refresh, dùng cho UI
     @Default(false) bool isRefreshing,
+    @Default(false) bool isLoadingMore, // ⭐ thêm
+
+    @Default(true) bool hasMore,
+    @Default(1) int page,
 
     @Default(null) OrderListResponseEntity? orderListPage,
     @Default([]) List<OrderListItemResponseEntity> orders,

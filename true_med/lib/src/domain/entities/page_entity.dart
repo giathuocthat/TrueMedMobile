@@ -25,4 +25,5 @@ class PageResponseEntity extends PageEntity {
   final int pageSize;
   final int totalCount;
   final int totalPages;
+  bool get hasMore => pageNumber < totalPages;
 }

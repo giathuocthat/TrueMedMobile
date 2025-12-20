@@ -23,11 +23,11 @@ class OrderListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -45,7 +45,7 @@ class OrderListItem extends StatelessWidget {
               Text(
                 '#$orderCode',
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 11,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -56,7 +56,7 @@ class OrderListItem extends StatelessWidget {
                   const SizedBox(width: 4),
                   Text(
                     timeText,
-                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                    style: const TextStyle(fontSize: 11, color: Colors.grey),
                   ),
                 ],
               ),
@@ -82,7 +82,7 @@ class OrderListItem extends StatelessWidget {
               Text(
                 statusText,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 11,
                   fontWeight: FontWeight.w500,
                   color: statusColor,
                 ),
@@ -91,11 +91,34 @@ class OrderListItem extends StatelessWidget {
           ),
 
           const SizedBox(height: 8),
+          Row(
+            children: [
+              const Text(
+                'Sản phẩm: ',
+                style: TextStyle(fontSize: 11, color: Colors.black87),
+              ),
+              Text(
+                '$productCount',
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
 
-          // ===== INFO =====
-          Text(
-            'Sản phẩm: $productCount - Tổng SL: $totalQuantity',
-            style: const TextStyle(fontSize: 14, color: Colors.black87),
+              const Text(
+                ' - Tổng SL: ',
+                style: TextStyle(fontSize: 11, color: Colors.black87),
+              ),
+              Text(
+                '$totalQuantity',
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 6),
@@ -103,7 +126,7 @@ class OrderListItem extends StatelessWidget {
           // ===== PRICE =====
           Text(
             totalPrice,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -39,30 +39,60 @@ class OrderList extends _$OrderList {
     return initialState;
   }
 
-  Future<void> fetchOrders() async {
+  Future<void> fetchOrders({bool loadMore = false}) async {
+    //if (state.status == Status.loading) return;
+    if (loadMore && (state.isLoadingMore || !state.hasMore)) return;
+    //if (loadMore && !state.hasMore) return;
     // reset state trước
-    state = state.copyWith(status: Status.loading, error: null);
+    state = state.copyWith(
+      //status: Status.loading,
+      status: loadMore ? state.status : Status.loading,
+      isLoadingMore: loadMore,
+      error: null,
+      isRefreshing: !loadMore,
+    );
 
-    // 1) Call API 1
-    final result1 = await _orderListUseCase.call(pageNumber: 1, pageSize: 20);
+    final result1 = await _orderListUseCase.call(
+      pageNumber: state.page,
+      pageSize: 20,
+    );
 
     switch (result1) {
       case Success(:final data):
-        final orders = data.data as OrderListResponseEntity;
+        final newOrders = data.data as OrderListResponseEntity;
+        //final newOrders = pageData.data ?? [];
+        final pagination = newOrders.pagination;
         state = state.copyWith(
           status: Status.success,
-          orders: orders.data ?? [],
+          orders: loadMore
+              ? [...state.orders, ...newOrders.data ?? []]
+              : newOrders.data ?? [],
+          page: (pagination.pageNumber) + 1,
+          hasMore: pagination.hasMore,
+          isLoadingMore: false,
+          isRefreshing: false,
         );
-      //state = state.copyWith(status: Status.success, orders: data.data ?? []);
       case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
-        return; // stop luôn, khỏi call API 2
+        state = state.copyWith(
+          status: Status.error,
+          error: error,
+          isRefreshing: false,
+          isLoadingMore: false,
+        );
       default:
         state = state.copyWith(
           status: Status.error,
           error: 'Something went wrong',
+          isLoadingMore: false,
+          isRefreshing: false,
         );
         return;
     }
+  }
+
+  Future<void> refresh() async {
+    state = state.copyWith(page: 1, hasMore: true, orders: []);
+
+    await fetchOrders();
   }
 }

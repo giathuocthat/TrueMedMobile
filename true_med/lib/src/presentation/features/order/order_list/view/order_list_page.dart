@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/extensions/app_localization.dart';
+import '../../../../../core/extensions/date_time_extension.dart';
 import '../../../../../core/extensions/string.dart';
-import '../../../../core/application_state/logout_provider/logout_provider.dart';
+import '../../../../../shared/widget/load_more_footer.dart';
 import '../../../../core/base/status.dart';
-import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../core/widgets/page_header.dart';
 import '../riverpod/order_list_provider.dart';
 import '../riverpod/order_list_state.dart';
@@ -19,9 +19,18 @@ class OrderListPage extends ConsumerStatefulWidget {
 }
 
 class _OrderListPageState extends ConsumerState<OrderListPage> {
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,7 +45,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
           Expanded(
             // ⭐ nội dung HomePage phía dưới
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(4.0),
               child: _buildBody(context, state),
             ),
           ),
@@ -46,7 +55,10 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
   }
 
   Widget _buildBody(BuildContext context, OrderListState state) {
-    if (state.status.isLoading) {
+    // if (state.status.isLoading) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
+    if (state.status.isLoading && state.orders.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
 
@@ -59,9 +71,16 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
     }
 
     return ListView.builder(
+      controller: _scrollController, // ⭐ QUAN TRỌNG
       padding: const EdgeInsets.only(bottom: 16),
-      itemCount: state.orders.length,
+      //itemCount: state.orders.length,
+      itemCount: state.orders.length + (state.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
+        // ⭐ Footer loading nhỏ
+
+        if (index == state.orders.length && state.isLoadingMore) {
+          return const LoadMoreFooter();
+        }
         final order = state.orders[index];
 
         return OrderListItem(
@@ -71,10 +90,29 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
           productCount: 99,
           totalQuantity: 19,
           totalPrice: order.totalAmount.toCurrency(true),
-          timeText: order.createdDate,
+          timeText: order.createdDate?.hhmmss_ddMMyyyy ?? '',
         );
       },
     );
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+
+    final position = _scrollController.position;
+
+    // Chạm đáy (có buffer 100px cho mượt)
+    if (position.pixels >= position.maxScrollExtent - 100) {
+      onScrollEnd();
+    }
+  }
+
+  void onScrollEnd() {
+    final notifier = ref.read(orderListProvider.notifier);
+
+    if (notifier.state.hasMore && notifier.state.status != Status.loading) {
+      notifier.fetchOrders(loadMore: true);
+    }
   }
 }
 

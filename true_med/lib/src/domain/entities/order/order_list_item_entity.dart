@@ -7,7 +7,7 @@ class OrderListItemResponseEntity extends OrderListItemEntity {
     required this.customerName,
     required this.customerPhone,
     this.customerEmail,
-    required this.createdDate,
+    this.createdDate,
     required this.orderStatus,
     required this.paymentStatus,
     required this.totalAmount,
@@ -18,7 +18,8 @@ class OrderListItemResponseEntity extends OrderListItemEntity {
   final String customerName;
   final String customerPhone;
   String? customerEmail;
-  final String createdDate;
+  //final String createdDate;
+  final DateTime? createdDate;
   final String orderStatus;
   final String paymentStatus;
   final double totalAmount;

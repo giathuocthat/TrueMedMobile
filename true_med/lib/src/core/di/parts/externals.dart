@@ -36,8 +36,8 @@ Dio dio(Ref ref) {
     BaseOptions(
       baseUrl: Endpoints.base,
 
-      connectTimeout: const Duration(seconds: 5),
-      receiveTimeout: const Duration(seconds: 3),
+      connectTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(seconds: 13),
       headers: {'Content-Type': 'application/json'},
     ),
   );
@@ -71,8 +71,8 @@ Dio dio(Ref ref) {
       dio: Dio(
         BaseOptions(
           baseUrl: Endpoints.base,
-          connectTimeout: const Duration(seconds: 5),
-          receiveTimeout: const Duration(seconds: 3),
+          connectTimeout: const Duration(seconds: 15),
+          receiveTimeout: const Duration(seconds: 13),
         ),
       ),
     ),
