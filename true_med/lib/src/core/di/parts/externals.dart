@@ -38,11 +38,14 @@ Dio dio(Ref ref) {
 
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 13),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
     ),
   );
 
-  //LOCTB HARD_CODE_BYPASS_SSL_CERTIFICATE
+  // LOCTB HARD_CODE_BYPASS_SSL_CERTIFICATE
 
   /// ---------------------------------------------------------
   /// 🔥 TƯƠNG ĐƯƠNG curl --insecure (bypass SSL certificate)

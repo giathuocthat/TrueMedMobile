@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/extensions/string.dart';
 import '../../../../../domain/entities/cart_entity.dart';
+import '../../../../../shared/widget/cache_image.dart';
 
 class ProductItemCard extends StatelessWidget {
   final CartItemEntity item;
@@ -33,8 +34,15 @@ class ProductItemCard extends StatelessWidget {
               //borderRadius: BorderRadius.circular(8),
               child: Opacity(
                 opacity: 1.0,
-                child: Image.network(
-                  item.product.thumbnailUrl ?? '',
+                //child:
+                // Image.network(
+                //   item.product.thumbnailUrl ?? '',
+                //   width: 70,
+                //   height: 70,
+                //   fit: BoxFit.cover,
+                // ),
+                child: AppNetworkImage(
+                  url: item.product.thumbnailUrl ?? '',
                   width: 70,
                   height: 70,
                   fit: BoxFit.cover,
