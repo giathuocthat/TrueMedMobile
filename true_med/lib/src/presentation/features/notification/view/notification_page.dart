@@ -36,24 +36,13 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
             title: context.locale.notifications,
             showBack: true,
           ), // ⭐ đặt header lên đầu
-          Expanded(
+          const Expanded(
             // ⭐ nội dung HomePage phía dưới
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(context.locale.notifications),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: () {
-                      ref.read(logoutProvider.notifier).call();
-                    },
-                    child: state.isLoading
-                        ? const LoadingIndicator()
-                        : Text(context.locale.logout),
-                  ),
-                ],
+                children: [Text('Chưa có dữ liệu thông báo')],
               ),
             ),
           ),

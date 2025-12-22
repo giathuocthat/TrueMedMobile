@@ -28,32 +28,6 @@ abstract class CartState with _$CartState {
 
   int get totalQuantity => items.fold<int>(0, (sum, e) => sum + e.quantity);
 
-  // int get totalCartChecked => selectedIds.length;
-  // //double get totalMoney => selectedIds.length;
-
-  // int get selectedTotalQuantity => items
-  //     .where((e) => selectedIds.contains(e.product.id))
-  //     .fold<int>(0, (sum, e) => sum + e.quantity);
-
-  // double get selectedTotalAmount => items
-  //     .where((e) => selectedIds.contains(e.product.id))
-  //     .fold<double>(
-  //       0,
-  //       (sum, e) =>
-  //           sum + (e.product.productVariants?[0].price ?? 0) * e.quantity,
-  //     );
-  // List<OrderItemEntity> get checkOutItems {
-  //   return items
-  //       .where((e) => selectedIds.contains(e.product.id))
-  //       .map(
-  //         (e) => OrderItemEntity(
-  //           quantity: e.quantity,
-  //           productVariantId: e.product.productVariants?[0].id ?? 0,
-  //         ),
-  //       )
-  //       .toList();
-  // }
-
   List<CartItemEntity> get checkOutSelectItems {
     return items.where((e) => selectedIds.contains(e.product.id)).toList();
   }

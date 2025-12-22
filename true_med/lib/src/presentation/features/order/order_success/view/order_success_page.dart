@@ -50,19 +50,7 @@ class _OrderSuccessPageState extends ConsumerState<OrderSuccessPage> {
             child: BottonFooter(
               text: 'Chi tiết đơn hàng',
               onCallback: () {
-                // pop 3 lần để về trang chi tiết đơn hàng
-                // vì thứ tự là: CartOrderPage -> PaymentCheckoutPage -> OrderSuccessPage
-                // context.pop();
-                // context.pop();
-                // context.pop();
-                // // sau đó điều hướng đến trang list đơn hàng
-
-                // //select list oder by id
-                // // sau đó mở detail
-                // context.pushNamed(
-                //   Routes.orderDetail,
-                //   pathParameters: {'orderId': '${widget.orderId}'},
-                // );
+                // remove cart page from stack
                 context.goNamed(
                   Routes.myOrder,
                   extra: OrderListNavigationArgs(openOrderId: widget.orderId),

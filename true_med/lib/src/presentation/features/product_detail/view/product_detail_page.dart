@@ -169,7 +169,9 @@ Widget _buildFooter(
   }
 
   return SizedBox(
-    height: 140,
+    // LOCTB Hard Code
+    // height: 140,
+    height: 120,
     child: ProductCartFooter(context, product: product),
   );
 }

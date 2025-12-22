@@ -31,7 +31,9 @@ class OrderProductSection extends StatelessWidget {
           _ShopRow(),
           //const Divider(height: 1),
           Divider(height: 1, color: Colors.grey.shade300),
-          ProductItemCard(item: listProducts[0]),
+          if (listProducts.isNotEmpty) ...[
+            ProductItemCard(item: listProducts[0]),
+          ],
           const SizedBox(height: 2),
           //const Divider(thickness: 1, height: 1),
           const DashedDivider(),

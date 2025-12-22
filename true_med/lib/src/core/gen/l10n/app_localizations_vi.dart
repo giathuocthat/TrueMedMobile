@@ -45,7 +45,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get payment => 'Payment';
+  String get payment => 'Thanh toán';
 
   @override
   String get address => 'Chọn địa chỉ nhận hàng';

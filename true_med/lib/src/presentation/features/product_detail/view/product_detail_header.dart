@@ -141,7 +141,7 @@ class _ProductDetailHeaderState extends ConsumerState<ProductDetailHeader> {
                               padding: const EdgeInsets.only(right: 12),
                               child: IconWithBadge(
                                 icon: Icons.notifications,
-                                badge: '3',
+                                badge: '0',
                                 onTap: () =>
                                     context.pushNamed(Routes.notification),
                               ),

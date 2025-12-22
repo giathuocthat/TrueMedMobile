@@ -41,6 +41,9 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
       if (prev?.status != next.status && next.status.isSuccess) {
         final order = next.orderSuccess; // ✅ DATA Ở ĐÂY
 
+        // ✅ ĐẶT HÀNG THÀNH CÔNG → XÓA CART ĐÃ CHỌN
+        ref.read(cartProvider.notifier).removeSelectedItems();
+
         context.pushNamed(
           Routes.orderSuccess,
           pathParameters: {'orderId': '${order?.id}'},

@@ -9,7 +9,7 @@ import 'quantity_detail_selector.dart';
 class ProductCartSection extends ConsumerWidget {
   final ProductResponseEntity product;
   final ProductVariantsResponseEntity? productVariants;
-  final bool isShowQuantitySelector = true;
+  final bool isShowQuantitySelector = false;
   const ProductCartSection({
     super.key,
     required this.product,
@@ -31,10 +31,10 @@ class ProductCartSection extends ConsumerWidget {
 
             const Spacer(),
 
-            const Text(
-              "999 điểm",
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-            ),
+            // const Text(
+            //   "999 điểm",
+            //   style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+            // ),
           ],
         ),
         const SizedBox(height: 6),

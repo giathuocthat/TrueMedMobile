@@ -53,6 +53,12 @@ class PaymentFooter extends StatelessWidget {
                   totalMoneyFomart: totalMoney.toCurrency(true),
                   totalMoneyDiscountFomart: totalMoneyDiscount.toCurrency(true),
                   onCheckout: () {
+                    if (totalMoney <= 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Vui lòng chọn sản phẩm')),
+                      );
+                      return;
+                    }
                     context.pushNamed(Routes.paymentCheckout);
                   },
                 ),

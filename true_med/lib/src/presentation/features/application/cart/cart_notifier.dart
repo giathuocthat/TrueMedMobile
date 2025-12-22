@@ -87,4 +87,19 @@ class CartNotifier extends StateNotifier<CartState> {
     return state.items.isNotEmpty &&
         state.selectedIds.length == state.items.length;
   }
+
+  void removeSelectedItems() {
+    if (state.selectedIds.isEmpty) return;
+
+    final selectedIds = state.selectedIds;
+
+    final newItems = state.items
+        .where((e) => !selectedIds.contains(e.product.id))
+        .toList();
+
+    state = state.copyWith(
+      items: newItems,
+      selectedIds: <int>{}, // clear selection
+    );
+  }
 }

@@ -84,7 +84,9 @@ class _CartOrderPageState extends ConsumerState<CartOrderPage> {
                 ),
 
                 SizedBox(
-                  height: 230,
+                  // LOCTB Hard Code
+                  //height: 230,
+                  height: 160,
                   child: PaymentFooter(
                     context,
                     items: listCard.selectedTotalQuantity.toDouble(),
