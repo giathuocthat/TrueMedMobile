@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/extensions/app_localization.dart';
-import '../../../../../core/extensions/date_time_extension.dart';
-import '../../../../../core/extensions/string.dart';
-import '../../../../../shared/widget/load_more_footer.dart';
 import '../../../../core/base/status.dart';
-import '../../../../core/router/routes.dart';
 import '../../../../core/widgets/page_header.dart';
 import '../../order_list/riverpod/order_list_provider.dart';
 import '../../order_list/riverpod/order_list_state.dart';
-import '../../order_list/view/widget/order_list_item.dart';
-import '../model/mock_order_status_step.dart';
 import 'wigget/order_info_section.dart';
-import 'wigget/order_timeline.dart';
 import 'wigget/payment_info_section.dart';
 
 class OrderDetailPage extends ConsumerStatefulWidget {
@@ -86,32 +78,17 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
       onRefresh: () async {
         await ref.read(orderListProvider.notifier).refresh();
       },
-      child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+      child: const CustomScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Column(
               children: [
-                // CHỪA CHỖ CHO BANNER
-                //SizedBox(height: widget.bannerHeight),
-
-                // BODY CONTENT
                 PaymentInfoSection(),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 OrderInfoSection(),
-                // Container(
-                //   color: Colors.white,
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 16,
-                //     vertical: 12,
-                //   ),
-                //   child: OrderTimeline(steps: stepComplete),
-                // ),
 
-                //OrderTimeline(steps: stepComplete),
-                const SizedBox(height: 16),
-
-                //SizedBox(height: safeBottom + 80), // tránh đè footer
+                SizedBox(height: 16),
               ],
             ),
           ),

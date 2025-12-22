@@ -24,12 +24,8 @@ class _OrderInfoSectionState extends State<OrderInfoSection>
         children: [
           _infoItem('Ngày Mua', '19:13 20/10/2025'),
           _infoItem('Ngày Giao', 'Dự kiến giao hàng T7 23/10/2025'),
-          // Container(
-          //   color: Colors.white,
-          //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          //   child: OrderTimeline(steps: stepComplete),
-          // ),
-          OrderTimeline(steps: stepComplete),
+
+          OrderTimeline(steps: stepAll),
           // ===== HEADER =====
           const SizedBox(height: 16),
         ],

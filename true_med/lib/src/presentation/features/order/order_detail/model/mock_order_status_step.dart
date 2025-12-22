@@ -65,7 +65,7 @@ final stepAll = [
     type: OrderStatusType.delivering,
     title: 'Đang giao',
     time: DateTime.parse("2024-11-22T10:38:53"),
-    isActive: true,
+    isActive: false,
   ),
   OrderStatusStep(
     type: OrderStatusType.completed,
