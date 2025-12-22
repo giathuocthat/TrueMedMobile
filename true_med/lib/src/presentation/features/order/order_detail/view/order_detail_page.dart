@@ -39,7 +39,7 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
     return Scaffold(
       body: Column(
         children: [
-          PageHeader(title: context.locale.notifications, showBack: true),
+          PageHeader(title: context.locale.detail, showBack: true),
           Expanded(
             // ⭐ nội dung HomePage phía dưới
             child: Padding(

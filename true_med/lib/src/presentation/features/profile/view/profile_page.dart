@@ -7,6 +7,12 @@ import '../../../core/application_state/logout_provider/logout_provider.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widgets/loading_indicator.dart';
 import '../../../core/widgets/page_header.dart';
+import 'widget/account_info_view.dart';
+import 'widget/member_ship_card.dart';
+import 'widget/section_header.dart';
+import 'widget/policy_info_section.dart';
+import 'widget/support_info_section copy.dart';
+import 'widget/utilities_info_view.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -37,23 +43,32 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             showBack: true,
           ), // ⭐ đặt header lên đầu
           Expanded(
-            // ⭐ nội dung HomePage phía dưới
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(context.locale.profile),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: () {
-                      ref.read(logoutProvider.notifier).call();
-                    },
-                    child: state.isLoading
-                        ? const LoadingIndicator()
-                        : Text(context.locale.logout),
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const MembershipCard(),
+                    const SizedBox(height: 18),
+
+                    const SectionHeader(title: 'Thông tin tài khoản'),
+                    const AccountInfoView(),
+
+                    const SizedBox(height: 8),
+                    const SectionHeader(title: 'Tiện ích'),
+                    const UtilitiesInfoSection(),
+
+                    const SizedBox(height: 8),
+                    const SectionHeader(title: 'Hỗ trợ'),
+                    const SupportInfoSection(),
+
+                    const SizedBox(height: 8),
+                    const SectionHeader(title: 'Về chúng tôi'),
+                    const PolicyInfoSection(),
+
+                    Divider(height: 1, color: Colors.grey.shade300),
+                  ],
+                ),
               ),
             ),
           ),

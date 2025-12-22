@@ -33,7 +33,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cart => 'Giỏ hàng';
 
   @override
-  String get detail => 'Chi tiết sản phẩm';
+  String get detail => 'Đơn hàng';
 
   @override
   String get search => 'Tìm kiếm';
