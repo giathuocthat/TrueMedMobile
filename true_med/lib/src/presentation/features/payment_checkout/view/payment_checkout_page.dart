@@ -13,6 +13,7 @@ import '../../checkout/riverpod/checkout_order_items_provider.dart';
 import '../../order/create_order/riverpod/create_order_provider.dart';
 import '../../order/create_order/riverpod/create_order_state.dart';
 import '../riverpod/payment_checkout_provider.dart';
+import '../riverpod/payment_checkout_state.dart';
 import 'widget/delivery_info_card.dart';
 import 'widget/delivery_method_card.dart';
 import 'widget/invoice_info_section.dart';
@@ -70,14 +71,15 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
 
     final state = ref.watch(paymentCheckoutProvider);
 
-    if (state.status == Status.loading) {
-      return const Center(child: CircularProgressIndicator());
-    }
+    // if (state.status == Status.loading) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
 
     if (state.status == Status.error) {
       return Center(child: Text(state.error ?? 'Có lỗi xảy ra'));
     }
-
+    final isAddressLoading =
+        state.status == Status.loading && selectedAddress == null;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -91,8 +93,12 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
                 children: [
                   // const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
-
-                  DeliveryInfoCard(address: selectedAddress ?? state.address),
+                  isAddressLoading
+                      ? const DeliveryInfoSkeleton()
+                      : DeliveryInfoCard(
+                          address: selectedAddress ?? state.address,
+                        ),
+                  // DeliveryInfoCard(address: selectedAddress ?? state.address),
                   const SizedBox(height: 12),
                   Divider(height: 1, color: Colors.grey.shade300),
                   OrderProductSection(
@@ -134,12 +140,50 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
             child: PaymentCheckOutFooter(
               totalMoney: moneyTotal,
               totalMoneyDiscount: 0,
+
               onCheckout: () {
                 ref.read(createOrderProvider.notifier).creatOrder();
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DeliveryInfoSkeleton extends StatelessWidget {
+  const DeliveryInfoSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _skeletonLine(width: 120, height: 14),
+          const SizedBox(height: 8),
+          _skeletonLine(width: double.infinity, height: 14),
+          const SizedBox(height: 6),
+          _skeletonLine(width: 180, height: 14),
+        ],
+      ),
+    );
+  }
+
+  Widget _skeletonLine({double? width, double height = 12}) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade300,
+        borderRadius: BorderRadius.circular(6),
       ),
     );
   }
