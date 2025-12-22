@@ -1,5 +1,8 @@
 class Endpoints {
-  static const base = 'https://192.168.1.150/api/';
+  //static const base = 'https://192.168.1.150/api/';
+  //static const base = 'https://treena-noncellulous-alan.ngrok-free.dev/api/';
+  //static const base = 'https://treena-noncellulous-alan.ngrok-free.dev/api';
+  static const base = 'https://treena-noncellulous-alan.ngrok-free.dev/api';
 
   /// Authentication
   static const String register = '/auth/register/';

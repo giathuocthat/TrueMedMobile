@@ -12,8 +12,6 @@ class OrderInfoSection extends StatefulWidget {
 
 class _OrderInfoSectionState extends State<OrderInfoSection>
     with SingleTickerProviderStateMixin {
-  bool _expanded = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(

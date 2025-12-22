@@ -62,7 +62,7 @@ class HomeHeader extends ConsumerWidget {
           IconWithBadge(
             icon: Icons.notifications,
             badge: '3',
-            //LOCTB Hard Code
+            // LOCTB Hard Code
             onTap: () => context.pushNamed(Routes.notification),
           ),
 

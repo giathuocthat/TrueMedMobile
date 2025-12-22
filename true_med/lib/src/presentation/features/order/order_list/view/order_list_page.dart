@@ -6,9 +6,10 @@ import '../../../../../core/extensions/app_localization.dart';
 import '../../../../../core/extensions/date_time_extension.dart';
 import '../../../../../core/extensions/string.dart';
 import '../../../../../shared/widget/load_more_footer.dart';
-import '../../../../core/base/status.dart';
+import '../../../../core/router/navigation_args/order_list_navigation_args.dart';
 import '../../../../core/router/routes.dart';
 import '../../../../core/widgets/page_header.dart';
+import '../../order_success/view/order_success_page.dart';
 import '../riverpod/order_list_provider.dart';
 import '../riverpod/order_list_state.dart';
 import 'widget/order_list_item.dart';
@@ -33,6 +34,22 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final args = GoRouterState.of(context).extra as OrderListNavigationArgs?;
+
+    if (args != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.pushNamed(
+          Routes.orderDetail,
+          pathParameters: {'orderId': args.openOrderId.toString()},
+        );
+      });
+    }
   }
 
   @override

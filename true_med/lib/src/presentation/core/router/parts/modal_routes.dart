@@ -105,5 +105,17 @@ List<GoRoute> _modalRoutes(ref) {
         );
       },
     ),
+    //order success
+    GoRoute(
+      path: Routes.orderSuccess,
+      name: Routes.orderSuccess,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: OrderSuccessPage(
+            orderId: int.parse(state.pathParameters['orderId']!),
+          ),
+        );
+      },
+    ),
   ];
 }

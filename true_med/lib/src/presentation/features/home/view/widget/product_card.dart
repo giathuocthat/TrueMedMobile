@@ -66,8 +66,11 @@ class ProductCard extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if (percentPrice < 0)
+                        if (percentPrice < 0) ...[
                           discountBadge(percentPrice.percentChangeText()),
+                        ] else ...[
+                          Container(),
+                        ],
                         const Padding(
                           padding: EdgeInsets.only(top: 10, right: 10),
                           child: Icon(

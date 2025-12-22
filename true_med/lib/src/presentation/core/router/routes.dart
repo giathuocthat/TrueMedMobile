@@ -29,4 +29,5 @@ class Routes {
   static const String profile = '/profile';
 
   static const String orderDetail = '/order-detail/:orderId';
+  static const String orderSuccess = '/order-success/:orderId';
 }

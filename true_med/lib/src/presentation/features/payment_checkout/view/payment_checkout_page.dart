@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/app_localization.dart';
 import '../../../../core/extensions/string.dart';
 import '../../../core/application_state/address_shipping/selected_shipping_address_provider.dart';
 import '../../../core/base/status.dart';
+import '../../../core/router/routes.dart';
 import '../../../core/widgets/page_header.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
 import '../../checkout/riverpod/checkout_order_items_provider.dart';
@@ -37,14 +39,12 @@ class _PaymentCheckoutPageState extends ConsumerState<PaymentCheckoutPage> {
   Widget build(BuildContext context) {
     ref.listen<CreateOrderState>(createOrderProvider, (prev, next) {
       if (prev?.status != next.status && next.status.isSuccess) {
-        // final order = next.order; // ✅ DATA Ở ĐÂY
+        final order = next.orderSuccess; // ✅ DATA Ở ĐÂY
 
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Đặt hàng thành công - Mã đơn: ${order?.id}')),
-        // );
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Đặt hàng thành công')));
+        context.pushNamed(
+          Routes.orderSuccess,
+          pathParameters: {'orderId': '${order?.id}'},
+        );
       }
 
       if (next.status.isError) {
