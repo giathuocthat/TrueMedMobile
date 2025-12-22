@@ -10,6 +10,7 @@ class OrderListItem extends StatelessWidget {
     required this.totalQuantity,
     required this.totalPrice,
     required this.timeText,
+    this.onTap,
   });
 
   final String orderCode;
@@ -19,82 +20,70 @@ class OrderListItem extends StatelessWidget {
   final int totalQuantity;
   final String totalPrice;
   final String timeText;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8), // bo tròn đều
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8), // bo tròn đều
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.06),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: _buildContent(context),
             ),
-            child: _buildContent(context),
-          ),
-          // Status line full height
-          Positioned.fill(
-            left: 0,
-            top: 0,
-            bottom: 0,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                width: 4,
-                decoration: BoxDecoration(
-                  color: statusColor,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      statusColor.withOpacity(0.65),
-                      statusColor.withOpacity(0.95),
-                    ],
+            // Status line full height
+            Positioned.fill(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 4,
+                  decoration: BoxDecoration(
+                    color: statusColor,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        statusColor.withOpacity(0.65),
+                        statusColor.withOpacity(0.95),
+                      ],
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomLeft: Radius.circular(8),
+                    ),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: statusColor.withOpacity(0.25),
+                    //     blurRadius: 2,
+                    //     offset: const Offset(1, 0),
+                    //   ),
+                    // ],
                   ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8),
-                  ),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: statusColor.withOpacity(0.25),
-                  //     blurRadius: 2,
-                  //     offset: const Offset(1, 0),
-                  //   ),
-                  // ],
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-
-    // return Container(
-    //   margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-    //   padding: const EdgeInsets.all(8),
-    //   decoration: BoxDecoration(
-    //     color: Colors.white,
-    //     borderRadius: BorderRadius.circular(8),
-    //     boxShadow: [
-    //       BoxShadow(
-    //         color: Colors.black.withOpacity(0.06),
-    //         blurRadius: 10,
-    //         offset: const Offset(0, 4),
-    //       ),
-    //     ],
-    //   ),
-    //   child: ,
-    // );
   }
 
   Widget _buildContent(BuildContext context) {
@@ -131,14 +120,14 @@ class OrderListItem extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 10,
-              height: 10,
+              width: 8,
+              height: 8,
               decoration: BoxDecoration(
                 color: statusColor,
                 shape: BoxShape.circle,
               ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 6),
             Text(
               statusText,
               style: TextStyle(

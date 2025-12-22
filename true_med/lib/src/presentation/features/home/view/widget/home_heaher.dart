@@ -64,11 +64,6 @@ class HomeHeader extends ConsumerWidget {
             badge: '3',
             //LOCTB Hard Code
             onTap: () => context.pushNamed(Routes.notification),
-            //onTap: () => context.pushNamed(Routes.createShippingAddress),
-            // onTap: () => context.pushNamed(
-            //   Routes.shippingAddress,
-            //   pathParameters: {'addressId': '11'},
-            // ),
           ),
 
           const SizedBox(width: 16),

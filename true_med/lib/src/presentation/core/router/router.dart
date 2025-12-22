@@ -14,6 +14,7 @@ import '../../features/authentication/registration/view/registration_page.dart';
 import '../../features/home/view/home_page.dart';
 import '../../features/home/view/promotion_page.dart';
 import '../../features/onboarding/view/onboarding_page.dart';
+import '../../features/order/order_detail/view/order_detail_page.dart';
 import '../../features/order/order_list/view/order_list_page.dart';
 import '../../features/payment_checkout/view/payment_checkout_page.dart';
 import '../../features/product_detail/view/product_detail_page.dart';

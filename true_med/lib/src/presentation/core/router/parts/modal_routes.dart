@@ -92,5 +92,18 @@ List<GoRoute> _modalRoutes(ref) {
         return const MaterialPage(child: EditShippingAddressPage());
       },
     ),
+
+    //order Detail
+    GoRoute(
+      path: Routes.orderDetail,
+      name: Routes.orderDetail,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: OrderDetailPage(
+            orderId: int.parse(state.pathParameters['orderId']!),
+          ),
+        );
+      },
+    ),
   ];
 }

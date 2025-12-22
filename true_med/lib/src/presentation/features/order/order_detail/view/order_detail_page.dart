@@ -9,18 +9,23 @@ import '../../../../../shared/widget/load_more_footer.dart';
 import '../../../../core/base/status.dart';
 import '../../../../core/router/routes.dart';
 import '../../../../core/widgets/page_header.dart';
-import '../riverpod/order_list_provider.dart';
-import '../riverpod/order_list_state.dart';
-import 'widget/order_list_item.dart';
+import '../../order_list/riverpod/order_list_provider.dart';
+import '../../order_list/riverpod/order_list_state.dart';
+import '../../order_list/view/widget/order_list_item.dart';
+import '../model/mock_order_status_step.dart';
+import 'wigget/order_info_section.dart';
+import 'wigget/order_timeline.dart';
+import 'wigget/payment_info_section.dart';
 
-class OrderListPage extends ConsumerStatefulWidget {
-  const OrderListPage({super.key});
+class OrderDetailPage extends ConsumerStatefulWidget {
+  final int orderId;
+  const OrderDetailPage({super.key, required this.orderId});
 
   @override
-  ConsumerState<OrderListPage> createState() => _OrderListPageState();
+  ConsumerState<OrderDetailPage> createState() => _OrderDetailPageState();
 }
 
-class _OrderListPageState extends ConsumerState<OrderListPage> {
+class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
   late final ScrollController _scrollController;
 
   @override
@@ -42,8 +47,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
     return Scaffold(
       body: Column(
         children: [
-          PageHeader(title: context.locale.myOrder), // ⭐ đặt header lên đầu
-
+          PageHeader(title: context.locale.notifications, showBack: true),
           Expanded(
             // ⭐ nội dung HomePage phía dưới
             child: Padding(
@@ -82,33 +86,36 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
       onRefresh: () async {
         await ref.read(orderListProvider.notifier).refresh();
       },
-      child: ListView.builder(
-        controller: _scrollController,
-        padding: const EdgeInsets.only(bottom: 16),
-        itemCount: state.orders.length + (state.isLoadingMore ? 1 : 0),
-        itemBuilder: (context, index) {
-          // ⭐ Footer loading more
-          if (index == state.orders.length && state.isLoadingMore) {
-            return const LoadMoreFooter();
-          }
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // CHỪA CHỖ CHO BANNER
+                //SizedBox(height: widget.bannerHeight),
 
-          final order = state.orders[index];
-          return OrderListItem(
-            orderCode: order.orderNumber,
-            statusText: order.orderStatus,
-            statusColor: orderStatusColor(order.orderStatus),
-            productCount: 99,
-            totalQuantity: 19,
-            totalPrice: order.totalAmount.toCurrency(true),
-            timeText: order.createdDate?.hhmmss_ddMMyyyy ?? '',
-            onTap: () {
-              context.pushNamed(
-                Routes.orderDetail,
-                pathParameters: {'orderId': order.id.toString()},
-              );
-            },
-          );
-        },
+                // BODY CONTENT
+                PaymentInfoSection(),
+                const SizedBox(height: 16),
+                OrderInfoSection(),
+                // Container(
+                //   color: Colors.white,
+                //   padding: const EdgeInsets.symmetric(
+                //     horizontal: 16,
+                //     vertical: 12,
+                //   ),
+                //   child: OrderTimeline(steps: stepComplete),
+                // ),
+
+                //OrderTimeline(steps: stepComplete),
+                const SizedBox(height: 16),
+
+                //SizedBox(height: safeBottom + 80), // tránh đè footer
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

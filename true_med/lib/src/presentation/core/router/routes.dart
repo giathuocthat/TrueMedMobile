@@ -27,4 +27,6 @@ class Routes {
   static const String orders = '/orders';
   static const String reward = '/reward';
   static const String profile = '/profile';
+
+  static const String orderDetail = '/order-detail/:orderId';
 }
