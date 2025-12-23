@@ -4,18 +4,47 @@ part of '../theme_data.dart';
 ///
 /// Light Theme
 class _FilledButtonLightThemeData with ThemeExtensions {
+  // FilledButtonThemeData call() {
+  //   return FilledButtonThemeData(
+  //     style: ButtonStyle(
+  //       shape: WidgetStateProperty.all(
+  //         StadiumBorder(side: BorderSide(color: lightColor.primary, width: 2)),
+  //       ),
+  //       padding: WidgetStateProperty.all(
+  //         const EdgeInsets.symmetric(horizontal: 24),
+  //       ),
+  //       minimumSize: WidgetStateProperty.all(const Size(double.infinity, 48)),
+  //       textStyle: WidgetStateProperty.all(
+  //         const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+  //       ),
+  //     ),
+  //   );
+  // }
   FilledButtonThemeData call() {
     return FilledButtonThemeData(
       style: ButtonStyle(
-        shape: WidgetStateProperty.all(
-          StadiumBorder(side: BorderSide(color: lightColor.primary, width: 2)),
-        ),
+        // HEIGHT = 44
+        minimumSize: WidgetStateProperty.all(const Size(double.infinity, 44)),
+
+        // PADDING = 10 / spacing-xl
         padding: WidgetStateProperty.all(
-          const EdgeInsets.symmetric(horizontal: 24),
+          const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 16, // spacing-xl
+          ),
         ),
-        minimumSize: WidgetStateProperty.all(const Size(double.infinity, 48)),
+
+        // SHAPE = radius-md (NOT stadium)
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: lightColor.primary, width: 1),
+          ),
+        ),
+
+        // TEXT STYLE
         textStyle: WidgetStateProperty.all(
-          const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          AppTextStyles.bodyTextSmSemiBold, // 🔥 đúng design system
         ),
       ),
     );
@@ -37,6 +66,63 @@ class _FilledButtonDarkThemeData with ThemeExtensions {
         textStyle: WidgetStateProperty.all(
           const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
+      ),
+    );
+  }
+}
+
+/// OutlinedButton Button
+///
+/// Light Theme
+class _OutlinedButtonLightThemeData with ThemeExtensions {
+  OutlinedButtonThemeData call() {
+    return OutlinedButtonThemeData(
+      style: ButtonStyle(
+        minimumSize: WidgetStateProperty.all(
+          const Size(double.infinity, 44), // đúng height
+        ),
+        padding: WidgetStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // radius-md
+          ),
+        ),
+        side: WidgetStateProperty.all(
+          BorderSide(color: AppColors.borderPrimary, width: 1),
+        ),
+        // TEXT STYLE
+        textStyle: WidgetStateProperty.all(
+          AppTextStyles.bodyTextSmSemiBold, // 🔥 đúng design system
+        ),
+        foregroundColor: WidgetStateProperty.all(AppColors.fgPrimary),
+      ),
+    );
+  }
+}
+
+/// Dark Theme
+class _OutlinedButtonLightDarkThemeData with ThemeExtensions {
+  OutlinedButtonThemeData call() {
+    return OutlinedButtonThemeData(
+      style: ButtonStyle(
+        minimumSize: WidgetStateProperty.all(
+          const Size(double.infinity, 44), // đúng height
+        ),
+        padding: WidgetStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // radius-md
+          ),
+        ),
+        side: WidgetStateProperty.all(
+          BorderSide(color: AppColors.borderPrimary, width: 1),
+        ),
+        textStyle: WidgetStateProperty.all(AppTextStyles.bodyTextSmMedium),
+        foregroundColor: WidgetStateProperty.all(AppColors.fgPrimary),
       ),
     );
   }

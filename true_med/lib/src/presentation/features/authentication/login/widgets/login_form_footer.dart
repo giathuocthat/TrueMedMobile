@@ -16,10 +16,8 @@ class _FormFooter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTextStyle(
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: context.color.text.secondary,
+      style: AppTextStyles.bodyTextSmSemiBold.copyWith(
+        color: AppColors.textBrandSecondary,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,7 +32,12 @@ class _FormFooter extends ConsumerWidget {
                     return Checkbox(value: value, onChanged: _toggleRememberMe);
                   },
                 ),
-                Text(context.locale.rememberMe),
+                Text(
+                  'Ghi nhớ đăng nhập',
+                  style: AppTextStyles.bodyTextSmSemiBold.copyWith(
+                    color: AppColors.textBrandSecondary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -44,7 +47,12 @@ class _FormFooter extends ConsumerWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () => _navigateToResetPassword(context),
-                child: Text(context.locale.forgotPassword),
+                child: Text(
+                  'Quên mật khẩu',
+                  style: AppTextStyles.bodyTextSmSemiBold.copyWith(
+                    color: AppColors.textBrandSecondary,
+                  ),
+                ),
               ),
             ),
           ),

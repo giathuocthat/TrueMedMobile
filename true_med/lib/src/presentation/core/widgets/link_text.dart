@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
 import '../theme/theme.dart';
 
 class LinkText extends StatelessWidget {
@@ -24,14 +26,15 @@ class LinkText extends StatelessWidget {
           textAlign: TextAlign.center,
           text: TextSpan(
             text: text,
-            style: context.textStyle.labelLarge.copyWith(
-              color: context.color.text.secondary,
+
+            style: AppTextStyles.bodyTextSm.copyWith(
+              color: AppColors.textTertiary600,
             ),
             children: [
               TextSpan(
                 text: linkText,
-                style: context.textStyle.labelLarge.copyWith(
-                  color: context.color.text.primary,
+                style: AppTextStyles.bodyTextSmSemiBold.copyWith(
+                  color: AppColors.textBrandSecondary,
                 ),
               ),
             ],

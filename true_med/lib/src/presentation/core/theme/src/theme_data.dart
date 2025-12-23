@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_text_styles.dart';
 import 'theme_extensions/extensions.dart';
 
 part 'part/app_bar_theme.dart';
@@ -20,6 +22,7 @@ class $LightThemeData with ThemeExtensions {
       bottomNavigationBarTheme: _BottomNavigationBarLightThemeData()(),
       elevatedButtonTheme: _ElevatedButtonLightThemeData()(),
       filledButtonTheme: _FilledButtonLightThemeData()(),
+      outlinedButtonTheme: _OutlinedButtonLightThemeData()(),
       textButtonTheme: _TextButtonLightThemeData()(),
       iconTheme: IconThemeData(color: lightColor.border),
       checkboxTheme: _CheckboxTheme()(),
@@ -43,6 +46,7 @@ class $DarkThemeData with ThemeExtensions {
       bottomNavigationBarTheme: _BottomNavigationBarDarkThemeData()(),
       elevatedButtonTheme: _ElevatedButtonDarkThemeData()(),
       filledButtonTheme: _FilledButtonDarkThemeData()(),
+      outlinedButtonTheme: _OutlinedButtonLightDarkThemeData()(),
       textButtonTheme: _TextButtonDarkThemeData()(),
       iconTheme: IconThemeData(color: darkColor.border),
       checkboxTheme: _CheckboxTheme()(),
