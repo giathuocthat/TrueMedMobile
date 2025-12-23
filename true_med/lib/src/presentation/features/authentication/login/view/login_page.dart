@@ -8,6 +8,7 @@ import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/extensions/app_localization.dart';
 import '../../../../../core/extensions/validation.dart';
 import '../../../../../core/utiliity/validation/validation.dart';
+import '../../../../../shared/app_checkbox.dart';
 import '../../../../core/base/status.dart';
 import '../../../../core/router/routes.dart';
 import '../../../../core/theme/theme.dart';

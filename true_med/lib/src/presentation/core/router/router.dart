@@ -10,6 +10,9 @@ import '../../features/authentication/forgot_password/view/email_verification_pa
 import '../../features/authentication/forgot_password/view/reset_password_page.dart';
 import '../../features/authentication/forgot_password/view/reset_password_success_page.dart';
 import '../../features/authentication/login/view/login_page.dart';
+import '../../features/authentication/registration/view/account_info_page.dart';
+import '../../features/authentication/registration/view/bussiness_type_page.dart';
+import '../../features/authentication/registration/view/bussiness_address_page.dart';
 import '../../features/authentication/registration/view/registration_page.dart';
 import '../../features/home/view/home_page.dart';
 import '../../features/home/view/promotion_page.dart';

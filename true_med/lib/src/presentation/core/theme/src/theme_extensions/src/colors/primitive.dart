@@ -2,7 +2,7 @@ part of 'colors.dart';
 
 /// Primitive color palette
 class _Primitive {
-  static const Color brand = Color(0xFF0B4D2C);
+  static const Color brand = Color(0xFF006241);
   //static const Color darkGreen = Color(0xFF0B4D2C); // màu xanh đậm
 
   // Neutral colors

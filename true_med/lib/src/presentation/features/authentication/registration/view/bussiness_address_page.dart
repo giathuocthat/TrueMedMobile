@@ -3,18 +3,19 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
+import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
 import 'widget/register_policy_footer.dart';
 import 'widget/register_stepper.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class BussinessAddressPage extends StatefulWidget {
+  const BussinessAddressPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<BussinessAddressPage> createState() => _BussinessAddressPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _BussinessAddressPageState extends State<BussinessAddressPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
 
@@ -53,7 +54,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               bottom: false,
               child: SizedBox(
                 height: navBarHeight,
-                child: RegisterNavigationBar(),
+                child: RegisterNavigationBar(currentStep: 3, totalSteps: 3),
               ),
             ),
           ),
@@ -63,7 +64,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: ResgisterPolyciFooter(
+            child: ResgisterButtonNextFooter(
               onNext: () {
                 context.pushNamed(Routes.bussinessType);
               },

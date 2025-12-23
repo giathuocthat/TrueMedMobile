@@ -16,6 +16,24 @@ List<GoRoute> _authenticationRoutes(ref) {
               const MaterialPage(child: RegistrationPage()),
         ),
         GoRoute(
+          path: Routes.bussinessType,
+          name: Routes.bussinessType,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: BussinessTypePage()),
+        ),
+        GoRoute(
+          path: Routes.accountInfo,
+          name: Routes.accountInfo,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: AccountInfoPage()),
+        ),
+        GoRoute(
+          path: Routes.bussinessAddress,
+          name: Routes.bussinessAddress,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: BussinessAddressPage()),
+        ),
+        GoRoute(
           path: Routes.resetPassword,
           name: Routes.resetPassword,
           pageBuilder: (context, state) =>

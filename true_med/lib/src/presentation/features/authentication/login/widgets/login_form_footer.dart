@@ -23,15 +23,21 @@ class _FormFooter extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Transform.translate(
-            offset: const Offset(-10, 0),
+            //offset: const Offset(-10, 0),
+            offset: const Offset(0, 0),
             child: Row(
               children: [
                 ValueListenableBuilder(
                   valueListenable: shouldRemember,
                   builder: (context, value, _) {
-                    return Checkbox(value: value, onChanged: _toggleRememberMe);
+                    //return Checkbox(value: value, onChanged: _toggleRememberMe);
+                    return AppCheckbox(
+                      value: value,
+                      onChanged: _toggleRememberMe,
+                    );
                   },
                 ),
+                const SizedBox(width: 8),
                 Text(
                   'Ghi nhớ đăng nhập',
                   style: AppTextStyles.bodyTextSmSemiBold.copyWith(

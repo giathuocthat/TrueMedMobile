@@ -15,11 +15,40 @@ class AppTextStyles {
     height: 20 / 14, // line-height/text-sm
     letterSpacing: 0,
   );
+  static const TextStyle bodyTextMdSemiBold = TextStyle(
+    fontFamily: 'Body', // SF Pro Text
+    fontSize: 16, // text-md
+    fontWeight: FontWeight.w600,
+    height: 24 / 16, // line-height/text-md
+    letterSpacing: 0,
+  );
+  static const TextStyle bodyTextMd = TextStyle(
+    fontFamily: 'Body', // SF Pro Text
+    fontSize: 16, // text-md
+    fontWeight: FontWeight.w400,
+    height: 24 / 16, // line-height/text-md
+    letterSpacing: 0,
+  );
+  static const TextStyle textSmMedium = TextStyle(
+    fontFamily: 'Body', // SF Pro Text
+    fontSize: 14, // text-sm
+    fontWeight: FontWeight.w500,
+    height: 20 / 14, // line-height/text-sm
+    letterSpacing: 0,
+  );
   static const TextStyle bodyTextSm = TextStyle(
     fontFamily: 'Body', // SF Pro Text
     fontSize: 14, // text-sm
     fontWeight: FontWeight.w400,
     height: 20 / 14, // line-height/text-sm
+    letterSpacing: 0,
+  );
+
+  static const TextStyle bodyTextXLSemiBold = TextStyle(
+    fontFamily: 'Body', // SF Pro Text
+    fontSize: 20, // text-xl
+    fontWeight: FontWeight.w600,
+    height: 30 / 20, // line-height/text-xl
     letterSpacing: 0,
   );
 

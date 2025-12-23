@@ -41,6 +41,29 @@ class _FilledButtonLightThemeData with ThemeExtensions {
             side: BorderSide(color: lightColor.primary, width: 1),
           ),
         ),
+        // BACKGROUND COLOR
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return AppColors.bgDisabled; // 🔥 màu xám trong design
+          }
+          return lightColor.primary; // enabled
+        }),
+
+        // FOREGROUND (TEXT COLOR)
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return Colors.white;
+          }
+          return Colors.white;
+        }),
+
+        // BORDER
+        side: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return const BorderSide(color: Colors.transparent);
+          }
+          return BorderSide(color: lightColor.primary, width: 1);
+        }),
 
         // TEXT STYLE
         textStyle: WidgetStateProperty.all(

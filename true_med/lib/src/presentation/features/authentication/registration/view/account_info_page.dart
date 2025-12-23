@@ -3,20 +3,25 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
+import 'widget/account_info_section.dart';
+import 'widget/register_btnNext_footer.dart';
+import 'widget/register_info_form.dart';
 import 'widget/register_navigation_bar.dart';
 import 'widget/register_policy_footer.dart';
-import 'widget/register_stepper.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class AccountInfoPage extends StatefulWidget {
+  const AccountInfoPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<AccountInfoPage> createState() => _AccountInfoPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _AccountInfoPageState extends State<AccountInfoPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +41,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
               16,
               footerBuffer, // 🔥 buffer an toàn
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //Container(color: Colors.red, height: 2),
-                RegisterStepper(),
+                const AccountInfoSection(),
+                RegisterInfoForm(
+                  phoneController: phoneController,
+                  passwordController: passwordController,
+                  confirmPasswordController: confirmPasswordController,
+                ),
               ],
             ),
           ),
@@ -53,7 +63,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               bottom: false,
               child: SizedBox(
                 height: navBarHeight,
-                child: RegisterNavigationBar(),
+                child: RegisterNavigationBar(currentStep: 2, totalSteps: 3),
               ),
             ),
           ),
@@ -63,9 +73,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: ResgisterPolyciFooter(
+            child: ResgisterButtonNextFooter(
               onNext: () {
-                context.pushNamed(Routes.bussinessType);
+                context.pushNamed(Routes.bussinessAddress);
               },
             ),
           ),
