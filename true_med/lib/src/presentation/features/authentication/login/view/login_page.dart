@@ -122,7 +122,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       const SizedBox(height: 12),
 
                       OutlinedButton.icon(
-                        onPressed: state.status.isLoading ? null : _onLogin,
+                        onPressed: null,
                         icon: Image.asset(
                           AppAssets.iconMobile,
                           width: 24,
