@@ -36,20 +36,20 @@ class _LoginFormState extends State<_LoginForm> {
           ),
         ),
         const SizedBox(height: 6),
-        SizedBox(
-          height: 44,
-          child: TextFormField(
-            controller: widget.emailController,
-            //decoration: InputDecoration(hintText: context.locale.email),
-            decoration: InputDecoration(
-              hintText: 'Nhập email hoặc số điện thoại',
-            ),
-            validator: context.validator.apply([RequiredValidation()]),
+        TextFormField(
+          controller: widget.emailController,
+          //decoration: InputDecoration(hintText: context.locale.email),
+          decoration: InputDecoration(
+            hintText: 'Nhập email hoặc số điện thoại',
+            helperText: '',
           ),
+          validator: context.validator.apply([RequiredValidation()]),
         ),
 
-        const SizedBox(height: 20),
-
+        //helperText: '', chừa 1 khoảng 20px
+        //const SizedBox(height: 20),
+        const SizedBox(height: 4),
+        //Container(height: 1, color: Colors.red),
         Container(
           width: double.infinity, // 🔥 QUAN TRỌNG
           child: Text(
@@ -60,42 +60,41 @@ class _LoginFormState extends State<_LoginForm> {
           ),
         ),
         const SizedBox(height: 6),
-
-        SizedBox(
-          height: 44,
-          child: TextFormField(
-            controller: widget.passwordController,
-            obscureText: !_isPasswordVisible,
-            decoration: InputDecoration(
-              hintText: 'Nhập mật khẩu',
-              suffixIcon: GestureDetector(
-                onTap: _togglePasswordVisibility,
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.all(10), // 🔥 10px all sides
-                    child: Image.asset(
-                      _isPasswordVisible
-                          ? AppAssets.iconEye
-                          : AppAssets.iconNoEye,
-                      width: 20,
-                      height: 20,
-                      fit: BoxFit.contain,
-                    ),
+        TextFormField(
+          controller: widget.passwordController,
+          obscureText: !_isPasswordVisible,
+          decoration: InputDecoration(
+            hintText: 'Nhập mật khẩu',
+            helperText: '',
+            suffixIcon: GestureDetector(
+              onTap: _togglePasswordVisibility,
+              child: Container(
+                width: 40,
+                height: 40,
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.all(10), // 🔥 10px all sides
+                  child: Image.asset(
+                    _isPasswordVisible
+                        ? AppAssets.iconEye
+                        : AppAssets.iconNoEye,
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
-            validator: context.validator.apply([
-              RequiredValidation(),
-              PasswordValidation(minLength: 6),
-            ]),
           ),
+          validator: context.validator.apply([
+            RequiredValidation(),
+            PasswordValidation(minLength: 6),
+          ]),
         ),
 
-        const SizedBox(height: 24),
+        //helperText: '', chừa 1 khoảng 20px
+        const SizedBox(height: 4),
+        //const SizedBox(height: 24),
         _FormFooter(shouldRemember: widget.shouldRemember),
       ],
     );
