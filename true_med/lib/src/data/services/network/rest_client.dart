@@ -88,7 +88,7 @@ abstract class RestClient {
     @Body() Map<String, dynamic> request,
   );
 
-  @GET(Endpoints.orderList)
+  @GET(Endpoints.myOrders)
   Future<HttpResponse<BaseObjectResponseModel<OrderListResponseModel>>>
   listOrder(@Queries() Map<String, dynamic> query);
 }

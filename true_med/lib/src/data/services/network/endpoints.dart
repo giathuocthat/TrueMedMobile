@@ -40,5 +40,6 @@ class Endpoints {
 
   // Order
   static const String placeOrder = '/order/customer/place-order';
-  static const String orderList = '/order/list';
+  static const String orderList = '/order/customer/list';
+  static const String myOrders = '/order/customer/listxxxx';
 }
