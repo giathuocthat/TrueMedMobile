@@ -15,6 +15,13 @@ class AppTextStyles {
     height: 20 / 14, // line-height/text-sm
     letterSpacing: 0,
   );
+  static const TextStyle bodyTextSmBold = TextStyle(
+    fontFamily: 'Body', // SF Pro Text
+    fontSize: 14, // text-sm
+    fontWeight: FontWeight.w700,
+    height: 20 / 14, // line-height/text-sm
+    letterSpacing: 0,
+  );
   static const TextStyle bodyTextMdSemiBold = TextStyle(
     fontFamily: 'Body', // SF Pro Text
     fontSize: 16, // text-md
@@ -42,6 +49,15 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     height: 20 / 14, // line-height/text-sm
     letterSpacing: 0,
+  );
+  static const TextStyle displayMidiumLg = TextStyle(
+    fontFamily: 'Display', // SF Pro Text
+    fontSize: 48, // text-lg
+    fontWeight: FontWeight.w500,
+    height: 60 / 48, // line-height/text-lg
+    //letterSpacing: 0,
+    //letterSpacing = fontSize * (-2 / 100)
+    letterSpacing: -0.96, // 🔥 -2%
   );
 
   static const TextStyle bodyTextXLSemiBold = TextStyle(

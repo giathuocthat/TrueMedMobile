@@ -34,6 +34,20 @@ List<GoRoute> _authenticationRoutes(ref) {
               const MaterialPage(child: BussinessAddressPage()),
         ),
         GoRoute(
+          path: Routes.confirmOTP,
+          name: Routes.confirmOTP,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: ConfirmOTPPage()),
+        ),
+
+        GoRoute(
+          path: Routes.registerSuccess,
+          name: Routes.registerSuccess,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: RegisterSuccessPage()),
+        ),
+
+        GoRoute(
           path: Routes.resetPassword,
           name: Routes.resetPassword,
           pageBuilder: (context, state) =>

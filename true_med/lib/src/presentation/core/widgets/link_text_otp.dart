@@ -1,16 +1,18 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../theme/theme.dart';
 
-class LinkText extends StatelessWidget {
-  const LinkText({
+class LinkTextOTP extends StatelessWidget {
+  const LinkTextOTP({
     super.key,
     required this.text,
     required this.linkText,
     required this.onTap,
-    this.isActive = true,
+    this.isActive,
   });
 
   final VoidCallback? onTap;

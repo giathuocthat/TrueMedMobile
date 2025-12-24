@@ -12,6 +12,8 @@ class Routes {
   static const String bussinessType = 'bussiness-type';
   static const String accountInfo = 'account-info';
   static const String bussinessAddress = 'bussiness-address';
+  static const String confirmOTP = 'confirm-otp';
+  static const String registerSuccess = 'register-success';
 
   static const String home = '/home';
   static const String promo = '/promo';

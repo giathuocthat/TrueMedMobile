@@ -3,21 +3,18 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
-import 'widget/address_info_form.dart';
-import 'widget/bussiness_address_section.dart';
+import 'widget/otp_info_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
-import 'widget/register_policy_footer.dart';
-import 'widget/register_stepper.dart';
 
-class BussinessAddressPage extends StatefulWidget {
-  const BussinessAddressPage({super.key});
+class ConfirmOTPPage extends StatefulWidget {
+  const ConfirmOTPPage({super.key});
 
   @override
-  State<BussinessAddressPage> createState() => _BussinessAddressPageState();
+  State<ConfirmOTPPage> createState() => _ConfirmOTPPageState();
 }
 
-class _BussinessAddressPageState extends State<BussinessAddressPage> {
+class _ConfirmOTPPageState extends State<ConfirmOTPPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
   final provinceController = TextEditingController();
@@ -41,16 +38,11 @@ class _BussinessAddressPageState extends State<BussinessAddressPage> {
               16,
               footerBuffer, // 🔥 buffer an toàn
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //Container(color: Colors.red, height: 2),
-                const BussinessAddressSection(),
-                AddressInfoForm(
-                  provinceController: provinceController,
-                  wardController: wardController,
-                  streetController: streetController,
-                ),
+                OtpInfoSection(phoneNumber: '+84 123 456 789'),
               ],
             ),
           ),
@@ -63,7 +55,7 @@ class _BussinessAddressPageState extends State<BussinessAddressPage> {
               bottom: false,
               child: SizedBox(
                 height: navBarHeight,
-                child: RegisterNavigationBar(currentStep: 3, totalSteps: 3),
+                child: RegisterNavigationBar(),
               ),
             ),
           ),
@@ -74,9 +66,10 @@ class _BussinessAddressPageState extends State<BussinessAddressPage> {
             right: 0,
             bottom: 0,
             child: ResgisterButtonNextFooter(
-              textDisplay: 'Nhận mã xác thực',
+              textDisplay: 'Xác nhận',
+              isShowLogin: false,
               onNext: () {
-                context.pushNamed(Routes.confirmOTP);
+                context.pushNamed(Routes.registerSuccess);
               },
             ),
           ),

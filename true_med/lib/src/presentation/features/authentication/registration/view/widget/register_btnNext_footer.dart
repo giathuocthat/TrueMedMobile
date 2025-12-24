@@ -11,8 +11,10 @@ class ResgisterButtonNextFooter extends StatelessWidget {
     super.key,
     required this.onNext,
     this.textDisplay = 'Tiếp tục',
+    this.isShowLogin = true,
   });
   final String textDisplay;
+  final bool isShowLogin;
   final VoidCallback onNext;
 
   @override
@@ -40,14 +42,14 @@ class ResgisterButtonNextFooter extends StatelessWidget {
             FilledButton(onPressed: onNext, child: Text(textDisplay)),
 
             const SizedBox(height: 8),
-
-            LinkText(
-              text: 'Đã có tài khoản? ',
-              linkText: 'Đăng nhập',
-              onTap: () {
-                context.pushNamed(Routes.login);
-              },
-            ),
+            if (isShowLogin)
+              LinkText(
+                text: 'Đã có tài khoản? ',
+                linkText: 'Đăng nhập',
+                onTap: () {
+                  context.pushNamed(Routes.login);
+                },
+              ),
           ],
         ),
       ),
