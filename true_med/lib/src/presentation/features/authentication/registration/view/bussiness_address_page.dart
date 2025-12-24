@@ -74,6 +74,7 @@ class _BussinessAddressPageState extends State<BussinessAddressPage> {
             right: 0,
             bottom: 0,
             child: ResgisterButtonNextFooter(
+              textDisplay: 'Nhận mã xác thực',
               onNext: () {
                 context.pushNamed(Routes.bussinessType);
               },

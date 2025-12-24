@@ -44,142 +44,63 @@ class _AddressInfoFormState extends State<AddressInfoForm> {
         ),
 
         const SizedBox(height: 6),
-        TextFormField(
+
+        FormInputBox(
           controller: widget.provinceController,
-          //decoration: InputDecoration(hintText: context.locale.email),
-          decoration: InputDecoration(
-            hintText: 'Nhập số điện thoại',
-            helperText: '',
-          ),
-          validator: context.validator.apply([RequiredValidation()]),
-        ),
-        TextFormField(
-          controller: widget.provinceController,
-          decoration: InputDecoration(
-            hintText: 'Tỉnh/Thành phố',
-            suffixIcon: GestureDetector(
-              onTap: _togglePasswordVisibility,
-              child: Container(
-                width: 40,
-                height: 40,
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.all(14),
-                  child: Image.asset(
-                    AppAssets.iconChevronDown,
-                    width: 16,
-                    height: 16,
-                    fit: BoxFit.contain,
-                  ),
-                ),
+          hintText: "Chọn tỉnh/ thành phố",
+          enabled: true,
+          onTap: () {
+            // open bottom sheet chọn tỉnh
+          },
+          suffix: Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.all(14),
+              child: Image.asset(
+                AppAssets.iconChevronDown,
+                width: 16,
+                height: 16,
+                fit: BoxFit.contain,
               ),
             ),
           ),
         ),
         const SizedBox(height: 14),
         FormInputBox(
-          controller: widget.streetController,
-          hintText: "Huyện/Quận",
-          requiredField: true,
-          enabled: true,
+          controller: widget.wardController,
+          hintText: "Chọn xã/ phường",
+          enabled: false,
           onTap: () {
             // open bottom sheet chọn tỉnh
           },
-          suffix: Padding(
-            padding: const EdgeInsets.all(14),
-            child: Image.asset(
-              AppAssets.iconChevronDown,
-              width: 16,
-              height: 16,
+          suffix: Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.all(14),
+              child: Image.asset(
+                AppAssets.iconChevronDown,
+                width: 16,
+                height: 16,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ),
         const SizedBox(height: 14),
-        Row(
-          children: [
-            Expanded(
-              child: SelectBox(
-                label: "Phường/Xã",
-                value: null,
-                requiredField: true,
-                enabled: true,
-                onCallBak: () {},
-              ),
-            ),
-            const SizedBox(width: 12),
-          ],
-        ),
-
-        const SizedBox(height: 4),
 
         Container(
           width: double.infinity,
-          child: const RequiredLabel('Mật khẩu'),
-        ),
-        const SizedBox(height: 6),
-        TextFormField(
-          controller: widget.wardController,
-          obscureText: !_isPasswordVisible,
-          decoration: InputDecoration(
-            hintText: 'Nhập mật khẩu',
-            helperText: '',
-            suffixIcon: GestureDetector(
-              onTap: _togglePasswordVisibility,
-              child: Container(
-                width: 40,
-                height: 40,
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.all(10), // 🔥 10px all sides
-                  child: Image.asset(
-                    _isPasswordVisible
-                        ? AppAssets.iconEye
-                        : AppAssets.iconNoEye,
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          validator: context.validator.apply([
-            RequiredValidation(),
-            PasswordValidation(minLength: 6),
-          ]),
-        ),
-        const SizedBox(height: 4),
-        Container(
-          width: double.infinity, // 🔥 QUAN TRỌNG
-          child: const RequiredLabel('Xác nhận mật khẩu'),
+          child: const RequiredLabel('Chi tiết địa chỉ'),
         ),
         const SizedBox(height: 6),
         TextFormField(
           controller: widget.streetController,
           obscureText: !_isPasswordVisible,
-          decoration: InputDecoration(
-            hintText: 'Nhập lại mật khẩu',
-            helperText: '',
-            suffixIcon: GestureDetector(
-              onTap: _togglePasswordVisibility,
-              child: Container(
-                width: 40,
-                height: 40,
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.all(10), // 🔥 10px all sides
-                  child: Image.asset(
-                    _isPasswordVisible
-                        ? AppAssets.iconEye
-                        : AppAssets.iconNoEye,
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          decoration: InputDecoration(hintText: 'Số nhà, tên đường, tòa nhà'),
           validator: context.validator.apply([
             RequiredValidation(),
             PasswordValidation(minLength: 6),

@@ -7,8 +7,12 @@ import '../../../../../core/widgets/link_text.dart';
 import 'policy_footer.dart';
 
 class ResgisterButtonNextFooter extends StatelessWidget {
-  const ResgisterButtonNextFooter({super.key, required this.onNext});
-
+  const ResgisterButtonNextFooter({
+    super.key,
+    required this.onNext,
+    this.textDisplay = 'Tiếp tục',
+  });
+  final String textDisplay;
   final VoidCallback onNext;
 
   @override
@@ -33,7 +37,7 @@ class ResgisterButtonNextFooter extends StatelessWidget {
           mainAxisSize: MainAxisSize.min, // 🔥 QUAN TRỌNG
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FilledButton(onPressed: onNext, child: const Text('Tiếp tục')),
+            FilledButton(onPressed: onNext, child: Text(textDisplay)),
 
             const SizedBox(height: 8),
 
