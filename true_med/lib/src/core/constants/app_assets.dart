@@ -8,4 +8,5 @@ class AppAssets {
   static const String iconMobile = 'assets/icons/icon_mobile.png';
   static const String iconCheckedBox = 'assets/icons/icon_checked_box.png';
   static const String iconUnCheckBox = 'assets/icons/icon_uncheck_box.png';
+  static const String iconChevronDown = 'assets/icons/icon_chevron-down.png';
 }

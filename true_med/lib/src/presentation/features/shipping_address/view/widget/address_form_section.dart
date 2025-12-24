@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'form_input_box.dart';
 import 'required_text_field.dart';
 
 class AddressFormSection extends StatelessWidget {
@@ -43,7 +44,7 @@ class AddressFormSection extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _SelectBox(
+                child: SelectBox(
                   label: "Tỉnh/Thành phố",
                   value: province,
                   requiredField: province != null ? false : true,
@@ -53,7 +54,7 @@ class AddressFormSection extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _SelectBox(
+                child: SelectBox(
                   label: "Phường/Xã",
                   value: ward,
                   requiredField: ward != null ? false : true,
@@ -76,14 +77,14 @@ class AddressFormSection extends StatelessWidget {
   }
 }
 
-class _SelectBox extends StatelessWidget {
+class SelectBox extends StatelessWidget {
   final String label;
   final String? value;
   final bool requiredField;
   final bool enabled;
   final VoidCallback? onCallBak;
 
-  const _SelectBox({
+  const SelectBox({
     required this.label,
     this.value,
     this.requiredField = false,
@@ -140,12 +141,12 @@ class _SelectBox extends StatelessWidget {
   }
 }
 
-class _InputBox extends StatelessWidget {
+class InputBox extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool requiredField;
 
-  const _InputBox({
+  const InputBox({
     required this.controller,
     required this.hintText,
     this.requiredField = false,
