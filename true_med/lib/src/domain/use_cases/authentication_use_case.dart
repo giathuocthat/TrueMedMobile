@@ -1,4 +1,5 @@
 import '../../core/base/result.dart';
+import '../../data/models/api_response_error_model.dart';
 import '../entities/login_entity.dart';
 import '../entities/sign_up_entity.dart';
 import '../repositories/authentication_repository.dart';
@@ -66,5 +67,24 @@ final class LogoutUseCase {
 
   Future<void> call() async {
     return repository.logout();
+  }
+}
+
+final class CheckExitingPhoneEmailUseCase {
+  CheckExitingPhoneEmailUseCase(this.repository);
+
+  final AuthenticationRepository repository;
+
+  Future<Result<ApiResponseErrorResponseModel, String>> call({
+    required String phone,
+    String? email,
+  }) async {
+    final result = await repository.checkExisting(phone, email);
+
+    return switch (result) {
+      Success(:final data) => Success(data),
+      Error(:final error) => Error(error.message),
+      _ => const Error('Something went wrong'),
+    };
   }
 }

@@ -1,24 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
 import '../../../../../../shared/app_checkbox.dart';
-import '../../../../../core/router/routes.dart';
 
 class PolicyFooter extends ConsumerWidget {
-  const PolicyFooter({required this.shouldRemember});
+  const PolicyFooter({
+    required this.shouldAgree,
+    required ValueNotifier<bool> shouldRemember,
+  });
 
-  final ValueNotifier<bool> shouldRemember;
+  final ValueNotifier<bool> shouldAgree;
 
-  void _toggleRememberMe(bool? value) {
-    shouldRemember.value = value ?? false;
-  }
-
-  void _navigateToResetPassword(BuildContext context) {
-    context.pushNamed(Routes.resetPassword);
+  void _toggleAgree(bool? value) {
+    shouldAgree.value = value ?? false;
   }
 
   @override
@@ -31,14 +28,12 @@ class PolicyFooter extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ValueListenableBuilder(
-            valueListenable: shouldRemember,
+            valueListenable: shouldAgree,
             builder: (context, value, _) {
-              //return Checkbox(value: value, onChanged: _toggleRememberMe);
               return Padding(
                 padding: const EdgeInsets.only(top: 2), // spacing-xxs
-                child: AppCheckbox(value: value, onChanged: _toggleRememberMe),
+                child: AppCheckbox(value: value, onChanged: _toggleAgree),
               );
-              //return AppCheckbox(value: value, onChanged: _toggleRememberMe);
             },
           ),
 

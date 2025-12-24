@@ -4,6 +4,8 @@ import '../../../../../../core/constants/app_assets.dart';
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
 import '../../../../../../core/extensions/validation.dart';
+import '../../../../../../core/utiliity/validation/confirm_pass_validation.dart';
+import '../../../../../../core/utiliity/validation/phone_validation.dart';
 import '../../../../../../core/utiliity/validation/validation.dart';
 import 'require_label.dart';
 
@@ -51,7 +53,10 @@ class _RegisterInfoFormState extends State<RegisterInfoForm> {
             hintText: 'Nhập số điện thoại',
             helperText: '',
           ),
-          validator: context.validator.apply([RequiredValidation()]),
+          validator: context.validator.apply([
+            RequiredValidation(),
+            PhoneValidation(),
+          ]),
         ),
 
         const SizedBox(height: 4),
@@ -127,12 +132,15 @@ class _RegisterInfoFormState extends State<RegisterInfoForm> {
           validator: context.validator.apply([
             RequiredValidation(),
             PasswordValidation(minLength: 6),
+            ConfirmPasswordValidation(
+              passwordProvider: () => widget.passwordController.text,
+            ),
           ]),
         ),
 
         const SizedBox(height: 4),
         Container(
-          width: double.infinity, // 🔥 QUAN TRỌNG
+          width: double.infinity,
           child: Text(
             'Email',
             style: AppTextStyles.bodyTextSm.copyWith(
@@ -143,11 +151,9 @@ class _RegisterInfoFormState extends State<RegisterInfoForm> {
         const SizedBox(height: 6),
         TextFormField(
           controller: widget.emailController,
-          //decoration: InputDecoration(hintText: context.locale.email),
           decoration: InputDecoration(hintText: 'Nhập email'),
+          validator: context.validator.apply([EmailValidation()]),
         ),
-
-        //const SizedBox(height: 24),
       ],
     );
   }

@@ -1,6 +1,8 @@
 import '../../core/base/failure.dart';
 import '../../core/base/repository.dart';
 import '../../core/base/result.dart';
+import '../../data/models/api_response_error_model.dart';
+import '../../data/models/api_response_meta_model.dart';
 import '../entities/login_entity.dart';
 import '../entities/sign_up_entity.dart';
 
@@ -22,4 +24,9 @@ abstract base class AuthenticationRepository extends Repository {
   Future<Result<LoginResponseEntity, Failure>> refreshToken();
 
   Future<void> logout();
+
+  Future<Result<ApiResponseErrorResponseModel, Failure>> checkExisting(
+    String phoneNumber,
+    String? email,
+  );
 }

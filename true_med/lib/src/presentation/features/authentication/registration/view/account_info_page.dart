@@ -1,31 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
+import '../riverpod/register_provider.dart';
+import '../riverpod/register_state.dart';
 import 'widget/account_info_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_info_form.dart';
 import 'widget/register_navigation_bar.dart';
 import 'widget/register_policy_footer.dart';
 
-class AccountInfoPage extends StatefulWidget {
+class AccountInfoPage extends ConsumerStatefulWidget {
   const AccountInfoPage({super.key});
 
   @override
-  State<AccountInfoPage> createState() => _AccountInfoPageState();
+  ConsumerState<AccountInfoPage> createState() => _AccountInfoPageState();
 }
 
-class _AccountInfoPageState extends State<AccountInfoPage> {
+class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    ref.listenManual<RegisterState>(registerProvider, (previous, next) {
+      // 🔥 chỉ react khi từ false → true
+      if (previous == null) return;
+
+      if (!previous.isValid && next.isValid) {
+        context.pushNamed(Routes.bussinessAddress);
+      } else {
+        if (next.listError?.isNotEmpty == true) {
+          final message = next.listError![0].errorMessage;
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(message)));
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    phoneController.dispose();
+    confirmPasswordController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
+  void _onCheckExit() {
+    if (_formKey.currentState!.validate()) {
+      ref
+          .read(registerProvider.notifier)
+          .checkPhoneAndEmailIsVaild(
+            phoneController.text,
+            emailController.text,
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
+    final state = ref.watch(registerProvider);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand, // 🔥 ép full size
@@ -44,12 +93,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Container(color: Colors.red, height: 2),
                 const AccountInfoSection(),
-                RegisterInfoForm(
-                  phoneController: phoneController,
-                  passwordController: passwordController,
-                  confirmPasswordController: confirmPasswordController,
+                const SizedBox(height: 32),
+                Form(
+                  key: _formKey,
+
+                  child: RegisterInfoForm(
+                    phoneController: phoneController,
+                    passwordController: passwordController,
+                    confirmPasswordController: confirmPasswordController,
+                    emailController: emailController,
+                  ),
                 ),
               ],
             ),
@@ -74,9 +128,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             right: 0,
             bottom: 0,
             child: ResgisterButtonNextFooter(
-              onNext: () {
-                context.pushNamed(Routes.bussinessAddress);
-              },
+              // onPressed: state.status.isLoading ? null : _onCheckExit,
+              onNext: state.status.isLoading ? null : _onCheckExit,
             ),
           ),
         ],

@@ -29,7 +29,6 @@ class AccountInfoSection extends StatelessWidget {
             color: AppColors.textTertiary600,
           ),
         ),
-        const SizedBox(height: 32),
       ],
     );
   }

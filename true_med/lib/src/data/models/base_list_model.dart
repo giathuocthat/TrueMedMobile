@@ -37,9 +37,9 @@ class BaseListResponseModel<T> extends BaseListResponseEntity<T> {
         : <T>[];
 
     return BaseListResponseModel<T>(
-      success: json['success'],
-      message: json['message'],
-      timestamp: json['timestamp'],
+      success: json['success'] as bool? ?? true, // 🔥 default,
+      message: json['message'] as String? ?? '',
+      timestamp: json['timestamp'] as String? ?? '',
       data: list,
     );
   }

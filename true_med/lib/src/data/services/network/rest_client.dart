@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/address_shipping_model.dart';
+import '../../models/api_response_error_model.dart';
 import '../../models/api_response_meta_model.dart';
 import '../../models/base_list_model.dart';
 import '../../models/base_object_model.dart';
+import '../../models/bussiness_type_model.dart';
 import '../../models/order/order_list_item_model.dart';
 import '../../models/order/order_list_model.dart';
 import '../../models/order_model.dart';
@@ -91,4 +93,13 @@ abstract class RestClient {
   @GET(Endpoints.myOrders)
   Future<HttpResponse<BaseObjectResponseModel<OrderListResponseModel>>>
   listOrder(@Queries() Map<String, dynamic> query);
+
+  @GET(Endpoints.businessType)
+  Future<HttpResponse<BaseListResponseModel<BussinessTypeResponseModel>>>
+  listBussinessType(@Queries() Map<String, dynamic> query);
+
+  @POST(Endpoints.checkExisting)
+  Future<HttpResponse<ApiResponseErrorResponseModel>> checkExisting(
+    @Body() Map<String, dynamic> request,
+  );
 }

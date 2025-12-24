@@ -22,8 +22,10 @@
     "passwordChangeSuccess":"Password Changed Successfully",
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
+    "passwordNotMatchValidation": "Confirm Password is not match",
     "isRequired": "This field is required",
     "validEmail": "Please enter valid email address",
+    "validPhoneNumber": "Please enter valid phone number",
     "enterAssociatedEmail": "Enter the email associated with your account and we’ll send an email with instructions to reset your password.",
     "minLengthValidation": "This field must be at least {min} characters long",
     "@minLengthValidation": {

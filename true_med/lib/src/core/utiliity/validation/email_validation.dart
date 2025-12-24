@@ -8,7 +8,7 @@ class EmailValidation extends Validation<String> {
   String? validate(BuildContext context, String? value) {
     final emailRegex = RegExp(r'^[\w-\.]+(\+[\w-\.]+)?@([\w-]+\.)+[\w-]{2,4}$');
 
-    if (value == null) return null;
+    if (value == null || value.isEmpty) return null;
 
     if (!emailRegex.hasMatch(value)) {
       return context.locale.validEmail;

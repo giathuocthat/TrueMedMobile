@@ -73,16 +73,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get passwordChangeSuccess => 'Password Changed Successfully';
 
   @override
-  String get emailRequired => 'Email is required';
+  String get emailRequired => 'Email bắt buộc nhập';
 
   @override
-  String get passwordRequired => 'Password is required';
+  String get passwordRequired => 'Password bắt buộc nhập';
 
   @override
-  String get isRequired => 'This field is required';
+  String get passwordNotMatchValidation => 'Mật khẩu nhập lại không giống';
 
   @override
-  String get validEmail => 'Please enter valid email address';
+  String get isRequired => 'Trường này bắt buộc nhập';
+
+  @override
+  String get validEmail => 'Địa chỉ email không hợp lệ';
+
+  @override
+  String get validPhoneNumber => 'Số điện thoại không hợp lệ';
 
   @override
   String get enterAssociatedEmail =>
@@ -204,7 +210,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String passwordMinLengthValidation(String minLength) {
-    return 'Password must be at least $minLength characters';
+    return 'Mật khẩu tối thiếu $minLength ký tự.';
   }
 
   @override

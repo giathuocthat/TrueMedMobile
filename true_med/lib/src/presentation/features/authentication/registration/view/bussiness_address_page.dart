@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
+import '../riverpod/register_provider.dart';
+import '../riverpod/register_state.dart';
 import 'widget/address_info_form.dart';
 import 'widget/bussiness_address_section.dart';
 import 'widget/register_btnNext_footer.dart';
@@ -10,19 +13,38 @@ import 'widget/register_navigation_bar.dart';
 import 'widget/register_policy_footer.dart';
 import 'widget/register_stepper.dart';
 
-class BussinessAddressPage extends StatefulWidget {
+class BussinessAddressPage extends ConsumerStatefulWidget {
   const BussinessAddressPage({super.key});
 
   @override
-  State<BussinessAddressPage> createState() => _BussinessAddressPageState();
+  ConsumerState<BussinessAddressPage> createState() =>
+      _BussinessAddressPageState();
 }
 
-class _BussinessAddressPageState extends State<BussinessAddressPage> {
+class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
   final provinceController = TextEditingController();
   final wardController = TextEditingController();
   final streetController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(registerProvider.notifier).onPageBussinessAddressOpened();
+    });
+  }
+
+  @override
+  void dispose() {
+    provinceController.dispose();
+    wardController.dispose();
+    streetController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;

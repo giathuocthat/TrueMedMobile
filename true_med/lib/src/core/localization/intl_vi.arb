@@ -20,10 +20,12 @@
     "resetPassword": "Reset Password",
     "newPassword": "New Password",
     "passwordChangeSuccess":"Password Changed Successfully",
-    "emailRequired": "Email is required",
-    "passwordRequired": "Password is required",
-    "isRequired": "This field is required",
-    "validEmail": "Please enter valid email address",
+    "emailRequired": "Email bắt buộc nhập",
+    "passwordRequired": "Password bắt buộc nhập",
+    "passwordNotMatchValidation": "Mật khẩu nhập lại không giống",
+    "isRequired": "Trường này bắt buộc nhập",
+    "validEmail": "Địa chỉ email không hợp lệ",
+    "validPhoneNumber": "Số điện thoại không hợp lệ",
     "enterAssociatedEmail": "Enter the email associated with your account and we’ll send an email with instructions to reset your password.",
     "minLengthValidation": "This field must be at least {min} characters long",
     "@minLengthValidation": {
@@ -77,9 +79,9 @@
     "buildDeployTitle": "Build and deploy Flutter apps easily.",
     "buildDeploySubtitle": "Access tools and resources for app development.",
     "buildDeployDescription": "Deploy your apps to multiple platforms with ease.",
-    "passwordMinLengthValidation": "Password must be at least {minLength} characters",
+    "passwordMinLengthValidation": "Mật khẩu tối thiếu {minLength} ký tự.",
     "@passwordMinLengthValidation": {
-        "description": "Error message for password minimum length validation",
+        "description": "Mật khẩu tối thiếu 6 ký tự.",
         "placeholders": {
             "minLength": {
                 "type": "String"

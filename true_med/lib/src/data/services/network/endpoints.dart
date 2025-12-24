@@ -11,6 +11,8 @@ class Endpoints {
   static const String resetPassword = '/auth/reset_password/';
   static const String refreshToken = '/auth/refresh_token/';
 
+  static const String checkExisting = '/customer/auth/checkExisting';
+
   /// OTP
   static const String verifyOtp = '/otp/verify_otp/';
   static const String resendOtp = '/otp/resend_otp/';
@@ -42,4 +44,7 @@ class Endpoints {
   static const String placeOrder = '/order/customer/place-order';
   static const String orderList = '/order/customer/list';
   static const String myOrders = '/order/customer/listxxxx';
+
+  //bussiniss type
+  static const String businessType = '/businessType';
 }

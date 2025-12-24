@@ -79,10 +79,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordRequired => 'Password is required';
 
   @override
+  String get passwordNotMatchValidation => 'Confirm Password is not match';
+
+  @override
   String get isRequired => 'This field is required';
 
   @override
   String get validEmail => 'Please enter valid email address';
+
+  @override
+  String get validPhoneNumber => 'Please enter valid phone number';
 
   @override
   String get enterAssociatedEmail =>

@@ -15,7 +15,7 @@ class ResgisterButtonNextFooter extends StatelessWidget {
   });
   final String textDisplay;
   final bool isShowLogin;
-  final VoidCallback onNext;
+  final VoidCallback? onNext;
 
   @override
   Widget build(BuildContext context) {

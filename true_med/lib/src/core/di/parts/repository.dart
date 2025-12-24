@@ -41,6 +41,14 @@ AddressRepository addressRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
+BussinessRepository bussinessRepository(Ref ref) {
+  return BussinessRepositoryImpl(
+    remote: ref.read(restClientServiceProvider),
+    local: ref.read(cacheServiceProvider),
+  );
+}
+
+@Riverpod(keepAlive: true)
 RouterRepository routerRepository(Ref ref) {
   return RouterRepositoryImpl(cacheService: ref.read(cacheServiceProvider));
 }

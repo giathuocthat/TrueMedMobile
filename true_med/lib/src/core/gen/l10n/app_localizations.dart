@@ -236,6 +236,12 @@ abstract class AppLocalizations {
   /// **'Password is required'**
   String get passwordRequired;
 
+  /// No description provided for @passwordNotMatchValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password is not match'**
+  String get passwordNotMatchValidation;
+
   /// No description provided for @isRequired.
   ///
   /// In en, this message translates to:
@@ -247,6 +253,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter valid email address'**
   String get validEmail;
+
+  /// No description provided for @validPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter valid phone number'**
+  String get validPhoneNumber;
 
   /// No description provided for @enterAssociatedEmail.
   ///

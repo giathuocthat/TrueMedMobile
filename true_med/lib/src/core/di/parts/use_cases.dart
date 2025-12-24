@@ -129,3 +129,15 @@ CreateOrderUseCase createOrderUseCase(Ref ref) {
 OrderListUseCase orderListUseCase(Ref ref) {
   return OrderListUseCase(ref.read(orderRepositoryProvider));
 }
+
+@riverpod
+GetBussinessTypeUseCase getBussinessTypeUseCase(Ref ref) {
+  return GetBussinessTypeUseCase(ref.read(bussinessRepositoryProvider));
+}
+
+@riverpod
+CheckExitingPhoneEmailUseCase checkExitingPhoneEmailUseCase(Ref ref) {
+  return CheckExitingPhoneEmailUseCase(
+    ref.read(authenticationRepositoryProvider),
+  );
+}

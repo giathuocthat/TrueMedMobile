@@ -1,28 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
+import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../core/router/routes.dart';
+import '../riverpod/register_provider.dart';
+import 'model/mock_data.dart';
+import 'widget/business_type_option.dart';
 import 'widget/bussiness_type_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
-import 'widget/register_policy_footer.dart';
-import 'widget/register_stepper.dart';
 
-class BussinessTypePage extends StatefulWidget {
+class BussinessTypePage extends ConsumerStatefulWidget {
   const BussinessTypePage({super.key});
 
   @override
-  State<BussinessTypePage> createState() => _BussinessTypePageState();
+  ConsumerState<BussinessTypePage> createState() => _BussinessTypePageState();
 }
 
-class _BussinessTypePageState extends State<BussinessTypePage> {
+class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
+
+  //final Set<int> selectedIds = {};
+  final shouldPolicyCheck = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    super.initState();
+
+    final notifier = ref.read(registerProvider.notifier);
+    // shouldPolicyCheck.addListener(() {
+    //   notifier.updateBussinessTypesSelectedIds(selectedIds.toList());
+    // });
+  }
+
+  @override
+  void dispose() {
+    // shouldPolicyCheck.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
+    final state = ref.watch(registerProvider);
+
+    final List<BussinessTypeResponseEntity> bussinessTypes =
+        state.bussinessTypes;
+    final selectedIds = ref.watch(registerProvider).bussinessTypesSelectedIds;
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand, // 🔥 ép full size
@@ -38,11 +66,27 @@ class _BussinessTypePageState extends State<BussinessTypePage> {
               16,
               footerBuffer, // 🔥 buffer an toàn
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Container(color: Colors.red, height: 2),
-                BussinessTypeSection(),
+                const BussinessTypeSection(),
+                const SizedBox(height: 24),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: bussinessTypes.map((item) {
+                    final isSelected = selectedIds.contains(item.id);
+                    return BussinessTypeItem(
+                      item: item,
+                      selected: isSelected,
+                      onTap: () {
+                        ref
+                            .read(registerProvider.notifier)
+                            .toggleBusinessType(item.id);
+                      },
+                    );
+                  }).toList(),
+                ),
               ],
             ),
           ),
@@ -66,9 +110,11 @@ class _BussinessTypePageState extends State<BussinessTypePage> {
             right: 0,
             bottom: 0,
             child: ResgisterButtonNextFooter(
-              onNext: () {
-                context.pushNamed(Routes.accountInfo);
-              },
+              onNext: selectedIds.isNotEmpty
+                  ? () {
+                      context.pushNamed(Routes.accountInfo);
+                    }
+                  : null,
             ),
           ),
         ],

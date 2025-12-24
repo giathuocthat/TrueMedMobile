@@ -7,13 +7,11 @@ class RequiredValidation<T> extends Validation<T> {
   @override
   String? validate(BuildContext context, T? value) {
     if (value == null) {
-      //return context.locale.isRequired;
-      return 'Trường này là bắt buộc';
+      return context.locale.isRequired;
     }
 
     if (value is String && (value as String).isEmpty) {
-      //return context.locale.isRequired;
-      return 'Trường này là bắt buộc';
+      return context.locale.isRequired;
     }
 
     return null;

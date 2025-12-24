@@ -3,6 +3,8 @@ import '../../core/base/result.dart';
 import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/sign_up_entity.dart';
 import '../../domain/repositories/authentication_repository.dart';
+import '../models/api_response_error_model.dart';
+import '../models/api_response_meta_model.dart';
 import '../models/authen_model.dart';
 import '../models/base_model.dart';
 import '../models/login_model.dart';
@@ -47,6 +49,29 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
         accessToken: base.data?.accessToken ?? '',
         customer: base.data?.customer,
       );
+    });
+  }
+
+  @override
+  Future<Result<ApiResponseErrorResponseModel, Failure>> checkExisting(
+    String phoneNumber,
+    String? email,
+  ) async {
+    return asyncGuard(() async {
+      if (email != null && email.isNotEmpty) {
+        final response = await remote.checkExisting(({
+          'phoneNumber': phoneNumber,
+          'email': email,
+        }));
+
+        return response.data;
+      } else {
+        final response = await remote.checkExisting(({
+          'phoneNumber': phoneNumber,
+        }));
+
+        return response.data;
+      }
     });
   }
 

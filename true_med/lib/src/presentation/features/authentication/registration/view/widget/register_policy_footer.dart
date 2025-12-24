@@ -6,10 +6,14 @@ import '../../../../../core/router/routes.dart';
 import '../../../../../core/widgets/link_text.dart';
 import 'policy_footer.dart';
 
-class ResgisterPolyciFooter extends StatelessWidget {
-  const ResgisterPolyciFooter({super.key, required this.onNext});
-
-  final VoidCallback onNext;
+class RegisterPolicyFooter extends StatelessWidget {
+  const RegisterPolicyFooter({
+    super.key,
+    required this.onNext,
+    required this.shouldAgree,
+  });
+  final ValueNotifier<bool> shouldAgree;
+  final VoidCallback? onNext;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,10 @@ class ResgisterPolyciFooter extends StatelessWidget {
           mainAxisSize: MainAxisSize.min, // 🔥 QUAN TRỌNG
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PolicyFooter(shouldRemember: ValueNotifier<bool>(false)),
+            PolicyFooter(
+              shouldRemember: ValueNotifier<bool>(false),
+              shouldAgree: shouldAgree,
+            ),
             const SizedBox(height: 16),
 
             FilledButton(

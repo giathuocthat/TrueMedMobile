@@ -23,6 +23,7 @@ class _RegisterSuccessPageState extends State<RegisterSuccessPage> {
   @override
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand, // 🔥 ép full size
