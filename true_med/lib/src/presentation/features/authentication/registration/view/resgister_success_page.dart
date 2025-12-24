@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
+import '../../../../../shared/widget/btn_shadown.dart';
 import '../../../../core/router/routes.dart';
 import 'widget/register_navigation_bar.dart';
 import 'widget/resgister_success_section.dart';
@@ -49,12 +50,13 @@ class _RegisterSuccessPageState extends State<RegisterSuccessPage> {
                 ),
                 const SizedBox(height: 12),
 
-                OutlinedButton.icon(
+                const SizedBox(height: 12),
+
+                OutlinedButtonWithShadow(
                   onPressed: () {
                     context.pushNamed(Routes.login);
                   },
-
-                  label: const Text('Về trang chủ'),
+                  child: const Text('Về trang chủ'),
                 ),
                 const SizedBox(height: 12),
               ],

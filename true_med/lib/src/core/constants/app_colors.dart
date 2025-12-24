@@ -78,8 +78,10 @@ class AppColors {
   //static const Color textTeritiary600 = Color(0xFF535862);
   //border: 1px solid var(--Colors-Border-border-primary, #D5D7DA)
   static const Color borderPrimaryD5 = Color(0xFFD5D7DA);
-  // box-shadow: 0px 1px 2px 0px #0A0D120D inset;
+  // box-shadow: 0px 1px 2px 0px #0A0D120D inset;0A0D12 shadow 5%
   static const Color boxShadowInset = Color(0x0A0D120D);
   //background: var(--Colors-Foreground-fg-disabled, #8D9199);
   static const Color fgDisabled = Color(0xFF8D9199);
+  //background: var(--Colors-Text-text-secondary, #50545B);
+  static const Color textSecondary505 = Color(0xFF50545B);
 }
