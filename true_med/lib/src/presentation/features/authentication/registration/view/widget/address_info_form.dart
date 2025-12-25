@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/app_assets.dart';
+import '../../../../../../core/extensions/validation.dart';
+import '../../../../../../core/utiliity/validation/validation.dart';
 import '../../../../shipping_address/view/widget/form_input_box.dart';
 import 'require_label.dart';
 
-class AddressInfoForm extends StatelessWidget {
+class AddressInfoForm extends StatefulWidget {
   const AddressInfoForm({
     required this.provinceController,
     required this.wardController,
     required this.onTapProvince,
     required this.onTapWard,
     required this.isActiveWard,
+    required this.streetController,
   });
 
   final TextEditingController provinceController;
   final TextEditingController wardController;
+  final TextEditingController streetController;
   final VoidCallback onTapProvince;
   final VoidCallback onTapWard;
   final bool isActiveWard;
+  @override
+  State<AddressInfoForm> createState() => _AddressInfoFormState();
+}
 
+class _AddressInfoFormState extends State<AddressInfoForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,10 +39,11 @@ class AddressInfoForm extends StatelessWidget {
         const SizedBox(height: 6),
 
         FormInputBox(
-          controller: provinceController,
+          controller: widget.provinceController,
           hintText: "Chọn tỉnh/ thành phố",
           enabled: true,
-          onTap: onTapProvince,
+          onTap: widget.onTapProvince,
+          validator: context.validator.apply([RequiredValidation()]),
           suffix: Container(
             width: 40,
             height: 40,
@@ -52,10 +61,11 @@ class AddressInfoForm extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         FormInputBox(
-          controller: wardController,
+          controller: widget.wardController,
           hintText: "Chọn xã/ phường",
-          enabled: isActiveWard,
-          onTap: onTapWard,
+          enabled: widget.isActiveWard,
+          onTap: widget.onTapWard,
+          validator: context.validator.apply([RequiredValidation()]),
           suffix: Container(
             width: 40,
             height: 40,
@@ -72,7 +82,17 @@ class AddressInfoForm extends StatelessWidget {
           ),
         ),
 
-        //const SizedBox(height: 24),
+        const SizedBox(height: 24),
+        Container(
+          width: double.infinity,
+          child: const RequiredLabel('Chi tiết địa chỉ'),
+        ),
+        const SizedBox(height: 6),
+        TextFormField(
+          controller: widget.streetController,
+          decoration: InputDecoration(hintText: 'Số nhà, tên đường, tòa nhà'),
+          validator: context.validator.apply([RequiredValidation()]),
+        ),
       ],
     );
   }

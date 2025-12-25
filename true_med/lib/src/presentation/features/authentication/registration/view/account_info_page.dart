@@ -39,7 +39,7 @@ class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
       if (previous == null) return;
 
       if (!previous.isValid && next.isValid) {
-        context.pushNamed(Routes.bussinessAddress);
+        _onPushToScreen();
       } else {
         if (next.listError?.isNotEmpty == true) {
           final message = next.listError![0].errorMessage;
@@ -69,6 +69,17 @@ class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
             emailController.text,
           );
     }
+  }
+
+  void _onPushToScreen() {
+    ref
+        .read(registerProvider.notifier)
+        .setAcountInfo(
+          phoneController.text,
+          passwordController.text,
+          emailController.text,
+        );
+    context.pushNamed(Routes.bussinessAddress);
   }
 
   @override

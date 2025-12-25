@@ -9,6 +9,7 @@ class FormInputBox extends StatelessWidget {
   final bool enabled;
   final VoidCallback? onTap;
   final Widget suffix;
+  final FormFieldValidator<String>? validator; // ✅
 
   const FormInputBox({
     super.key,
@@ -17,6 +18,7 @@ class FormInputBox extends StatelessWidget {
     required this.suffix,
     this.enabled = true,
     this.onTap,
+    this.validator,
   });
 
   @override
@@ -37,7 +39,8 @@ class FormInputBox extends StatelessWidget {
         child: TextFormField(
           controller: controller,
           enabled: enabled,
-          readOnly: onTap != null, // 👈 giống SelectBox
+          readOnly: onTap != null,
+          validator: validator,
           style: AppTextStyles.bodyTextSm.copyWith(color: textColor),
           decoration: InputDecoration(
             hintText: hintText,

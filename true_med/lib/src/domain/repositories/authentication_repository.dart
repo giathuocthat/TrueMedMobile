@@ -29,4 +29,6 @@ abstract base class AuthenticationRepository extends Repository {
     String phoneNumber,
     String? email,
   );
+
+  //Future<String> resendOTP(Map<String, dynamic> data);
 }

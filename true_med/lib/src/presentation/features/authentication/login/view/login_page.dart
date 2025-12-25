@@ -134,8 +134,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         text: 'Bạn chưa có tài khoản? ',
                         linkText: 'Đăng ký ngay',
                         onTap: () {
-                          //LOCTB HARD CODED FOR TESTING
-                          context.pushNamed(Routes.bussinessAddress);
+                          // Navigate to Registration Page
+                          // context.pushNamed(Routes.confirmOTP);
+                          context.pushNamed(Routes.confirmOTP);
                           //context.pushNamed(Routes.registration);
                         },
                       ),

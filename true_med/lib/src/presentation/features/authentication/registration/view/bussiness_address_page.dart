@@ -29,6 +29,7 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
   final provinceController = TextEditingController();
   final wardController = TextEditingController();
   final streetController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -53,6 +54,17 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
 
     provinceController.text = province?.name ?? '';
     wardController.text = ward?.name ?? '';
+  }
+
+  void _onCheckValidate() {
+    if (_formKey.currentState!.validate()) {
+      _onPushToScreen();
+    }
+  }
+
+  void _onPushToScreen() {
+    ref.read(registerProvider.notifier).setAdressStreet(streetController.text);
+    context.pushNamed(Routes.confirmOTP);
   }
 
   @override
@@ -82,36 +94,29 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
               children: [
                 //Container(color: Colors.red, height: 2),
                 const BussinessAddressSection(),
-                AddressInfoForm(
-                  provinceController: provinceController,
-                  wardController: wardController,
-                  isActiveWard: provinceController.text.isNotEmpty,
-                  onTapProvince: () {
-                    context.pushNamed(
-                      Routes.selectProvinceDistrict,
-                      extra: SelectLocationMode.province,
-                    );
-                  },
-                  onTapWard: () {
-                    context.pushNamed(
-                      Routes.selectProvinceDistrict,
-                      extra: SelectLocationMode.ward,
-                    );
-                  },
-                ),
-                const SizedBox(height: 14),
-
-                Container(
-                  width: double.infinity,
-                  child: const RequiredLabel('Chi tiết địa chỉ'),
-                ),
-                const SizedBox(height: 6),
-                TextFormField(
-                  controller: streetController,
-                  decoration: InputDecoration(
-                    hintText: 'Số nhà, tên đường, tòa nhà',
+                Form(
+                  key: _formKey,
+                  child: AddressInfoForm(
+                    provinceController: provinceController,
+                    wardController: wardController,
+                    isActiveWard: provinceController.text.isNotEmpty,
+                    onTapProvince: () {
+                      context.pushNamed(
+                        Routes.selectProvinceDistrict,
+                        extra: SelectLocationMode.province,
+                      );
+                    },
+                    onTapWard: () {
+                      context.pushNamed(
+                        Routes.selectProvinceDistrict,
+                        extra: SelectLocationMode.ward,
+                      );
+                    },
+                    streetController: streetController,
                   ),
                 ),
+
+                const SizedBox(height: 14),
               ],
             ),
           ),
@@ -137,7 +142,8 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
             child: ResgisterButtonNextFooter(
               textDisplay: 'Nhận mã xác thực',
               onNext: () {
-                context.pushNamed(Routes.confirmOTP);
+                _onCheckValidate();
+                //context.pushNamed(Routes.confirmOTP);
               },
             ),
           ),
