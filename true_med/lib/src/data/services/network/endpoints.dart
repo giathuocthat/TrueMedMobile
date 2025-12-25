@@ -5,7 +5,7 @@ class Endpoints {
   static const base = 'https://treena-noncellulous-alan.ngrok-free.dev/api';
 
   /// Authentication
-  static const String register = '/auth/register/';
+  static const String register = '/customer/auth/register';
   static const String login = '/customer/auth/login';
   static const String forgotPassword = '/auth/forgot_password/';
   static const String resetPassword = '/auth/reset_password/';

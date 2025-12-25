@@ -3,10 +3,16 @@ import '../../domain/entities/sign_up_entity.dart';
 extension SignUpRequestModel on SignUpRequestEntity {
   Map<String, dynamic> toJson() {
     return {
-      'first_name': firstName,
-      'last_name': lastName,
+      'fullName': fullName,
       'email': email,
+      'phoneNumber': phoneNumber,
       'password': password,
+      'confirmPassword': confirmPassword,
+      'businessTypeId': businessTypeId,
+      'provinceId': provinceId,
+      'wardId': wardId,
+      'address': address,
+      'otpCode': otpCode,
     };
   }
 }

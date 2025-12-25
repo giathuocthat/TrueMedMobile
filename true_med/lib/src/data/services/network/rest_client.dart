@@ -28,6 +28,9 @@ abstract class RestClient {
   @POST(Endpoints.login)
   Future<HttpResponse> login(@Body() Map<String, dynamic> request);
 
+  @POST(Endpoints.register)
+  Future<HttpResponse> register(@Body() Map<String, dynamic> request);
+
   @GET(Endpoints.products)
   Future<HttpResponse<List<ProductResponseModel>>> getProducts();
 
@@ -103,12 +106,8 @@ abstract class RestClient {
     @Body() Map<String, dynamic> request,
   );
   @POST(Endpoints.sendOtp)
-  Future<HttpResponse<ApiResponseMetaModel>> sendOTP(
-    @Body() Map<String, dynamic> request,
-  );
+  Future<HttpResponse<void>> sendOTP(@Body() Map<String, dynamic> request);
 
   @POST(Endpoints.verifyOtp)
-  Future<HttpResponse<ApiResponseMetaModel>> verifyOtp(
-    @Body() Map<String, dynamic> request,
-  );
+  Future<HttpResponse<void>> verifyOtp(@Body() Map<String, dynamic> request);
 }

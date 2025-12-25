@@ -10,9 +10,9 @@ final class RegisterUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<SignUpResponseEntity> call(SignUpRequestEntity request) async {
-    return repository.register(request);
-  }
+  // Future<SignUpResponseEntity> call(SignUpRequestEntity request) async {
+  //   //return repository.register(request);
+  // }
 }
 
 final class LoginUseCase {
@@ -95,7 +95,7 @@ final class SendOTPUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<Result<ApiResponseMetaModel, String>> call({
+  Future<Result<void, String>> call({
     required String phone,
     required int type,
   }) async {
@@ -114,7 +114,7 @@ final class VerifyOTPUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<Result<ApiResponseMetaModel, String>> call({
+  Future<Result<void, String>> call({
     required String phone,
     required String otpCode,
   }) async {

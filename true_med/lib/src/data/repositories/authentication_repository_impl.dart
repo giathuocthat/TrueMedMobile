@@ -18,12 +18,6 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final CacheService local;
 
   @override
-  Future<SignUpResponseEntity> register(SignUpRequestEntity data) async {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Result<LoginResponseEntity, Failure>> login(
     LoginRequestEntity data,
   ) async {
@@ -76,10 +70,7 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Result<ApiResponseMetaModel, Failure>> sendOTP(
-    String phoneNumber,
-    int type,
-  ) async {
+  Future<Result<void, Failure>> sendOTP(String phoneNumber, int type) async {
     return asyncGuard(() async {
       final response = await remote.sendOTP(({
         'phoneNumber': phoneNumber,
@@ -91,7 +82,7 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Result<ApiResponseMetaModel, Failure>> verifyOTP(
+  Future<Result<void, Failure>> verifyOTP(
     String phoneNumber,
     String otpCode,
   ) async {
@@ -162,6 +153,40 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
       );
       final model = LoginRequestModel.fromEntity(request);
       final response = await remote.login(model.toJson());
+
+      // final base = BaseResponseModel.fromJson(
+      //   response.data,
+      //   (json) => LoginResponseModel.fromJson(json),
+      // );
+
+      final base = BaseResponseModel.fromJson(
+        response.data,
+        (json) => AuthenResponseModel.fromJson(json),
+      );
+
+      // Save the session if the user has selected the "Remember Me" option
+      if (request.shouldRemeber ?? false) await _saveSession();
+
+      //return base.data!;
+      return LoginResponseEntity(
+        accessToken: base.data?.accessToken ?? '',
+        customer: base.data?.customer,
+      );
+    });
+  }
+
+  @override
+  Future<Result<LoginResponseEntity, Failure>> register(
+    SignUpRequestEntity data,
+  ) async {
+    return asyncGuard(() async {
+      final request = LoginRequestEntity(
+        phoneNumber: '0976973925',
+        password: 'Hgsg@123',
+        shouldRemeber: true,
+      );
+      final model = LoginRequestModel.fromEntity(request);
+      final response = await remote.register(model.toJson());
 
       // final base = BaseResponseModel.fromJson(
       //   response.data,

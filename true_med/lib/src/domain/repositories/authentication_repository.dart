@@ -7,7 +7,9 @@ import '../entities/login_entity.dart';
 import '../entities/sign_up_entity.dart';
 
 abstract base class AuthenticationRepository extends Repository {
-  Future<SignUpResponseEntity> register(SignUpRequestEntity data);
+  Future<Result<LoginResponseEntity, Failure>> register(
+    SignUpRequestEntity data,
+  );
 
   Future<Result<LoginResponseEntity, Failure>> login(LoginRequestEntity data);
 
@@ -30,14 +32,8 @@ abstract base class AuthenticationRepository extends Repository {
     String? email,
   );
 
-  Future<Result<ApiResponseMetaModel, Failure>> sendOTP(
-    String phoneNumber,
-    int type,
-  );
-  Future<Result<ApiResponseMetaModel, Failure>> verifyOTP(
-    String phoneNumber,
-    String otpCode,
-  );
+  Future<Result<void, Failure>> sendOTP(String phoneNumber, int type);
+  Future<Result<void, Failure>> verifyOTP(String phoneNumber, String otpCode);
 
   //Future<String> resendOTP(Map<String, dynamic> data);
 }
