@@ -13,11 +13,13 @@ class OtpInfoSection extends StatelessWidget {
     required this.phoneNumber,
     required this.remain,
     required this.onRetry,
+    required this.onInputCompleted,
   });
 
   final String phoneNumber;
   final int remain;
   final VoidCallback onRetry;
+  final void Function(String otp) onInputCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,7 @@ class OtpInfoSection extends StatelessWidget {
 
         OtpInput(
           onCompleted: (otp) {
-            debugPrint('OTP: $otp');
+            onInputCompleted(otp);
           },
         ),
         const SizedBox(height: 24),

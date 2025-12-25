@@ -8,6 +8,7 @@ import '../models/api_response_meta_model.dart';
 import '../models/authen_model.dart';
 import '../models/base_model.dart';
 import '../models/login_model.dart';
+import '../models/sign_up_model.dart';
 import '../services/cache/cache_service.dart';
 import '../services/network/rest_client.dart';
 
@@ -176,36 +177,13 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Result<LoginResponseEntity, Failure>> register(
+  Future<Result<ApiErrorResponseModel, Failure>> register(
     SignUpRequestEntity data,
   ) async {
     return asyncGuard(() async {
-      final request = LoginRequestEntity(
-        phoneNumber: '0976973925',
-        password: 'Hgsg@123',
-        shouldRemeber: true,
-      );
-      final model = LoginRequestModel.fromEntity(request);
-      final response = await remote.register(model.toJson());
+      final response = await remote.register(data.toJson());
 
-      // final base = BaseResponseModel.fromJson(
-      //   response.data,
-      //   (json) => LoginResponseModel.fromJson(json),
-      // );
-
-      final base = BaseResponseModel.fromJson(
-        response.data,
-        (json) => AuthenResponseModel.fromJson(json),
-      );
-
-      // Save the session if the user has selected the "Remember Me" option
-      if (request.shouldRemeber ?? false) await _saveSession();
-
-      //return base.data!;
-      return LoginResponseEntity(
-        accessToken: base.data?.accessToken ?? '',
-        customer: base.data?.customer,
-      );
+      return response.data;
     });
   }
 }

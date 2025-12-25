@@ -10,9 +10,16 @@ final class RegisterUseCase {
 
   final AuthenticationRepository repository;
 
-  // Future<SignUpResponseEntity> call(SignUpRequestEntity request) async {
-  //   //return repository.register(request);
-  // }
+  Future<Result<ApiErrorResponseModel, String>> call(
+    SignUpRequestEntity request,
+  ) async {
+    final result = await repository.register(request);
+    return switch (result) {
+      Success(:final data) => Success(data),
+      Error(:final error) => Error(error.message),
+      _ => const Error('Something went wrong'),
+    };
+  }
 }
 
 final class LoginUseCase {

@@ -29,7 +29,8 @@ abstract class RegisterState<T> with _$RegisterState<T> {
 
     String? error,
 
-    @Default([]) List<int> bussinessTypesSelectedIds,
+    //@Default([]) List<int> bussinessTypesSelectedIds,
+    BussinessTypeResponseEntity? businessTypeSelected,
 
     @Default([]) List<BussinessTypeResponseEntity> bussinessTypes,
     //@Default(false) bool isValidCheck,
@@ -37,6 +38,8 @@ abstract class RegisterState<T> with _$RegisterState<T> {
 
     ProvinceResponseEntity? provinceSelected,
     WardResponseEntity? wardSelected,
+    String? errorResgister,
+    @Default(false) bool isSubmitting,
   }) = _RegisterState<T>;
 
   const RegisterState._();

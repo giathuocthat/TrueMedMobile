@@ -35,6 +35,7 @@ Dio dio(Ref ref) {
   final dio = Dio(
     BaseOptions(
       baseUrl: Endpoints.base,
+      validateStatus: (status) => status != null && status < 500,
 
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 13),

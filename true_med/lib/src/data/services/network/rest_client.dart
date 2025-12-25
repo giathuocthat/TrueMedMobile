@@ -29,7 +29,9 @@ abstract class RestClient {
   Future<HttpResponse> login(@Body() Map<String, dynamic> request);
 
   @POST(Endpoints.register)
-  Future<HttpResponse> register(@Body() Map<String, dynamic> request);
+  Future<HttpResponse<ApiErrorResponseModel>> register(
+    @Body() Map<String, dynamic> request,
+  );
 
   @GET(Endpoints.products)
   Future<HttpResponse<List<ProductResponseModel>>> getProducts();

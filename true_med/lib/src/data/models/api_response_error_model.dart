@@ -41,3 +41,30 @@ class ApiResponseErrorResponseModel {
     );
   }
 }
+
+class ApiErrorResponseModel {
+  final String? detail;
+  final Map<String, dynamic>? errors;
+
+  ApiErrorResponseModel({this.detail, this.errors});
+
+  factory ApiErrorResponseModel.fromJson(Map<String, dynamic> json) {
+    return ApiErrorResponseModel(
+      detail: json['detail'] as String?,
+      errors: json['errors'] as Map<String, dynamic>?,
+    );
+  }
+
+  /// Lấy message đẹp để show UI
+  String get message {
+    if (detail != null && detail!.isNotEmpty) {
+      return detail!;
+    }
+
+    if (errors != null && errors!.isNotEmpty) {
+      return errors!.values.first.toString();
+    }
+
+    return 'Có lỗi xảy ra';
+  }
+}

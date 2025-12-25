@@ -53,3 +53,10 @@ extension BadgeExtension on String {
 
   String formatBadge() => _formatBadge(this);
 }
+
+extension PhoneMask on String {
+  String get maskedPhone {
+    if (length < 7) return this;
+    return replaceRange(3, length - 3, '***');
+  }
+}

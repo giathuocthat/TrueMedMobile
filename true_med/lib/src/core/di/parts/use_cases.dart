@@ -151,3 +151,8 @@ SendOTPUseCase sendOTPUseCase(Ref ref) {
 VerifyOTPUseCase verifyOTPUseCase(Ref ref) {
   return VerifyOTPUseCase(ref.read(authenticationRepositoryProvider));
 }
+
+@riverpod
+RegisterUseCase registerUseCase(Ref ref) {
+  return RegisterUseCase(ref.read(authenticationRepositoryProvider));
+}

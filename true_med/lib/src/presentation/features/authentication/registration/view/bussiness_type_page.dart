@@ -30,11 +30,6 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
   @override
   void initState() {
     super.initState();
-
-    final notifier = ref.read(registerProvider.notifier);
-    // shouldPolicyCheck.addListener(() {
-    //   notifier.updateBussinessTypesSelectedIds(selectedIds.toList());
-    // });
   }
 
   @override
@@ -48,11 +43,9 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
     final state = ref.watch(registerProvider);
 
-    final stateProvice = ref.watch(provinceAddressProvider(0));
-
     final List<BussinessTypeResponseEntity> bussinessTypes =
         state.bussinessTypes;
-    final selectedIds = ref.watch(registerProvider).bussinessTypesSelectedIds;
+    final selectedIds = ref.watch(registerProvider).businessTypeSelected;
 
     return Scaffold(
       body: Stack(
@@ -78,14 +71,14 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
                   spacing: 12,
                   runSpacing: 12,
                   children: bussinessTypes.map((item) {
-                    final isSelected = selectedIds.contains(item.id);
+                    final isSelected = selectedIds?.id == item.id;
                     return BussinessTypeItem(
                       item: item,
                       selected: isSelected,
                       onTap: () {
                         ref
                             .read(registerProvider.notifier)
-                            .toggleBusinessType(item.id);
+                            .updateBusinessTypeSelected(item);
                       },
                     );
                   }).toList(),
@@ -113,7 +106,7 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
             right: 0,
             bottom: 0,
             child: ResgisterButtonNextFooter(
-              onNext: selectedIds.isNotEmpty
+              onNext: selectedIds != null
                   ? () {
                       context.pushNamed(Routes.accountInfo);
                     }

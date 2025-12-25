@@ -134,10 +134,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         text: 'Bạn chưa có tài khoản? ',
                         linkText: 'Đăng ký ngay',
                         onTap: () {
-                          // Navigate to Registration Page
-                          // context.pushNamed(Routes.confirmOTP);
-                          context.pushNamed(Routes.confirmOTP);
-                          //context.pushNamed(Routes.registration);
+                          context.pushNamed(Routes.registration);
                         },
                       ),
                     ],

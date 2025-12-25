@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
+import '../../../../../core/extensions/string.dart';
 import '../../../../core/router/routes.dart';
 import '../riverpod/register_provider.dart';
+import '../riverpod/register_state.dart';
 import 'widget/otp_info_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
@@ -25,7 +27,9 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
   // final wardController = TextEditingController();
   // final streetController = TextEditingController();
 
+  String otp = "";
   static const int _initialTime = 120;
+
   int _seconds = _initialTime;
   Timer? _timer;
 
@@ -35,6 +39,22 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _resendOTP();
+    });
+    ref.listenManual<RegisterState>(registerProvider, (previous, next) {
+      // 🔥 chỉ react khi từ false → true
+      if (previous == null) return;
+
+      if (previous.isSubmitting && !next.isSubmitting) {
+        if (next.errorResgister != null) {
+          // ❌ Có lỗi → show message
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(next.errorResgister!)));
+        } else {
+          // ✅ Thành công
+          _onPushToScreen();
+        }
+      }
     });
   }
 
@@ -53,9 +73,18 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
     });
   }
 
+  //context.pushNamed(Routes.registerSuccess);
   void _resendOTP() {
     _startTimer();
     ref.read(registerProvider.notifier).callSendOTP();
+  }
+
+  void _sendRegister(String otp) {
+    ref.read(registerProvider.notifier).callRegister(otp);
+  }
+
+  void _onPushToScreen() {
+    context.pushNamed(Routes.registerSuccess);
   }
 
   @override
@@ -66,6 +95,8 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(registerProvider);
+    final phoneNumber = state.phoneNumber.maskedPhone;
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Stack(
@@ -86,10 +117,13 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 OtpInfoSection(
-                  phoneNumber: '+84 123 456 789',
+                  phoneNumber: phoneNumber,
                   remain: _seconds,
                   onRetry: () {
                     _resendOTP();
+                  },
+                  onInputCompleted: (inputOtp) {
+                    otp = inputOtp;
                   },
                 ),
               ],
@@ -117,9 +151,11 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
             child: ResgisterButtonNextFooter(
               textDisplay: 'Xác nhận',
               isShowLogin: false,
-              onNext: () {
-                context.pushNamed(Routes.registerSuccess);
-              },
+              onNext: otp.length == 4
+                  ? () {
+                      _sendRegister(otp);
+                    }
+                  : null,
             ),
           ),
         ],
