@@ -19,16 +19,24 @@ abstract class RegisterState<T> with _$RegisterState<T> {
     @Default(false) bool rememberMe,
     @Default(Status.initial) Status status,
 
+    @Default('') String phoneNumber,
+    @Default('') String passWord,
+
+    @Default('') String addressFinal,
+    @Default('') String otp,
+
+    String? addressMail,
+
     String? error,
+
     @Default([]) List<int> bussinessTypesSelectedIds,
 
     @Default([]) List<BussinessTypeResponseEntity> bussinessTypes,
     //@Default(false) bool isValidCheck,
     List<FieldErrorModel>? listError,
 
-    @Default([]) List<ProvinceResponseEntity> listProvince,
-    @Default([]) List<WardResponseEntity> listWard,
-    ProvinceDetailResponseEntity? provinceDetail,
+    ProvinceResponseEntity? provinceSelected,
+    WardResponseEntity? wardSelected,
   }) = _RegisterState<T>;
 
   const RegisterState._();

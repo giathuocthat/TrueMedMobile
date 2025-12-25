@@ -90,10 +90,6 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
               onNext: isChecked
                   ? () {
                       context.pushNamed(Routes.bussinessType);
-                      context.pushNamed(
-                        Routes.selectProvinceDistrict,
-                        extra: SelectLocationMode.province,
-                      );
                     }
                   : null,
             ),

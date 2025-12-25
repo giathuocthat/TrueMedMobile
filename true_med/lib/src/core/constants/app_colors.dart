@@ -84,4 +84,11 @@ class AppColors {
   static const Color fgDisabled = Color(0xFF8D9199);
   //background: var(--Colors-Text-text-secondary, #50545B);
   static const Color textSecondary505 = Color(0xFF50545B);
+  //#E6EFEC
+  //background: var(--Colors-Background-bg-brand-primary, #E6EFEC);
+  static const Color bgBrandPrimary = Color(0xFFE6EFEC);
+
+  //Colors/Border/border-primary
+  //border: 1px solid var(--Colors-Border-border-primary, #F1F1F2)
+  static const Color borderLight100 = Color(0xFFF1F1F2);
 }

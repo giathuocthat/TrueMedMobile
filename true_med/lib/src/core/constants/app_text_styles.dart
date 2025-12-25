@@ -15,6 +15,13 @@ class AppTextStyles {
     height: 20 / 14, // line-height/text-sm
     letterSpacing: 0,
   );
+  static const TextStyle bodyTextXsBold = TextStyle(
+    fontFamily: 'Body', // SF Pro Text
+    fontSize: 12, // text-xs
+    fontWeight: FontWeight.w600,
+    height: 18 / 12, // line-height/text-xs
+    letterSpacing: 0,
+  );
   static const TextStyle bodyTextSmBold = TextStyle(
     fontFamily: 'Body', // SF Pro Text
     fontSize: 14, // text-sm

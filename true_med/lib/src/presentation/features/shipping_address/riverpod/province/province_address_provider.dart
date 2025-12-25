@@ -30,6 +30,7 @@ class ProvinceAddress extends _$ProvinceAddress {
 
     Future.microtask(() => fetchAll(provinceId));
     return initialState;
+    //return const ProvinceAddressState();
   }
 
   Future<void> fetchAll(int provinceId) async {

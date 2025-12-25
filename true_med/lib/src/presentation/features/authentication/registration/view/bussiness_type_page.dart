@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../core/router/routes.dart';
+import '../../../shipping_address/riverpod/province/province_address_provider.dart';
 import '../riverpod/register_provider.dart';
 import 'model/mock_data.dart';
 import 'widget/business_type_option.dart';
@@ -46,6 +47,8 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
     final state = ref.watch(registerProvider);
+
+    final stateProvice = ref.watch(provinceAddressProvider(0));
 
     final List<BussinessTypeResponseEntity> bussinessTypes =
         state.bussinessTypes;

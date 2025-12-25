@@ -2,6 +2,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../domain/entities/province_entity.dart';
+import '../../../../../domain/entities/ward_entity.dart';
 import '../../../../../domain/use_cases/address/get_province_all_usecase.dart';
 import '../../../../../domain/use_cases/address/get_province_detail_usecase.dart';
 import '../../../../../domain/use_cases/authentication_use_case.dart';
@@ -55,10 +57,27 @@ class Register extends _$Register {
     updateBussinessTypesSelectedIds(next);
   }
 
-  void onPageOpened() {
-    if (state.listProvince.isEmpty) {
-      fetchProvinceAll();
-    }
+  void setAcountInfo(String phone, String passWord, String? email) {
+    state = state.copyWith(
+      phoneNumber: phone,
+      passWord: passWord,
+      addressMail: email,
+    );
+  }
+
+  void setAddressPick(
+    ProvinceResponseEntity? province,
+    WardResponseEntity? ward,
+  ) {
+    state = state.copyWith(provinceSelected: province, wardSelected: ward);
+  }
+
+  void setAdressStreet(String addressFinal) {
+    state = state.copyWith(addressFinal: addressFinal);
+  }
+
+  void setOtp(String otp) {
+    state = state.copyWith(otp: otp);
   }
 
   Future<void> fetchBussinessType() async {
@@ -108,104 +127,6 @@ class Register extends _$Register {
           status: Status.success,
           //isValidCheck: data.isValid,
           listError: data.errors,
-        );
-      case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
-      default:
-        state = state.copyWith(
-          status: Status.error,
-          error: 'Something went wrong',
-        );
-        return;
-    }
-  }
-
-  Future<void> fetchAll(int provinceId) async {
-    // reset state trước
-    state = state.copyWith(status: Status.loading, error: null);
-    final result1 = await _getProvinceAllUseCase.call();
-    if (provinceId == 0) {
-      // 1) Call API 1
-
-      switch (result1) {
-        case Success(:final data):
-          state = state.copyWith(status: Status.success, listProvince: data);
-        case Error(:final error):
-          state = state.copyWith(status: Status.error, error: error);
-        default:
-          state = state.copyWith(
-            status: Status.error,
-            error: 'Something went wrong',
-          );
-          return;
-      }
-      return;
-    }
-
-    switch (result1) {
-      case Success(:final data):
-        state = state.copyWith(listProvince: data);
-      case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
-        return; // stop luôn, khỏi call API 2
-      default:
-        state = state.copyWith(
-          status: Status.error,
-          error: 'Something went wrong',
-        );
-        return;
-    }
-
-    final result2 = await _getProvinceDetailUseCase.call(proviceId: provinceId);
-
-    switch (result2) {
-      case Success(:final data):
-        state = state.copyWith(
-          status: Status.success,
-          listWard: data.wards,
-          provinceDetail: data,
-        );
-      case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
-      default:
-        state = state.copyWith(
-          status: Status.error,
-          error: 'Something went wrong',
-        );
-        return;
-    }
-  }
-
-  Future<void> fetchProvinceAll() async {
-    state = state.copyWith(status: Status.loading, error: null);
-    final result = await _getProvinceAllUseCase.call();
-
-    switch (result) {
-      case Success(:final data):
-        state = state.copyWith(status: Status.success, listProvince: data);
-      case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
-      default:
-        state = state.copyWith(
-          status: Status.error,
-          error: 'Something went wrong',
-        );
-        return;
-    }
-  }
-
-  Future<void> fetchWardByProvince(int id) async {
-    // reset state trước
-    state = state.copyWith(status: Status.loading, error: null);
-
-    final result = await _getProvinceDetailUseCase.call(proviceId: id);
-
-    switch (result) {
-      case Success(:final data):
-        state = state.copyWith(
-          status: Status.success,
-          listWard: data.wards,
-          provinceDetail: data,
         );
       case Error(:final error):
         state = state.copyWith(status: Status.error, error: error);

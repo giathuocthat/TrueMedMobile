@@ -13,6 +13,7 @@ import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
 import 'widget/register_policy_footer.dart';
 import 'widget/register_stepper.dart';
+import 'widget/require_label.dart';
 
 class BussinessAddressPage extends ConsumerStatefulWidget {
   const BussinessAddressPage({super.key});
@@ -33,9 +34,9 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(registerProvider.notifier).onPageOpened();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   ref.read(registerProvider.notifier).onPageOpened();
+    // });
   }
 
   @override
@@ -46,9 +47,21 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
     super.dispose();
   }
 
+  void _updateAddressFields(RegisterState state) {
+    final province = state.provinceSelected;
+    final ward = state.wardSelected;
+
+    provinceController.text = province?.name ?? '';
+    wardController.text = ward?.name ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
+    final state = ref.watch(registerProvider);
+
+    _updateAddressFields(state);
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand, // 🔥 ép full size
@@ -72,7 +85,7 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
                 AddressInfoForm(
                   provinceController: provinceController,
                   wardController: wardController,
-                  streetController: streetController,
+                  isActiveWard: provinceController.text.isNotEmpty,
                   onTapProvince: () {
                     context.pushNamed(
                       Routes.selectProvinceDistrict,
@@ -85,6 +98,19 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
                       extra: SelectLocationMode.ward,
                     );
                   },
+                ),
+                const SizedBox(height: 14),
+
+                Container(
+                  width: double.infinity,
+                  child: const RequiredLabel('Chi tiết địa chỉ'),
+                ),
+                const SizedBox(height: 6),
+                TextFormField(
+                  controller: streetController,
+                  decoration: InputDecoration(
+                    hintText: 'Số nhà, tên đường, tòa nhà',
+                  ),
                 ),
               ],
             ),

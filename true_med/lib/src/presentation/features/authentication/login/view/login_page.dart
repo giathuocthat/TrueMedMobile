@@ -5,18 +5,14 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_text_styles.dart';
-import '../../../../../core/extensions/app_localization.dart';
 import '../../../../../core/extensions/validation.dart';
 import '../../../../../core/utiliity/validation/validation.dart';
-import '../../../../../domain/enum/select_location_mode.dart';
 import '../../../../../shared/app_checkbox.dart';
 import '../../../../core/base/status.dart';
 import '../../../../core/router/routes.dart';
-import '../../../../core/theme/theme.dart';
 import '../../../../core/widgets/link_text.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../features/authentication/login/riverpod/login_provider.dart';
-import '../widgets/language_switcher.dart';
 import '../widgets/login_header.dart';
 
 part '../widgets/login_form.dart';
@@ -138,12 +134,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         text: 'Bạn chưa có tài khoản? ',
                         linkText: 'Đăng ký ngay',
                         onTap: () {
-                          //LOCTB HARD CODED
+                          //LOCTB HARD CODED FOR TESTING
+                          context.pushNamed(Routes.bussinessAddress);
                           //context.pushNamed(Routes.registration);
-                          context.pushNamed(
-                            Routes.selectProvinceDistrict,
-                            extra: SelectLocationMode.province,
-                          );
                         },
                       ),
                     ],

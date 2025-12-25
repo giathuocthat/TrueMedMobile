@@ -32,29 +32,33 @@ class FormInputBox extends StatelessWidget {
     // ),
     return GestureDetector(
       onTap: enabled ? onTap : null,
-      child: TextFormField(
-        controller: controller,
-        enabled: enabled,
-        readOnly: onTap != null, // 👈 giống SelectBox
-        style: AppTextStyles.bodyTextSm.copyWith(color: textColor),
-        decoration: InputDecoration(
-          hintText: hintText,
-          //hintStyle: TextStyle(color: Colors.grey),
-          hintStyle: AppTextStyles.bodyTextSm.copyWith(
-            color: AppColors.textPlaceholder,
-          ),
-          // 🔥 BACKGROUND
-          filled: true,
-          fillColor: bgColor,
-          //border: InputBorder.none,
-          // contentPadding: const EdgeInsets.symmetric(
-          //   vertical: 10,
-          //   horizontal: 14,
-          // ),
-          suffixIcon: suffix, // SỬ DỤNG suffixIcon ĐỂ ĐẢM BẢO KÍCH THƯỚC CHUẨN
-          suffixIconConstraints: const BoxConstraints(
-            minWidth: 44,
-            minHeight: 44,
+      child: AbsorbPointer(
+        absorbing: true,
+        child: TextFormField(
+          controller: controller,
+          enabled: enabled,
+          readOnly: onTap != null, // 👈 giống SelectBox
+          style: AppTextStyles.bodyTextSm.copyWith(color: textColor),
+          decoration: InputDecoration(
+            hintText: hintText,
+            //hintStyle: TextStyle(color: Colors.grey),
+            hintStyle: AppTextStyles.bodyTextSm.copyWith(
+              color: AppColors.textPlaceholder,
+            ),
+            // 🔥 BACKGROUND
+            filled: true,
+            fillColor: bgColor,
+            //border: InputBorder.none,
+            // contentPadding: const EdgeInsets.symmetric(
+            //   vertical: 10,
+            //   horizontal: 14,
+            // ),
+            suffixIcon:
+                suffix, // SỬ DỤNG suffixIcon ĐỂ ĐẢM BẢO KÍCH THƯỚC CHUẨN
+            suffixIconConstraints: const BoxConstraints(
+              minWidth: 44,
+              minHeight: 44,
+            ),
           ),
         ),
       ),

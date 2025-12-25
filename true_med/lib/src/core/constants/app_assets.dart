@@ -10,4 +10,7 @@ class AppAssets {
   static const String iconUnCheckBox = 'assets/icons/icon_uncheck_box.png';
   static const String iconChevronDown = 'assets/icons/icon_chevron-down.png';
   static const String iconSuccess = 'assets/icons/icon_success.png';
+  static const String iconSelected = 'assets/icons/icon_selected.png';
+  static const String iconChecked = 'assets/icons/icon_checked.png';
+  static const String iconSearch = 'assets/icons/icon_search.png';
 }
