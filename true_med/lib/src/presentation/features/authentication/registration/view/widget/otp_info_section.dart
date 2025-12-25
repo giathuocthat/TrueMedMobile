@@ -8,13 +8,21 @@ import '../../../../../core/widgets/link_text.dart';
 import 'otp_input.dart';
 
 class OtpInfoSection extends StatelessWidget {
+  const OtpInfoSection({
+    super.key,
+    required this.phoneNumber,
+    required this.remain,
+    required this.onRetry,
+  });
+
   final String phoneNumber;
-  const OtpInfoSection({super.key, required this.phoneNumber});
+  final int remain;
+  final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
-    final bool isExpired = false;
-    final int remain = 120;
+    final bool isExpired = remain <= 0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -87,7 +95,7 @@ class OtpInfoSection extends StatelessWidget {
           isActive: isExpired,
           onTap: isExpired
               ? () {
-                  // resend OTP
+                  onRetry();
                 }
               : null,
         ),

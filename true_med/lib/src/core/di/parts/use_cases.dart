@@ -141,3 +141,13 @@ CheckExitingPhoneEmailUseCase checkExitingPhoneEmailUseCase(Ref ref) {
     ref.read(authenticationRepositoryProvider),
   );
 }
+
+@riverpod
+SendOTPUseCase sendOTPUseCase(Ref ref) {
+  return SendOTPUseCase(ref.read(authenticationRepositoryProvider));
+}
+
+@riverpod
+VerifyOTPUseCase verifyOTPUseCase(Ref ref) {
+  return VerifyOTPUseCase(ref.read(authenticationRepositoryProvider));
+}

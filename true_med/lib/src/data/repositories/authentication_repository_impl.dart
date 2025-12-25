@@ -75,6 +75,36 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
     });
   }
 
+  @override
+  Future<Result<ApiResponseMetaModel, Failure>> sendOTP(
+    String phoneNumber,
+    int type,
+  ) async {
+    return asyncGuard(() async {
+      final response = await remote.sendOTP(({
+        'phoneNumber': phoneNumber,
+        'type': type,
+      }));
+
+      return response.data;
+    });
+  }
+
+  @override
+  Future<Result<ApiResponseMetaModel, Failure>> verifyOTP(
+    String phoneNumber,
+    String otpCode,
+  ) async {
+    return asyncGuard(() async {
+      final response = await remote.verifyOtp(({
+        'phone': phoneNumber,
+        'otpCode': otpCode,
+      }));
+
+      return response.data;
+    });
+  }
+
   Future<void> _saveSession() async {
     await local.save(CacheKey.isLoggedIn, true);
   }
@@ -108,12 +138,6 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   @override
   Future<String> resetPassword(Map<String, dynamic> data) {
     // TODO: implement resetPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<String> verifyOTP(Map<String, dynamic> data) {
-    // TODO: implement verifyOTP
     throw UnimplementedError();
   }
 

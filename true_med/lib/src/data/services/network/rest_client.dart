@@ -102,4 +102,13 @@ abstract class RestClient {
   Future<HttpResponse<ApiResponseErrorResponseModel>> checkExisting(
     @Body() Map<String, dynamic> request,
   );
+  @POST(Endpoints.sendOtp)
+  Future<HttpResponse<ApiResponseMetaModel>> sendOTP(
+    @Body() Map<String, dynamic> request,
+  );
+
+  @POST(Endpoints.verifyOtp)
+  Future<HttpResponse<ApiResponseMetaModel>> verifyOtp(
+    @Body() Map<String, dynamic> request,
+  );
 }

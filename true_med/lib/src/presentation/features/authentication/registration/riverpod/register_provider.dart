@@ -16,6 +16,8 @@ part 'register_provider.g.dart';
 @riverpod
 class Register extends _$Register {
   late RegisterUseCase _registerUseCase;
+  late SendOTPUseCase _sendOTPUseCase;
+  late VerifyOTPUseCase _verifyOTPUseCase;
   late GetBussinessTypeUseCase _getBussinessTypeUseCase;
   late CheckExitingPhoneEmailUseCase _checkExitingPhoneEmailUseCase;
   late GetProvinceAllUseCase _getProvinceAllUseCase;
@@ -29,6 +31,9 @@ class Register extends _$Register {
     _checkExitingPhoneEmailUseCase = ref.read(
       checkExitingPhoneEmailUseCaseProvider,
     );
+    _sendOTPUseCase = ref.read(sendOTPUseCaseProvider);
+    _verifyOTPUseCase = ref.read(verifyOTPUseCaseProvider);
+
     _getProvinceAllUseCase = ref.read(getProvinceAllUseCaseProvider);
     _getProvinceDetailUseCase = ref.read(getProvinceDetailUseCaseProvider);
 
@@ -78,6 +83,35 @@ class Register extends _$Register {
 
   void setOtp(String otp) {
     state = state.copyWith(otp: otp);
+  }
+
+  void callSendOTP() {
+    state = state.copyWith(phoneNumber: state.phoneNumber);
+    _sendOTPUseCase.call(phone: state.phoneNumber, type: 1);
+    final phone = state.phoneNumber;
+
+    resendOTP('0976973925', 0);
+  }
+
+  Future<void> resendOTP(String phone, int type) async {
+    // reset state trước
+    state = state.copyWith(status: Status.loading, error: null);
+
+    // 1) Call API 1
+    final result1 = await _sendOTPUseCase.call(phone: phone, type: type);
+
+    switch (result1) {
+      case Success(:final data):
+        state = state.copyWith(status: Status.success);
+      case Error(:final error):
+        state = state.copyWith(status: Status.error, error: error);
+      default:
+        state = state.copyWith(
+          status: Status.error,
+          error: 'Something went wrong',
+        );
+        return;
+    }
   }
 
   Future<void> fetchBussinessType() async {

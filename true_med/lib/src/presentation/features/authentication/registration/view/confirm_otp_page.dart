@@ -1,25 +1,69 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
+import '../riverpod/register_provider.dart';
 import 'widget/otp_info_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
 
-class ConfirmOTPPage extends StatefulWidget {
+class ConfirmOTPPage extends ConsumerStatefulWidget {
   const ConfirmOTPPage({super.key});
 
   @override
-  State<ConfirmOTPPage> createState() => _ConfirmOTPPageState();
+  ConsumerState<ConfirmOTPPage> createState() => _ConfirmOTPPageState();
 }
 
-class _ConfirmOTPPageState extends State<ConfirmOTPPage> {
+class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
-  final provinceController = TextEditingController();
-  final wardController = TextEditingController();
-  final streetController = TextEditingController();
+  // final provinceController = TextEditingController();
+  // final wardController = TextEditingController();
+  // final streetController = TextEditingController();
+
+  static const int _initialTime = 120;
+  int _seconds = _initialTime;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _resendOTP();
+    });
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _seconds = _initialTime;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_seconds > 0) {
+        setState(() {
+          _seconds--;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  void _resendOTP() {
+    _startTimer();
+    ref.read(registerProvider.notifier).callSendOTP();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
@@ -38,11 +82,16 @@ class _ConfirmOTPPageState extends State<ConfirmOTPPage> {
               16,
               footerBuffer, // 🔥 buffer an toàn
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Container(color: Colors.red, height: 2),
-                OtpInfoSection(phoneNumber: '+84 123 456 789'),
+                OtpInfoSection(
+                  phoneNumber: '+84 123 456 789',
+                  remain: _seconds,
+                  onRetry: () {
+                    _resendOTP();
+                  },
+                ),
               ],
             ),
           ),

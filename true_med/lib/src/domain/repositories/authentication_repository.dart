@@ -17,7 +17,7 @@ abstract base class AuthenticationRepository extends Repository {
 
   Future<String> resetPassword(Map<String, dynamic> data);
 
-  Future<String> verifyOTP(Map<String, dynamic> data);
+  //Future<String> verifyOTP(Map<String, dynamic> data);
 
   Future<String> resendOTP(Map<String, dynamic> data);
 
@@ -28,6 +28,15 @@ abstract base class AuthenticationRepository extends Repository {
   Future<Result<ApiResponseErrorResponseModel, Failure>> checkExisting(
     String phoneNumber,
     String? email,
+  );
+
+  Future<Result<ApiResponseMetaModel, Failure>> sendOTP(
+    String phoneNumber,
+    int type,
+  );
+  Future<Result<ApiResponseMetaModel, Failure>> verifyOTP(
+    String phoneNumber,
+    String otpCode,
   );
 
   //Future<String> resendOTP(Map<String, dynamic> data);

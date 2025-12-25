@@ -1,5 +1,6 @@
 import '../../core/base/result.dart';
 import '../../data/models/api_response_error_model.dart';
+import '../../data/models/api_response_meta_model.dart';
 import '../entities/login_entity.dart';
 import '../entities/sign_up_entity.dart';
 import '../repositories/authentication_repository.dart';
@@ -80,6 +81,44 @@ final class CheckExitingPhoneEmailUseCase {
     String? email,
   }) async {
     final result = await repository.checkExisting(phone, email);
+
+    return switch (result) {
+      Success(:final data) => Success(data),
+      Error(:final error) => Error(error.message),
+      _ => const Error('Something went wrong'),
+    };
+  }
+}
+
+final class SendOTPUseCase {
+  SendOTPUseCase(this.repository);
+
+  final AuthenticationRepository repository;
+
+  Future<Result<ApiResponseMetaModel, String>> call({
+    required String phone,
+    required int type,
+  }) async {
+    final result = await repository.sendOTP(phone, type);
+
+    return switch (result) {
+      Success(:final data) => Success(data),
+      Error(:final error) => Error(error.message),
+      _ => const Error('Something went wrong'),
+    };
+  }
+}
+
+final class VerifyOTPUseCase {
+  VerifyOTPUseCase(this.repository);
+
+  final AuthenticationRepository repository;
+
+  Future<Result<ApiResponseMetaModel, String>> call({
+    required String phone,
+    required String otpCode,
+  }) async {
+    final result = await repository.verifyOTP(phone, otpCode);
 
     return switch (result) {
       Success(:final data) => Success(data),

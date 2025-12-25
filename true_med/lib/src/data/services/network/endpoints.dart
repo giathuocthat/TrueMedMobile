@@ -13,9 +13,11 @@ class Endpoints {
 
   static const String checkExisting = '/customer/auth/checkExisting';
 
-  /// OTP
-  static const String verifyOtp = '/otp/verify_otp/';
-  static const String resendOtp = '/otp/resend_otp/';
+  /// OTPcustomer/auth/VerifyOtp'
+  /// static const String sendOtp = '/customer/auth/SendOtp';
+  static const String sendOtp = '/customer/auth/SendOtp';
+  static const String verifyOtp = '/customer/auth/VerifyOtp';
+  //static const String resendOtp = '/otp/resend_otp/';
 
   // Product
   static const String products = '/product';
