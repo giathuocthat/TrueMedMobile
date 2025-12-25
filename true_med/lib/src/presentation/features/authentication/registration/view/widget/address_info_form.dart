@@ -17,11 +17,15 @@ class AddressInfoForm extends StatefulWidget {
     required this.provinceController,
     required this.wardController,
     required this.streetController,
+    required this.onTapProvince,
+    required this.onTapWard,
   });
 
   final TextEditingController provinceController;
   final TextEditingController wardController;
   final TextEditingController streetController;
+  final VoidCallback onTapProvince;
+  final VoidCallback onTapWard;
 
   @override
   State<AddressInfoForm> createState() => _AddressInfoFormState();
@@ -49,9 +53,7 @@ class _AddressInfoFormState extends State<AddressInfoForm> {
           controller: widget.provinceController,
           hintText: "Chọn tỉnh/ thành phố",
           enabled: true,
-          onTap: () {
-            // open bottom sheet chọn tỉnh
-          },
+          onTap: widget.onTapProvince,
           suffix: Container(
             width: 40,
             height: 40,
@@ -72,9 +74,7 @@ class _AddressInfoFormState extends State<AddressInfoForm> {
           controller: widget.wardController,
           hintText: "Chọn xã/ phường",
           enabled: false,
-          onTap: () {
-            // open bottom sheet chọn tỉnh
-          },
+          onTap: widget.onTapWard,
           suffix: Container(
             width: 40,
             height: 40,

@@ -92,6 +92,15 @@ List<GoRoute> _modalRoutes(ref) {
         return const MaterialPage(child: EditShippingAddressPage());
       },
     ),
+    // select province district
+    GoRoute(
+      path: Routes.selectProvinceDistrict,
+      name: Routes.selectProvinceDistrict,
+      pageBuilder: (context, state) {
+        final mode = state.extra as SelectLocationMode;
+        return MaterialPage(child: SelectProvinceDistrictPage(mode: mode));
+      },
+    ),
 
     //order Detail
     GoRoute(

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
+import '../../../../../domain/enum/select_location_mode.dart';
 import '../../../../core/router/routes.dart';
 import '../riverpod/register_provider.dart';
 import 'widget/register_navigation_bar.dart';
@@ -89,6 +90,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
               onNext: isChecked
                   ? () {
                       context.pushNamed(Routes.bussinessType);
+                      context.pushNamed(
+                        Routes.selectProvinceDistrict,
+                        extra: SelectLocationMode.province,
+                      );
                     }
                   : null,
             ),

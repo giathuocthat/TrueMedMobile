@@ -8,6 +8,7 @@ import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/extensions/app_localization.dart';
 import '../../../../../core/extensions/validation.dart';
 import '../../../../../core/utiliity/validation/validation.dart';
+import '../../../../../domain/enum/select_location_mode.dart';
 import '../../../../../shared/app_checkbox.dart';
 import '../../../../core/base/status.dart';
 import '../../../../core/router/routes.dart';
@@ -137,7 +138,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         text: 'Bạn chưa có tài khoản? ',
                         linkText: 'Đăng ký ngay',
                         onTap: () {
-                          context.pushNamed(Routes.registration);
+                          //LOCTB HARD CODED
+                          //context.pushNamed(Routes.registration);
+                          context.pushNamed(
+                            Routes.selectProvinceDistrict,
+                            extra: SelectLocationMode.province,
+                          );
                         },
                       ),
                     ],

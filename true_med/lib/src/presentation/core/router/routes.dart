@@ -25,6 +25,7 @@ class Routes {
   static const String shippingAddress = '/shipping-address/:addressId';
   static const String createShippingAddress = '/create-shipping-address';
   static const String editShippingAddress = '/edit-shipping-address/:addressId';
+  static const String selectProvinceDistrict = '/select-province-district';
 
   static const String cartOrder = '/cart-order';
   static const String notification = '/notification';

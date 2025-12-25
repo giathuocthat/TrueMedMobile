@@ -1,0 +1,1 @@
+enum SelectLocationMode { province, ward }

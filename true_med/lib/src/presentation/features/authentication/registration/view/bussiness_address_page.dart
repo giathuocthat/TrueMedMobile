@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
+import '../../../../../domain/enum/select_location_mode.dart';
 import '../../../../core/router/routes.dart';
 import '../riverpod/register_provider.dart';
 import '../riverpod/register_state.dart';
@@ -33,7 +34,7 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(registerProvider.notifier).onPageBussinessAddressOpened();
+      ref.read(registerProvider.notifier).onPageOpened();
     });
   }
 
@@ -72,6 +73,18 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
                   provinceController: provinceController,
                   wardController: wardController,
                   streetController: streetController,
+                  onTapProvince: () {
+                    context.pushNamed(
+                      Routes.selectProvinceDistrict,
+                      extra: SelectLocationMode.province,
+                    );
+                  },
+                  onTapWard: () {
+                    context.pushNamed(
+                      Routes.selectProvinceDistrict,
+                      extra: SelectLocationMode.ward,
+                    );
+                  },
                 ),
               ],
             ),

@@ -55,7 +55,7 @@ class Register extends _$Register {
     updateBussinessTypesSelectedIds(next);
   }
 
-  void onPageBussinessAddressOpened() {
+  void onPageOpened() {
     if (state.listProvince.isEmpty) {
       fetchProvinceAll();
     }
