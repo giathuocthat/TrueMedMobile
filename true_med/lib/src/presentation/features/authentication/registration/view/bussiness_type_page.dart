@@ -30,11 +30,14 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(registerProvider.notifier).fetchBussinessType();
+    });
   }
 
   @override
   void dispose() {
-    // shouldPolicyCheck.dispose();
+    shouldPolicyCheck.dispose();
     super.dispose();
   }
 

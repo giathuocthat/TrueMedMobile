@@ -19,11 +19,8 @@ part 'register_provider.g.dart';
 class Register extends _$Register {
   late RegisterUseCase _registerUseCase;
   late SendOTPUseCase _sendOTPUseCase;
-  late VerifyOTPUseCase _verifyOTPUseCase;
   late GetBussinessTypeUseCase _getBussinessTypeUseCase;
   late CheckExitingPhoneEmailUseCase _checkExitingPhoneEmailUseCase;
-  late GetProvinceAllUseCase _getProvinceAllUseCase;
-  late GetProvinceDetailUseCase _getProvinceDetailUseCase;
 
   @override
   RegisterState build() {
@@ -34,17 +31,15 @@ class Register extends _$Register {
       checkExitingPhoneEmailUseCaseProvider,
     );
     _sendOTPUseCase = ref.read(sendOTPUseCaseProvider);
-    _verifyOTPUseCase = ref.read(verifyOTPUseCaseProvider);
 
-    _getProvinceAllUseCase = ref.read(getProvinceAllUseCaseProvider);
-    _getProvinceDetailUseCase = ref.read(getProvinceDetailUseCaseProvider);
+    // final initialState = RegisterState(status: Status.loading);
+    // Future.microtask(() => fetchBussinessType());
 
-    final initialState = RegisterState(status: Status.loading);
-    Future.microtask(() => fetchBussinessType());
     // ref.onInit(() {
     //   fetchBussinessType();
     // });
-    return initialState;
+    return RegisterState();
+    ;
   }
 
   void updatePolicyCheck(bool isPolicyChecked) {
