@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
@@ -6,11 +7,8 @@ import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../../domain/entities/province_entity.dart';
 import '../../../../../domain/entities/sign_up_entity.dart';
 import '../../../../../domain/entities/ward_entity.dart';
-import '../../../../../domain/use_cases/address/get_province_all_usecase.dart';
-import '../../../../../domain/use_cases/address/get_province_detail_usecase.dart';
 import '../../../../../domain/use_cases/authentication_use_case.dart';
 import '../../../../../domain/use_cases/bussiness_usecase .dart';
-import '../../../../../domain/use_cases/order/payment_use_case.dart';
 import 'register_state.dart';
 
 part 'register_provider.g.dart';
@@ -18,19 +16,30 @@ part 'register_provider.g.dart';
 @riverpod
 class Register extends _$Register {
   late RegisterUseCase _registerUseCase;
-  late SendOTPUseCase _sendOTPUseCase;
   late GetBussinessTypeUseCase _getBussinessTypeUseCase;
   late CheckExitingPhoneEmailUseCase _checkExitingPhoneEmailUseCase;
 
   @override
   RegisterState build() {
     ref.keepAlive(); // 🔥 giữ state
+
+    ref.onDispose(() {
+      debugPrint('🔥 RegisterProvider disposed');
+    });
+    //LOCTB Dispose RegisterProvider sau 10 phút ko sử dụng
+    // Nên hủy tự động sau 10 phút
+    // final link = ref.keepAlive();
+    // hoặc qua ref.invalidate(registerNotifierProvider);
+
+    // Timer(const Duration(minutes: 10), () {
+    //   link.close(); // auto dispose
+    // });
+
     _registerUseCase = ref.read(registerUseCaseProvider);
     _getBussinessTypeUseCase = ref.read(getBussinessTypeUseCaseProvider);
     _checkExitingPhoneEmailUseCase = ref.read(
       checkExitingPhoneEmailUseCaseProvider,
     );
-    _sendOTPUseCase = ref.read(sendOTPUseCaseProvider);
 
     // final initialState = RegisterState(status: Status.loading);
     // Future.microtask(() => fetchBussinessType());
@@ -82,14 +91,6 @@ class Register extends _$Register {
     state = state.copyWith(otp: otp);
   }
 
-  void callSendOTP() {
-    state = state.copyWith(phoneNumber: state.phoneNumber);
-    _sendOTPUseCase.call(phone: state.phoneNumber, type: 1);
-    final phone = state.phoneNumber;
-
-    resendOTP(phone, 0);
-  }
-
   void callRegister(String otp) {
     setOtp(otp);
     registerAccount();
@@ -136,27 +137,6 @@ class Register extends _$Register {
           error: error,
           isSubmitting: false,
         );
-      default:
-        state = state.copyWith(
-          status: Status.error,
-          error: 'Something went wrong',
-        );
-        return;
-    }
-  }
-
-  Future<void> resendOTP(String phone, int type) async {
-    // reset state trước
-    state = state.copyWith(status: Status.loading, error: null);
-
-    // 1) Call API 1
-    final result1 = await _sendOTPUseCase.call(phone: phone, type: type);
-
-    switch (result1) {
-      case Success(:final data):
-        state = state.copyWith(status: Status.success);
-      case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
       default:
         state = state.copyWith(
           status: Status.error,
