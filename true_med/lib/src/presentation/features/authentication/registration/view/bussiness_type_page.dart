@@ -4,14 +4,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../domain/entities/bussiness_type_entity.dart';
+import '../../../../../shared/widget/error_view.dart';
+import '../../../../../shared/widget/empty_view.dart';
 import '../../../../core/router/routes.dart';
-import '../../../shipping_address/riverpod/province/province_address_provider.dart';
 import '../riverpod/register_provider.dart';
-import 'model/mock_data.dart';
 import 'widget/business_type_option.dart';
 import 'widget/bussiness_type_section.dart';
+import 'widget/skeleton/bussiness_type_skeleton_gird.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
+import '../../../../core/base/status.dart';
 
 class BussinessTypePage extends ConsumerStatefulWidget {
   const BussinessTypePage({super.key});
@@ -70,21 +72,49 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
               children: [
                 const BussinessTypeSection(),
                 const SizedBox(height: 24),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: bussinessTypes.map((item) {
-                    final isSelected = selectedIds?.id == item.id;
-                    return BussinessTypeItem(
-                      item: item,
-                      selected: isSelected,
-                      onTap: () {
-                        ref
-                            .read(registerProvider.notifier)
-                            .updateBusinessTypeSelected(item);
-                      },
+
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: () {
+                    if (state.status == Status.loading) {
+                      return const BussinessTypeSkeletonGrid();
+                    }
+
+                    if (state.status == Status.error) {
+                      return ErrorView(
+                        message: state.error ?? 'Không thể tải dữ liệu',
+                        onRetry: () {
+                          ref
+                              .read(registerProvider.notifier)
+                              .fetchBussinessType();
+                        },
+                      );
+                    }
+
+                    if (bussinessTypes.isEmpty) {
+                      return const EmptyView(
+                        message: 'Không có loại hình kinh doanh',
+                      );
+                    }
+
+                    return Wrap(
+                      key: const ValueKey('data'),
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: bussinessTypes.map((item) {
+                        final isSelected = selectedIds?.id == item.id;
+                        return BussinessTypeItem(
+                          item: item,
+                          selected: isSelected,
+                          onTap: () {
+                            ref
+                                .read(registerProvider.notifier)
+                                .updateBusinessTypeSelected(item);
+                          },
+                        );
+                      }).toList(),
                     );
-                  }).toList(),
+                  }(),
                 ),
               ],
             ),

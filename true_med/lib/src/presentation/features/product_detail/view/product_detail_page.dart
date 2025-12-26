@@ -6,7 +6,6 @@ import '../../../../data/models/product_model.dart';
 import '../../../../domain/entities/product_entity.dart';
 import '../../../../shared/widget/icon_with_badge.dart';
 import '../../../../shared/widget/product_cart_footer.dart';
-import '../../../core/application_state/logout_provider/logout_state.dart';
 import '../../../core/router/routes.dart';
 import '../../application/cart/riverpod/cart_provider.dart';
 import '../../home/view/widget/html_section.dart';
@@ -87,6 +86,12 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
           const SizedBox(height: 80),
         ];
       case Status.initial:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case Status.invalid:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case Status.empty:
         // TODO: Handle this case.
         throw UnimplementedError();
     }

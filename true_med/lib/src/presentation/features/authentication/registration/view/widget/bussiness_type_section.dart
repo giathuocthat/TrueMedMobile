@@ -28,20 +28,6 @@ class BussinessTypeSection extends StatelessWidget {
             color: AppColors.textTertiary600,
           ),
         ),
-        // const SizedBox(height: 24),
-        // Wrap(
-        //   spacing: 12,
-        //   runSpacing: 12,
-        //   children: businessTypes.map((item) {
-        //     return BusinessTypeItem(
-        //       item: item,
-        //       selected: false,
-        //       onTap: () {
-        //         // setState(() => selectedId = item.id);
-        //       },
-        //     );
-        //   }).toList(),
-        // ),
       ],
     );
   }
