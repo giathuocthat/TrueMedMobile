@@ -6,15 +6,19 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/extensions/string.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
-import '../riverpod/register_provider.dart';
-import '../riverpod/register_state.dart';
+import '../../registration/riverpod/register_provider.dart';
+import '../../registration/riverpod/register_state.dart';
+import '../riverpod/otp_provider.dart';
 import 'widget/otp_info_section.dart';
-import 'widget/register_btnNext_footer.dart';
-import 'widget/register_navigation_bar.dart';
+import '../../registration/view/widget/register_btnNext_footer.dart';
+import '../../registration/view/widget/register_navigation_bar.dart';
 
 class ConfirmOTPPage extends ConsumerStatefulWidget {
-  const ConfirmOTPPage({super.key});
+  final String phone;
+  final OTPFlowType flow;
+  const ConfirmOTPPage({super.key, required this.phone, required this.flow});
 
   @override
   ConsumerState<ConfirmOTPPage> createState() => _ConfirmOTPPageState();
@@ -23,9 +27,6 @@ class ConfirmOTPPage extends ConsumerStatefulWidget {
 class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
-  // final provinceController = TextEditingController();
-  // final wardController = TextEditingController();
-  // final streetController = TextEditingController();
 
   String otp = "";
   static const int _initialTime = 120;
@@ -40,6 +41,7 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _resendOTP();
     });
+
     ref.listenManual<RegisterState>(registerProvider, (previous, next) {
       // 🔥 chỉ react khi từ false → true
       if (previous == null) return;
@@ -73,16 +75,37 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
     });
   }
 
-  //context.pushNamed(Routes.registerSuccess);
   void _resendOTP() {
     _startTimer();
-    ref.read(registerProvider.notifier).callSendOTP();
+    ref.read(otpProvider.notifier).callSendOTP(widget.phone, widget.flow);
+  }
+
+  void _handleAction(String otp) {
+    if (widget.flow == OTPFlowType.register) {
+      _sendRegister(otp);
+    } else if (widget.flow == OTPFlowType.login) {
+      _sendLogin(otp);
+    } else if (widget.flow == OTPFlowType.forgotPass) {
+      _sendForgotPassword(otp);
+    }
   }
 
   void _sendRegister(String otp) {
     ref.read(registerProvider.notifier).callRegister(otp);
   }
 
+  void _sendLogin(String otp) {
+    // ref.read(loginProvider.notifier).loginWithOTP(
+    //       phone: widget.phone,
+    //       otp: otp,
+    //     );
+  }
+  void _sendForgotPassword(String otp) {
+    // ref.read(loginProvider.notifier).loginWithOTP(
+    //       phone: widget.phone,
+    //       otp: otp,
+    //     );
+  }
   void _onPushToScreen() {
     context.pushNamed(Routes.registerSuccess);
   }
@@ -95,8 +118,7 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(registerProvider);
-    final phoneNumber = state.phoneNumber.maskedPhone;
+    final phoneNumber = widget.phone.maskedPhone;
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Stack(
@@ -153,7 +175,7 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
               isShowLogin: false,
               onNext: otp.length == 4
                   ? () {
-                      _sendRegister(otp);
+                      _handleAction(otp);
                     }
                   : null,
             ),

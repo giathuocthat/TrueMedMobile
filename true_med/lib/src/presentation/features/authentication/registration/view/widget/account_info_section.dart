@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
-import '../model/mock_data.dart';
-import 'business_type_option.dart';
-import 'register_info_form.dart';
 
 class AccountInfoSection extends StatelessWidget {
   const AccountInfoSection({super.key});

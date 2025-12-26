@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/extensions/riverpod_extensions.dart';
 import '../../../core/logger/log.dart';
-import '../../../domain/enum/select_location_mode.dart';
+import '../../../domain/enum/app_enums.dart';
 import '../../features/authentication/forgot_password/view/create_new_password_page.dart';
 import '../../features/authentication/forgot_password/view/email_verification_page.dart';
 import '../../features/authentication/forgot_password/view/reset_password_page.dart';
@@ -14,7 +14,7 @@ import '../../features/authentication/login/view/login_page.dart';
 import '../../features/authentication/registration/view/account_info_page.dart';
 import '../../features/authentication/registration/view/bussiness_type_page.dart';
 import '../../features/authentication/registration/view/bussiness_address_page.dart';
-import '../../features/authentication/registration/view/confirm_otp_page.dart';
+import '../../features/authentication/otp/view/confirm_otp_page.dart';
 import '../../features/authentication/registration/view/registration_page.dart';
 import '../../features/authentication/registration/view/resgister_success_page.dart';
 import '../../features/home/view/home_page.dart';

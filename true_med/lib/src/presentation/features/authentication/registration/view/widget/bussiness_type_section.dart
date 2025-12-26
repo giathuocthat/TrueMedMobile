@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
-import '../model/mock_data.dart';
-import 'business_type_option.dart';
 
 class BussinessTypeSection extends StatelessWidget {
   const BussinessTypeSection({super.key});

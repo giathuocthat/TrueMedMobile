@@ -4,6 +4,8 @@ class Routes {
   static const String onboarding = '/onboarding';
 
   static const String login = '/login';
+  static const String loginWithOTP = '/login-with-otp';
+
   static const String resetPassword = 'reset-password';
   static const String emailVerification = 'email-verification';
   static const String createNewPassword = 'create-new-password';

@@ -8,7 +8,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../domain/entities/address_entity.dart';
 import '../../../../domain/entities/province_entity.dart';
 import '../../../../domain/entities/ward_entity.dart';
-import '../../../../domain/enum/select_location_mode.dart';
+import '../../../../domain/enum/app_enums.dart';
 import '../../authentication/registration/riverpod/register_provider.dart';
 import '../../authentication/registration/riverpod/register_state.dart';
 import '../../authentication/registration/view/widget/provice_header_section.dart';

@@ -36,8 +36,12 @@ List<GoRoute> _authenticationRoutes(ref) {
         GoRoute(
           path: Routes.confirmOTP,
           name: Routes.confirmOTP,
-          pageBuilder: (context, state) =>
-              const MaterialPage(child: ConfirmOTPPage()),
+          pageBuilder: (context, state) {
+            final args = state.extra as ConfirmOtpArgs;
+            return MaterialPage(
+              child: ConfirmOTPPage(phone: args.phone, flow: args.flow),
+            );
+          },
         ),
 
         GoRoute(

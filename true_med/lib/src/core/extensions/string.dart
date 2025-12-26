@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart';
 
+import '../../domain/enum/app_enums.dart';
+
 extension StringCurrencyExtension on String {
   String toCurrency({bool withSymbol = true}) {
     try {

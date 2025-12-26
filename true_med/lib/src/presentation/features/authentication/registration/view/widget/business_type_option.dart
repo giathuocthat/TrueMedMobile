@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
 import '../../../../../../domain/entities/bussiness_type_entity.dart';
-import '../model/mock_data.dart';
 import 'radio_icon.dart';
 
 class BussinessTypeItem extends StatelessWidget {

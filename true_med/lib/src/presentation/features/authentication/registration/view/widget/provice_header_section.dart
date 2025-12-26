@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../domain/enum/select_location_mode.dart';
+import '../../../../../../domain/enum/app_enums.dart';
 import 'item_provice_header.dart';
 
 class ProvinceHeaderSection extends StatelessWidget {

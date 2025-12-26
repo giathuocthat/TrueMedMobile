@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
-import '../../../../../../domain/enum/select_location_mode.dart';
+import '../../../../../../domain/enum/app_enums.dart';
 import 'idicator.dart';
 
 class ItemProvinceHeaderSection extends StatelessWidget {

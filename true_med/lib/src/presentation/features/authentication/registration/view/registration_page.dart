@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
-import '../../../../../domain/enum/select_location_mode.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
 import '../riverpod/register_provider.dart';
 import 'widget/register_navigation_bar.dart';

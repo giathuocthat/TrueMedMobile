@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import '../../core/base/status.dart';
+
 class BaseAsyncView<T> extends StatelessWidget {
   final Status status;
   final T? data;

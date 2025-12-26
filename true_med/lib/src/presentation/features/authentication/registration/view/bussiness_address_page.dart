@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
-import '../../../../../domain/enum/select_location_mode.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
+import '../../otp/view/confirm_otp_args.dart';
 import '../riverpod/register_provider.dart';
 import '../riverpod/register_state.dart';
 import 'widget/address_info_form.dart';
@@ -31,13 +32,11 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
   final streetController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  var phoneNumber = '';
+
   @override
   void initState() {
     super.initState();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   ref.read(registerProvider.notifier).onPageOpened();
-    // });
   }
 
   @override
@@ -48,9 +47,11 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
     super.dispose();
   }
 
-  void _updateAddressFields(RegisterState state) {
+  void _updateDataWithState(RegisterState state) {
     final province = state.provinceSelected;
     final ward = state.wardSelected;
+
+    phoneNumber = state.phoneNumber;
 
     provinceController.text = province?.name ?? '';
     wardController.text = ward?.name ?? '';
@@ -64,7 +65,10 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
 
   void _onPushToScreen() {
     ref.read(registerProvider.notifier).setAdressStreet(streetController.text);
-    context.pushNamed(Routes.confirmOTP);
+    context.pushNamed(
+      Routes.confirmOTP,
+      extra: ConfirmOtpArgs(phone: phoneNumber, flow: OTPFlowType.register),
+    );
   }
 
   @override
@@ -72,7 +76,7 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
     final state = ref.watch(registerProvider);
 
-    _updateAddressFields(state);
+    _updateDataWithState(state);
 
     return Scaffold(
       body: Stack(
@@ -143,7 +147,6 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
               textDisplay: 'Nhận mã xác thực',
               onNext: () {
                 _onCheckValidate();
-                //context.pushNamed(Routes.confirmOTP);
               },
             ),
           ),
