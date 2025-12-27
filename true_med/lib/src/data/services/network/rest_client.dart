@@ -33,9 +33,7 @@ abstract class RestClient {
   Future<HttpResponse> loginPhone(@Body() Map<String, dynamic> request);
 
   @POST(Endpoints.register)
-  Future<HttpResponse<AuthenResponseModel>> register(
-    @Body() Map<String, dynamic> request,
-  );
+  Future<HttpResponse> register(@Body() Map<String, dynamic> request);
 
   @GET(Endpoints.products)
   Future<HttpResponse<List<ProductResponseModel>>> getProducts();

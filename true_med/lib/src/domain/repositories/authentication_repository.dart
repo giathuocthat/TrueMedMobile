@@ -6,7 +6,7 @@ import '../entities/login_entity.dart';
 import '../entities/sign_up_entity.dart';
 
 abstract base class AuthenticationRepository extends Repository {
-  Future<Result<RegisterResponseEntity, Failure>> register(
+  Future<Result<LoginResponseEntity, Failure>> register(
     SignUpRequestEntity data,
   );
 

@@ -45,6 +45,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
 
     ref.listenManual(loginProvider, (previous, next) {
+      if (previous == null) return;
       if (next.status.isSuccess && next.isLoginSuccess) {
         notifier.saveRememberMe(shouldRemember.value);
         context.pushReplacementNamed(Routes.home);
@@ -52,7 +53,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         shouldRemember.value = next.rememberMe;
       }
 
-      if (next.status.isError) {
+      if (!previous.status.isError &&
+          next.status.isError &&
+          next.authFlowStep == AuthFlowStep.idle) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(next.error!)));

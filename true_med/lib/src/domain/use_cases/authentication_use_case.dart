@@ -1,3 +1,4 @@
+import '../../core/base/failure.dart';
 import '../../core/base/result.dart';
 import '../../data/models/api_response_error_model.dart';
 import '../entities/login_entity.dart';
@@ -9,15 +10,16 @@ final class RegisterUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<Result<RegisterResponseEntity, String>> call(
+  Future<Result<LoginResponseEntity, Failure>> call(
     SignUpRequestEntity request,
   ) async {
-    final result = await repository.register(request);
-    return switch (result) {
-      Success(:final data) => Success(data),
-      Error(:final error) => Error(error.message),
-      _ => const Error('Something went wrong'),
-    };
+    //final result = await repository.register(request);
+    // return switch (result) {
+    //   Success(:final data) => Success(data),
+    //   Error(:final error) => Error(error),
+    //   _ => const Error('Something went wrong'),
+    // };
+    return repository.register(request);
   }
 }
 
@@ -26,7 +28,7 @@ final class LoginUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<Result<LoginResponseEntity, String>> call({
+  Future<Result<LoginResponseEntity, Failure>> call({
     required String email,
     required String password,
     bool? shouldRemember,
@@ -37,13 +39,7 @@ final class LoginUseCase {
       shouldRemeber: shouldRemember,
     );
 
-    final result = await repository.login(request);
-
-    return switch (result) {
-      Success(:final data) => Success(data),
-      Error(:final error) => Error(error.message),
-      _ => const Error('Something went wrong'),
-    };
+    return repository.login(request);
   }
 }
 
@@ -52,7 +48,7 @@ final class LoginPhoneUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<Result<LoginResponseEntity, String>> call({
+  Future<Result<LoginResponseEntity, Failure>> call({
     required String phone,
     required String otp,
     bool? shouldRemember,
@@ -63,13 +59,7 @@ final class LoginPhoneUseCase {
       shouldRemeber: shouldRemember,
     );
 
-    final result = await repository.loginPhone(request);
-
-    return switch (result) {
-      Success(:final data) => Success(data),
-      Error(:final error) => Error(error.message),
-      _ => const Error('Something went wrong'),
-    };
+    return repository.loginPhone(request);
   }
 }
 

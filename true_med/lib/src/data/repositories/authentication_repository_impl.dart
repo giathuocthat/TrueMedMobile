@@ -1,3 +1,4 @@
+import '../../core/base/exceptions.dart';
 import '../../core/base/failure.dart';
 import '../../core/base/result.dart';
 import '../../domain/entities/login_entity.dart';
@@ -26,23 +27,30 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
       final model = LoginRequestModel.fromEntity(data);
       final response = await remote.login(model.toJson());
 
-      // final base = BaseResponseModel.fromJson(
-      //   response.data,
-      //   (json) => LoginResponseModel.fromJson(json),
-      // );
-
       final base = BaseResponseModel.fromJson(
         response.data,
         (json) => AuthenResponseModel.fromJson(json),
       );
 
+      // Kiểm tra nếu login không thành công
+      if (base.data == null || base.data?.accessToken == null) {
+        throw UnauthorizedException(message: base.message);
+      }
+
+      // Kiểm tra nếu customer null
+      // if (base.data?.customer == null) {
+      //   throw const ValidationException(
+      //     message: 'Thông tin khách hàng không hợp lệ.',
+      //     field: 'customer',
+      //   );
+      // }
+
       // Save the session if the user has selected the "Remember Me" option
       if (data.shouldRemeber ?? false) await _saveSession();
 
-      //return base.data!;
       return LoginResponseEntity(
-        accessToken: base.data?.accessToken ?? '',
-        customer: base.data?.customer,
+        accessToken: base.data!.accessToken!,
+        customer: base.data!.customer,
       );
     });
   }
@@ -59,13 +67,25 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
         (json) => AuthenResponseModel.fromJson(json),
       );
 
+      // Kiểm tra nếu login không thành công
+      if (base.data == null || base.data?.accessToken == null) {
+        throw UnauthorizedException(message: base.message);
+      }
+
+      // Kiểm tra nếu customer null
+      if (base.data?.customer == null) {
+        throw const ValidationException(
+          message: 'Thông tin khách hàng không hợp lệ.',
+          field: 'customer',
+        );
+      }
+
       // Save the session if the user has selected the "Remember Me" option
       if (data.shouldRemeber ?? false) await _saveSession();
 
-      //return base.data!;
       return LoginResponseEntity(
-        accessToken: base.data?.accessToken ?? '',
-        customer: base.data?.customer,
+        accessToken: base.data!.accessToken!,
+        customer: base.data!.customer,
       );
     });
   }
@@ -195,22 +215,43 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Result<RegisterResponseEntity, Failure>> register(
+  Future<Result<LoginResponseEntity, Failure>> register(
     SignUpRequestEntity data,
   ) async {
     return asyncGuard(() async {
       final response = await remote.register(data.toJson());
+
+      // final base = BaseResponseModel.fromJson(
+      //   response.data,
+      //   (json) => AuthenResponseModel.fromJson(json),
+      // );
+
+      final base = BaseResponseModel<Map<String, dynamic>>.fromJson(
+        response.data,
+        (json) => json,
+      );
+      // Kiểm tra nếu login không thành công
+      if (base.message.isNotEmpty) {
+        throw UnauthorizedException(message: base.message);
+      }
+      final auth = AuthenResponseModel.fromJson(response.data);
+
+      // Kiểm tra nếu customer null
+      // if (base.data?.customer == null) {
+      //   throw const ValidationException(
+      //     message: 'Thông tin khách hàng không hợp lệ.',
+      //     field: 'customer',
+      //   );
+      // }
 
       // Save the session if the user has selected the "Remember Me" option
       //if (request.shouldRemeber ?? false)
       //await _saveSession();
 
       //return base.data!;
-      return RegisterResponseEntity(
-        accessToken: response.data.accessToken ?? '',
-        customer: response.data.customer,
-        message: response.data.message ?? response.data.detail ?? '',
-        isSuccess: response.data.customer != null ? true : false,
+      return LoginResponseEntity(
+        accessToken: auth.accessToken ?? '',
+        customer: auth.customer,
       );
     });
   }

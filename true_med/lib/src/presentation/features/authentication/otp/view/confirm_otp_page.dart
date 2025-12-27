@@ -62,13 +62,17 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
     });
 
     ref.listenManual(loginProvider, (previous, next) {
+      if (previous == null) return;
+
       if (next.status.isSuccess && next.authFlowStep == AuthFlowStep.success) {
         _onPushToHome();
       } else {
         //shouldRemember.value = next.rememberMe;
       }
 
-      if (next.status.isError) {
+      if (!previous.status.isError &&
+          next.status.isError &&
+          next.authFlowStep == AuthFlowStep.verifyingOtp) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(next.error!)));

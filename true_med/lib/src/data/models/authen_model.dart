@@ -13,8 +13,7 @@ class AuthenResponseModel extends AuthenResponseEntity
     this.tokenType,
     this.expiresAt,
     this.message,
-    this.success,
-    this.detail,
+
     super.accessToken,
     //required super.accessToken,
     // required this.firstName,
@@ -30,8 +29,8 @@ class AuthenResponseModel extends AuthenResponseEntity
   final String? tokenType;
   final String? expiresAt;
   final String? message;
-  final String? detail;
-  final bool? success;
+  //final String? detail;
+  //final bool? success;
   // final String firstName;
   // final String lastName;
   // final String gender;

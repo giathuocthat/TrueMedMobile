@@ -84,7 +84,7 @@ class Login extends _$Login {
       case Error(:final error):
         state = state.copyWith(
           status: Status.error,
-          error: error,
+          error: error.message,
           isLoginSuccess: false,
         );
         break;
@@ -132,7 +132,7 @@ class Login extends _$Login {
       case Error(:final error):
         state = state.copyWith(
           status: Status.error,
-          error: error,
+          error: error.message, // ← Convert Failure → String
           isLoginSuccess: false,
         );
         break;
@@ -175,21 +175,23 @@ class Login extends _$Login {
         final phoneIsValid = !data.isValid;
         state = state.copyWith(
           status: phoneIsValid ? Status.success : Status.invalid,
-          authFlowStep: phoneIsValid ? AuthFlowStep.needOtp : AuthFlowStep.idle,
+          authFlowStep: phoneIsValid
+              ? AuthFlowStep.needOtp
+              : AuthFlowStep.checkingPhone,
           listError: data.errors,
         );
 
       case Error(:final error):
         state = state.copyWith(
           status: Status.error,
-          authFlowStep: AuthFlowStep.idle,
-          listError: [FieldErrorModel.general(error)],
+          //authFlowStep: AuthFlowStep.idle,
+          //listError: [FieldErrorModel.general(error)],
         );
       default:
         state = state.copyWith(
           status: Status.error,
-          authFlowStep: AuthFlowStep.idle,
-          listError: [FieldErrorModel.general('Something went wrong')],
+          //authFlowStep: AuthFlowStep.idle,
+          //listError: [FieldErrorModel.general('Something went wrong')],
         );
         return;
     }

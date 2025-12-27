@@ -100,8 +100,8 @@ class Register extends _$Register {
         address: state.addressFinal,
         otpCode: state.otp,
         // fullName: 'Phòng khám',
-        // email: 'test6@gmail.com',
-        // phoneNumber: '0938084821',
+        // email: 'test9@gmail.com',
+        // phoneNumber: '0976973925',
         // password: '123456',
         // confirmPassword: '123456',
         // businessTypeId: 3,
@@ -115,14 +115,14 @@ class Register extends _$Register {
     switch (result1) {
       case Success(:final data):
         state = state.copyWith(
-          status: data.isSuccess == true ? Status.success : Status.error,
-          error: data.isSuccess ? null : data.message,
+          status: Status.success,
+          //error: error.message,
           authFlowStep: AuthFlowStep.success,
         );
       case Error(:final error):
         state = state.copyWith(
           status: Status.error,
-          error: error,
+          error: error.message,
           isSubmitting: false,
         );
       default:
