@@ -6,10 +6,10 @@ import '../../../../../core/constants/app_assets.dart';
 import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
 import '../../otp/view/confirm_otp_args.dart';
+import '../../otp/view/widget/header_info_section.dart';
 import '../riverpod/register_provider.dart';
 import '../riverpod/register_state.dart';
 import 'widget/address_info_form.dart';
-import 'widget/bussiness_address_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
 import 'widget/register_policy_footer.dart';
@@ -96,8 +96,12 @@ class _BussinessAddressPageState extends ConsumerState<BussinessAddressPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Container(color: Colors.red, height: 2),
-                const BussinessAddressSection(),
+                HeaderInfoSection(
+                  title: 'Địa chỉ kinh doanh',
+                  subTitle: 'Nhập thông tin bên dưới để đăng ký tài khoản',
+                ),
+                const SizedBox(height: 32),
+
                 Form(
                   key: _formKey,
                   child: AddressInfoForm(

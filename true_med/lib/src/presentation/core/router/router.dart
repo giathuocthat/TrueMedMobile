@@ -11,6 +11,8 @@ import '../../features/authentication/forgot_password/view/email_verification_pa
 import '../../features/authentication/forgot_password/view/reset_password_page.dart';
 import '../../features/authentication/forgot_password/view/reset_password_success_page.dart';
 import '../../features/authentication/login/view/login_page.dart';
+import '../../features/authentication/login/view/login_with_otp_page.dart';
+import '../../features/authentication/otp/view/confirm_otp_args.dart';
 import '../../features/authentication/registration/view/account_info_page.dart';
 import '../../features/authentication/registration/view/bussiness_type_page.dart';
 import '../../features/authentication/registration/view/bussiness_address_page.dart';

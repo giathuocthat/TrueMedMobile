@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../core/router/routes.dart';
+import '../../otp/view/widget/header_info_section.dart';
 import '../riverpod/register_provider.dart';
 import '../riverpod/register_state.dart';
-import 'widget/account_info_section.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_info_form.dart';
 import 'widget/register_navigation_bar.dart';
@@ -104,7 +104,10 @@ class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const AccountInfoSection(),
+                HeaderInfoSection(
+                  title: 'Thông tin tài khoản',
+                  subTitle: 'Nhập thông tin bên dưới để đăng ký tài khoản',
+                ),
                 const SizedBox(height: 32),
                 Form(
                   key: _formKey,

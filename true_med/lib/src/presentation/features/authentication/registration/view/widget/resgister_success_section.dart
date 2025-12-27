@@ -40,15 +40,13 @@ class RegisterSuccessSection extends StatelessWidget {
         ),
 
         const SizedBox(height: 8),
-        const SizedBox(height: 8),
         Text(
           'Chỉ còn một bước nữa để bắt đầu sử dụng trọn vẹn',
           style: AppTextStyles.bodyTextSm.copyWith(
             color: AppColors.textTertiary600,
           ),
         ),
-        const SizedBox(height: 32),
-        const SizedBox(height: 24),
+        const SizedBox(height: 48),
       ],
     );
   }

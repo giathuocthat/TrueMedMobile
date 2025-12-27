@@ -7,9 +7,9 @@ import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../../shared/widget/error_view.dart';
 import '../../../../../shared/widget/empty_view.dart';
 import '../../../../core/router/routes.dart';
+import '../../otp/view/widget/header_info_section.dart';
 import '../riverpod/register_provider.dart';
 import 'widget/business_type_option.dart';
-import 'widget/bussiness_type_section.dart';
 import 'widget/skeleton/bussiness_type_skeleton_gird.dart';
 import 'widget/register_btnNext_footer.dart';
 import 'widget/register_navigation_bar.dart';
@@ -70,7 +70,11 @@ class _BussinessTypePageState extends ConsumerState<BussinessTypePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const BussinessTypeSection(),
+                HeaderInfoSection(
+                  title: 'Hình thức kinh doanh',
+                  subTitle:
+                      'Chọn hình thức kinh doanh tương ứng với doanh nghiệp của bạn',
+                ),
                 const SizedBox(height: 24),
 
                 AnimatedSwitcher(

@@ -28,6 +28,12 @@ List<GoRoute> _authenticationRoutes(ref) {
               const MaterialPage(child: AccountInfoPage()),
         ),
         GoRoute(
+          path: Routes.loginWithOTP,
+          name: Routes.loginWithOTP,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: LoginWithOTPPage()),
+        ),
+        GoRoute(
           path: Routes.bussinessAddress,
           name: Routes.bussinessAddress,
           pageBuilder: (context, state) =>

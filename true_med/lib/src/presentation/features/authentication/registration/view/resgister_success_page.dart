@@ -43,15 +43,17 @@ class _RegisterSuccessPageState extends State<RegisterSuccessPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const RegisterSuccessSection(),
+
+                const SizedBox(height: 48),
+
                 FilledButton(
                   onPressed: () {
                     context.pushNamed(Routes.login);
                   },
-                  child: Text('Cung cấp thông tin và giấy phép'),
+                  child: const Text('Cung cấp thông tin và giấy phép'),
                 ),
-                const SizedBox(height: 12),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
 
                 OutlinedButtonWithShadow(
                   onPressed: () {
@@ -59,7 +61,8 @@ class _RegisterSuccessPageState extends State<RegisterSuccessPage> {
                   },
                   child: const Text('Về trang chủ'),
                 ),
-                const SizedBox(height: 12),
+
+                const SizedBox(height: 16),
               ],
             ),
           ),

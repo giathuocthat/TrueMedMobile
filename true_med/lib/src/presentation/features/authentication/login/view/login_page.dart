@@ -120,7 +120,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       const SizedBox(height: 12),
 
                       OutlinedButton.icon(
-                        onPressed: null,
+                        onPressed: () {
+                          context.pushNamed(Routes.loginWithOTP);
+                        },
                         icon: Image.asset(
                           AppAssets.iconMobile,
                           width: 24,
