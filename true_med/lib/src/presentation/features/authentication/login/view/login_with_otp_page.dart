@@ -25,6 +25,7 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
+
   var phoneNumber = '';
   @override
   void initState() {
@@ -33,14 +34,21 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
     ref.listenManual<LoginState>(loginProvider, (previous, next) {
       if (previous == null) return;
 
-      if (!previous.isValid && next.isValid) {
+      // ✅ Thành công → đi tiếp
+      if (previous.authFlowStep != AuthFlowStep.needOtp &&
+          next.authFlowStep == AuthFlowStep.needOtp) {
         _onPushToScreen();
         return;
       }
 
-      if (next.hasError) {
+      // ❌ Chỉ show lỗi khi chuyển từ không lỗi → có lỗi
+      if (!previous.status.isInvalid && next.status.isInvalid) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.firstError ?? 'Đã có lỗi xảy ra')),
+          SnackBar(
+            content: Text(
+              next.firstError ?? 'Số điện thoại chưa được đăng ký.',
+            ),
+          ),
         );
       }
     });
@@ -54,6 +62,7 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
   }
 
   void _onPushToScreen() {
+    // ref.read(loginProvider.notifier).setStatusInit();
     context.pushNamed(
       Routes.confirmOTP,
       extra: ConfirmOtpArgs(phone: phoneNumber, flow: OTPFlowType.login),
@@ -98,9 +107,7 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
                 Form(
                   key: _formKey,
 
-                  child: LoginOTPInfoForm(
-                    phoneController: TextEditingController(),
-                  ),
+                  child: LoginOTPInfoForm(phoneController: phoneController),
                 ),
               ],
             ),
@@ -130,8 +137,7 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
               textDisplay: 'Nhận mã xác thực',
 
               isShowLogin: false,
-              //onNext: state.status.isLoading ? null : _onCheckExit,
-              onNext: _onPushToScreen,
+              onNext: state.status.isLoading ? null : _onCheckExit,
             ),
           ),
         ],

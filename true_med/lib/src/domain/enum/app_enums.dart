@@ -11,3 +11,17 @@ enum OTPFlowType {
   login, // type = 1
   forgotPass, // type = 2
 }
+
+enum ValidateStatusApp {
+  idle, // chưa kiểm tra
+  valid, // hợp lệ
+  invalid, // không hợp lệ
+}
+
+enum AuthFlowStep {
+  idle, // chưa làm gì
+  checkingPhone, // đang check phone
+  needOtp, // cần nhập OTP
+  verifyingOtp, // đang verify OTP
+  success, // đăng nhập xong
+}

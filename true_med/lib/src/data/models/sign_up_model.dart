@@ -12,7 +12,7 @@ extension SignUpRequestModel on SignUpRequestEntity {
       'provinceId': provinceId,
       'wardId': wardId,
       'address': address,
-      'otpCode': otpCode,
+      'otp': otpCode,
     };
   }
 }

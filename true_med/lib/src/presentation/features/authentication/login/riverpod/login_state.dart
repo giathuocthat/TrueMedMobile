@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../data/models/api_response_error_model.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/base/status.dart';
 
 export 'package:true_med/src/presentation/core/base/status.dart';
@@ -18,13 +20,14 @@ abstract class LoginState<T> with _$LoginState<T> {
 
     @Default('') String otp,
     List<FieldErrorModel>? listError,
+    @Default(false) bool isLoginSuccess,
+    @Default(AuthFlowStep.idle) AuthFlowStep authFlowStep,
   }) = _LoginState<T>;
 
   const LoginState._();
 
-  bool get isValid => listError?.isEmpty == true;
-  bool get hasError => !isValid;
-  //bool get hasError => listError != null && listError!.isNotEmpty;
+  //bool get hasError => listError?.isNotEmpty == true;
+
   String? get firstError =>
       listError?.isNotEmpty == true ? listError!.first.message : null;
 }

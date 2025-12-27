@@ -43,7 +43,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
 
     ref.listenManual(loginProvider, (previous, next) {
-      if (next.status.isSuccess) {
+      if (next.status.isSuccess && next.isLoginSuccess) {
         notifier.saveRememberMe(shouldRemember.value);
         context.pushReplacementNamed(Routes.home);
       } else {

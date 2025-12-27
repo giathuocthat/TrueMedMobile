@@ -7,7 +7,7 @@ class Endpoints {
   /// Authentication
   static const String register = '/customer/auth/register';
   static const String login = '/customer/auth/login';
-  static const String loginPhone = '/customer/auth/loginPhone';
+  static const String loginPhone = '/customer/auth/loginByOtp';
   static const String forgotPassword = '/auth/forgot_password/';
   static const String resetPassword = '/auth/reset_password/';
   static const String refreshToken = '/auth/refresh_token/';

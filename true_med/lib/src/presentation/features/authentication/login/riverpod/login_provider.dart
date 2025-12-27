@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../data/models/api_response_error_model.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../../domain/use_cases/authentication_use_case.dart';
 import '../../../../../domain/use_cases/user_cache/save_user_cache_usecase_provider.dart';
 import '../../../../core/application_state/user/user_provider.dart';
@@ -22,6 +24,11 @@ class Login extends _$Login {
   @override
   LoginState build() {
     ref.keepAlive(); // 🔥 giữ state
+
+    ref.onDispose(() {
+      debugPrint('🔥 RegisterProvider disposed');
+    });
+
     _loginUseCase = ref.read(loginUseCaseProvider);
     _loginPhoneUseCase = ref.read(loginPhoneUseCaseProvider);
     _checkRememberMeUseCase = ref.read(checkRememberMeUseCaseProvider);
@@ -51,7 +58,7 @@ class Login extends _$Login {
     required String password,
     bool? shouldRemember,
   }) async {
-    state = state.copyWith(status: Status.loading);
+    state = state.copyWith(status: Status.loading, isLoginSuccess: false);
 
     final result = await _loginUseCase.call(
       email: email,
@@ -71,15 +78,19 @@ class Login extends _$Login {
           }
         }
 
-        state = state.copyWith(status: Status.success);
+        state = state.copyWith(status: Status.success, isLoginSuccess: true);
         break;
 
       case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
+        state = state.copyWith(
+          status: Status.error,
+          error: error,
+          isLoginSuccess: false,
+        );
         break;
 
       default:
-        state = state.copyWith(status: Status.error);
+        state = state.copyWith(status: Status.error, isLoginSuccess: false);
     }
   }
 
@@ -88,7 +99,10 @@ class Login extends _$Login {
     required String otp,
     bool? shouldRemember,
   }) async {
-    state = state.copyWith(status: Status.loading);
+    state = state.copyWith(
+      status: Status.loading,
+      authFlowStep: AuthFlowStep.verifyingOtp,
+    );
 
     final result = await _loginPhoneUseCase.call(
       phone: phone,
@@ -108,15 +122,23 @@ class Login extends _$Login {
           }
         }
 
-        state = state.copyWith(status: Status.success);
+        state = state.copyWith(
+          status: Status.success,
+          authFlowStep: AuthFlowStep.success,
+          isLoginSuccess: true,
+        );
         break;
 
       case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
+        state = state.copyWith(
+          status: Status.error,
+          error: error,
+          isLoginSuccess: false,
+        );
         break;
 
       default:
-        state = state.copyWith(status: Status.error);
+        state = state.copyWith(status: Status.error, isLoginSuccess: false);
     }
   }
 
@@ -126,7 +148,7 @@ class Login extends _$Login {
 
   void checkPhone(String phone) {
     setPhone(phone);
-    checkPhoneAndEmailIsVaild(phone, null);
+    checkPhoneAndEmailIsVaild(phone, "noemail@noemail.com");
   }
 
   void setOtp(String otp) {
@@ -137,6 +159,7 @@ class Login extends _$Login {
     // reset state trước
     state = state.copyWith(
       status: Status.loading,
+      authFlowStep: AuthFlowStep.checkingPhone,
       error: null,
       listError: null,
     );
@@ -149,16 +172,23 @@ class Login extends _$Login {
 
     switch (result1) {
       case Success(:final data):
-        state = state.copyWith(status: Status.success, listError: data.errors);
+        final phoneIsValid = !data.isValid;
+        state = state.copyWith(
+          status: phoneIsValid ? Status.success : Status.invalid,
+          authFlowStep: phoneIsValid ? AuthFlowStep.needOtp : AuthFlowStep.idle,
+          listError: data.errors,
+        );
 
       case Error(:final error):
         state = state.copyWith(
           status: Status.error,
+          authFlowStep: AuthFlowStep.idle,
           listError: [FieldErrorModel.general(error)],
         );
       default:
         state = state.copyWith(
           status: Status.error,
+          authFlowStep: AuthFlowStep.idle,
           listError: [FieldErrorModel.general('Something went wrong')],
         );
         return;

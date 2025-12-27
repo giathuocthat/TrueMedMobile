@@ -11,8 +11,8 @@ class AuthenResponseModel extends AuthenResponseEntity
     with AuthenResponseModelMappable {
   AuthenResponseModel({
     //required this.id,
-    required this.tokenType,
-    required this.expiresAt,
+    this.tokenType,
+    this.expiresAt,
     required super.accessToken,
     //required super.accessToken,
     // required this.firstName,
@@ -25,8 +25,8 @@ class AuthenResponseModel extends AuthenResponseEntity
   }) : super(customer: customer);
 
   //final int id;
-  final String tokenType;
-  final String expiresAt;
+  final String? tokenType;
+  final String? expiresAt;
   // final String firstName;
   // final String lastName;
   // final String gender;
