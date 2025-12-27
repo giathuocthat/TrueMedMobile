@@ -11,6 +11,9 @@ abstract base class AuthenticationRepository extends Repository {
   );
 
   Future<Result<LoginResponseEntity, Failure>> login(LoginRequestEntity data);
+  Future<Result<LoginResponseEntity, Failure>> loginPhone(
+    LoginPhoneRequestEntity data,
+  );
 
   Future<bool> rememberMe({bool? rememberMe});
 

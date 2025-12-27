@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../domain/entities/address_shipping_entity.dart';
 import '../../../../../domain/entities/order_entity.dart';
 import '../../../../core/base/status.dart';
 

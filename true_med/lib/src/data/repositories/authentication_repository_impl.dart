@@ -4,10 +4,10 @@ import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/sign_up_entity.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../models/api_response_error_model.dart';
-import '../models/api_response_meta_model.dart';
 import '../models/authen_model.dart';
 import '../models/base_model.dart';
 import '../models/login_model.dart';
+import '../models/login_phone_model.dart';
 import '../models/sign_up_model.dart';
 import '../services/cache/cache_service.dart';
 import '../services/network/rest_client.dart';
@@ -30,6 +30,29 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
       //   response.data,
       //   (json) => LoginResponseModel.fromJson(json),
       // );
+
+      final base = BaseResponseModel.fromJson(
+        response.data,
+        (json) => AuthenResponseModel.fromJson(json),
+      );
+
+      // Save the session if the user has selected the "Remember Me" option
+      if (data.shouldRemeber ?? false) await _saveSession();
+
+      //return base.data!;
+      return LoginResponseEntity(
+        accessToken: base.data?.accessToken ?? '',
+        customer: base.data?.customer,
+      );
+    });
+  }
+
+  @override
+  Future<Result<LoginResponseEntity, Failure>> loginPhone(
+    LoginPhoneRequestEntity data,
+  ) async {
+    return asyncGuard(() async {
+      final response = await remote.loginPhone(data.toJson());
 
       final base = BaseResponseModel.fromJson(
         response.data,

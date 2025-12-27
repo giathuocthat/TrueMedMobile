@@ -1,27 +1,28 @@
 class FieldErrorModel {
-  final String fieldName;
-  final String errorCode;
-  final String errorMessage;
+  final String? field;
+  final String? code;
+  final String message;
 
-  FieldErrorModel({
-    required this.fieldName,
-    required this.errorCode,
-    required this.errorMessage,
-  });
+  FieldErrorModel({this.field, this.code, required this.message});
 
   factory FieldErrorModel.fromJson(Map<String, dynamic> json) {
     return FieldErrorModel(
-      fieldName: json['fieldName'] as String? ?? '',
-      errorCode: json['errorCode'] as String? ?? '',
-      errorMessage: json['errorMessage'] as String? ?? '',
+      field: json['fieldName'] as String?,
+      code: json['errorCode'] as String?,
+      message: json['errorMessage'] as String? ?? 'Unknown error',
     );
+  }
+
+  /// Dùng cho lỗi hệ thống / network
+  factory FieldErrorModel.general(String message) {
+    return FieldErrorModel(message: message);
   }
 }
 
 class ApiResponseErrorResponseModel {
   final bool isValid;
   final String? message;
-  final List<FieldErrorModel> errors;
+  final List<FieldErrorModel>? errors;
 
   ApiResponseErrorResponseModel({
     required this.isValid,
@@ -30,14 +31,14 @@ class ApiResponseErrorResponseModel {
   });
 
   factory ApiResponseErrorResponseModel.fromJson(Map<String, dynamic> json) {
-    final errorsJson = json['errors'] as List? ?? [];
+    final errorsJson = json['errors'];
 
     return ApiResponseErrorResponseModel(
-      isValid: json['isValid'] as bool? ?? true,
+      isValid: json['isValid'] as bool? ?? false,
       message: json['message'] as String?,
-      errors: errorsJson
-          .map((e) => FieldErrorModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      errors: (errorsJson is List && errorsJson.isNotEmpty)
+          ? errorsJson.map((e) => FieldErrorModel.fromJson(e)).toList()
+          : null,
     );
   }
 }

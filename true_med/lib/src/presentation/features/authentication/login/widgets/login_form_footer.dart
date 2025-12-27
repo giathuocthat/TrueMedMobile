@@ -52,7 +52,10 @@ class _FormFooter extends ConsumerWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () => _navigateToResetPassword(context),
+                //onPressed: () => _navigateToResetPassword(context),
+                onPressed: () {
+                  //AppNavigator.goToResetPassword(context);
+                },
                 child: Text(
                   'Quên mật khẩu',
                   style: AppTextStyles.bodyTextSmSemiBold.copyWith(

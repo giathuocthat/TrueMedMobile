@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../data/models/api_response_error_model.dart';
 import '../../../../../domain/use_cases/authentication_use_case.dart';
 import '../../../../../domain/use_cases/user_cache/save_user_cache_usecase_provider.dart';
 import '../../../../core/application_state/user/user_provider.dart';
@@ -12,14 +13,22 @@ part 'login_provider.g.dart';
 @riverpod
 class Login extends _$Login {
   late LoginUseCase _loginUseCase;
+  late LoginPhoneUseCase _loginPhoneUseCase;
   late CheckRememberMeUseCase _checkRememberMeUseCase;
   late SaveRememberMeUseCase _saveRememberMeUseCase;
 
+  late CheckExitingPhoneEmailUseCase _checkExitingPhoneEmailUseCase;
+
   @override
   LoginState build() {
+    ref.keepAlive(); // 🔥 giữ state
     _loginUseCase = ref.read(loginUseCaseProvider);
+    _loginPhoneUseCase = ref.read(loginPhoneUseCaseProvider);
     _checkRememberMeUseCase = ref.read(checkRememberMeUseCaseProvider);
     _saveRememberMeUseCase = ref.read(saveRememberMeUseCaseProvider);
+    _checkExitingPhoneEmailUseCase = ref.read(
+      checkExitingPhoneEmailUseCaseProvider,
+    );
 
     return const LoginState();
   }
@@ -50,11 +59,6 @@ class Login extends _$Login {
       shouldRemember: shouldRemember,
     );
 
-    // state = switch (result) {
-    //   Success() => state.copyWith(status: Status.success),
-    //   Error(:final error) => state.copyWith(status: Status.error, error: error),
-    //   _ => state.copyWith(status: Status.error),
-    // };
     switch (result) {
       case Success(:final data):
         if (data.customer != null) {
@@ -76,6 +80,88 @@ class Login extends _$Login {
 
       default:
         state = state.copyWith(status: Status.error);
+    }
+  }
+
+  void loginPhone({
+    required String phone,
+    required String otp,
+    bool? shouldRemember,
+  }) async {
+    state = state.copyWith(status: Status.loading);
+
+    final result = await _loginPhoneUseCase.call(
+      phone: phone,
+      otp: otp,
+      shouldRemember: shouldRemember,
+    );
+
+    switch (result) {
+      case Success(:final data):
+        if (data.customer != null) {
+          // 1️⃣ Set user cho toàn app
+          ref.read(userProvider.notifier).setUser(data.customer!);
+
+          // 2️⃣ Cache user nếu rememberMe
+          if (shouldRemember != null && shouldRemember) {
+            await ref.read(saveUserCacheUseCaseProvider).call(data.customer!);
+          }
+        }
+
+        state = state.copyWith(status: Status.success);
+        break;
+
+      case Error(:final error):
+        state = state.copyWith(status: Status.error, error: error);
+        break;
+
+      default:
+        state = state.copyWith(status: Status.error);
+    }
+  }
+
+  void setPhone(String phone) {
+    state = state.copyWith(phoneNumber: phone);
+  }
+
+  void checkPhone(String phone) {
+    setPhone(phone);
+    checkPhoneAndEmailIsVaild(phone, null);
+  }
+
+  void setOtp(String otp) {
+    state = state.copyWith(otp: otp);
+  }
+
+  Future<void> checkPhoneAndEmailIsVaild(String phone, String? email) async {
+    // reset state trước
+    state = state.copyWith(
+      status: Status.loading,
+      error: null,
+      listError: null,
+    );
+
+    // 1) Call API 1
+    final result1 = await _checkExitingPhoneEmailUseCase.call(
+      phone: phone,
+      email: email,
+    );
+
+    switch (result1) {
+      case Success(:final data):
+        state = state.copyWith(status: Status.success, listError: data.errors);
+
+      case Error(:final error):
+        state = state.copyWith(
+          status: Status.error,
+          listError: [FieldErrorModel.general(error)],
+        );
+      default:
+        state = state.copyWith(
+          status: Status.error,
+          listError: [FieldErrorModel.general('Something went wrong')],
+        );
+        return;
     }
   }
 }

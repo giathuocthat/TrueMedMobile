@@ -46,7 +46,6 @@ class RegisterSuccessSection extends StatelessWidget {
             color: AppColors.textTertiary600,
           ),
         ),
-        const SizedBox(height: 48),
       ],
     );
   }

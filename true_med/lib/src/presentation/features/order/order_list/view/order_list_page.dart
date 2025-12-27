@@ -9,7 +9,6 @@ import '../../../../../shared/widget/load_more_footer.dart';
 import '../../../../core/router/navigation_args/order_list_navigation_args.dart';
 import '../../../../core/router/routes.dart';
 import '../../../../core/widgets/page_header.dart';
-import '../../order_success/view/order_success_page.dart';
 import '../riverpod/order_list_provider.dart';
 import '../riverpod/order_list_state.dart';
 import 'widget/order_list_item.dart';

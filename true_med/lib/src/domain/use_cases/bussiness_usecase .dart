@@ -1,10 +1,6 @@
 import '../../core/base/result.dart';
 import '../entities/base_entity.dart';
 import '../entities/bussiness_type_entity.dart';
-import '../entities/order/order_list_entity.dart';
-import '../entities/page_entity.dart';
-import '../entities/product_entity.dart';
-import '../entities/product_page_entity.dart';
 import '../repositories/bussiness_repository.dart';
 
 final class GetBussinessTypeUseCase {

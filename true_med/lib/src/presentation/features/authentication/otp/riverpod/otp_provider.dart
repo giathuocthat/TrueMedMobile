@@ -36,6 +36,7 @@ class Otp extends _$Otp {
         state = state.copyWith(status: Status.success);
       case Error(:final error):
         state = state.copyWith(status: Status.error, error: error);
+
       default:
         state = state.copyWith(
           status: Status.error,

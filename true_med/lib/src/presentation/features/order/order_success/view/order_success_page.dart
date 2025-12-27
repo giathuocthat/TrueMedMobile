@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/base/status.dart';
-import '../../../../core/router/interface_app_navigator.dart';
 import '../../../../core/router/navigation_args/order_list_navigation_args.dart';
 import '../../../../core/router/routes.dart';
 import '../../order_list/riverpod/order_list_provider.dart';

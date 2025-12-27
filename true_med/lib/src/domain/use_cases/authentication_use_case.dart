@@ -48,6 +48,32 @@ final class LoginUseCase {
   }
 }
 
+final class LoginPhoneUseCase {
+  LoginPhoneUseCase(this.repository);
+
+  final AuthenticationRepository repository;
+
+  Future<Result<LoginResponseEntity, String>> call({
+    required String phone,
+    required String otp,
+    bool? shouldRemember,
+  }) async {
+    final request = LoginPhoneRequestEntity(
+      phoneNumber: phone,
+      otp: otp,
+      shouldRemeber: shouldRemember,
+    );
+
+    final result = await repository.loginPhone(request);
+
+    return switch (result) {
+      Success(:final data) => Success(data),
+      Error(:final error) => Error(error.message),
+      _ => const Error('Something went wrong'),
+    };
+  }
+}
+
 final class CheckRememberMeUseCase {
   CheckRememberMeUseCase(this.repository);
 

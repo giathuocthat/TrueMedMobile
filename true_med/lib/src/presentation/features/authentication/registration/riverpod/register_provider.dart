@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/base/result.dart';
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../data/models/api_response_error_model.dart';
 import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../../domain/entities/province_entity.dart';
 import '../../../../../domain/entities/sign_up_entity.dart';
@@ -26,14 +27,6 @@ class Register extends _$Register {
     ref.onDispose(() {
       debugPrint('🔥 RegisterProvider disposed');
     });
-    //LOCTB Dispose RegisterProvider sau 10 phút ko sử dụng
-    // Nên hủy tự động sau 10 phút
-    // final link = ref.keepAlive();
-    // hoặc qua ref.invalidate(registerNotifierProvider);
-
-    // Timer(const Duration(minutes: 10), () {
-    //   link.close(); // auto dispose
-    // });
 
     _registerUseCase = ref.read(registerUseCaseProvider);
     _getBussinessTypeUseCase = ref.read(getBussinessTypeUseCaseProvider);
@@ -41,14 +34,7 @@ class Register extends _$Register {
       checkExitingPhoneEmailUseCaseProvider,
     );
 
-    // final initialState = RegisterState(status: Status.loading);
-    // Future.microtask(() => fetchBussinessType());
-
-    // ref.onInit(() {
-    //   fetchBussinessType();
-    // });
     return RegisterState();
-    ;
   }
 
   void updatePolicyCheck(bool isPolicyChecked) {
@@ -59,16 +45,7 @@ class Register extends _$Register {
     state = state.copyWith(businessTypeSelected: businessType);
   }
 
-  // void toggleBusinessType(int id) {
-  //   final current = state.bussinessTypesSelectedIds;
-  //   final next = current.contains(id)
-  //       ? current.where((e) => e != id).toList()
-  //       : [...current, id];
-
-  //   updateBussinessTypesSelectedIds(next);
-  // }
-
-  void setAcountInfo(String phone, String passWord, String? email) {
+  void updateAccountInfo(String phone, String passWord, String? email) {
     state = state.copyWith(
       phoneNumber: phone,
       passWord: passWord,
@@ -76,7 +53,7 @@ class Register extends _$Register {
     );
   }
 
-  void setAddressPick(
+  void updateBussinessAddress(
     ProvinceResponseEntity? province,
     WardResponseEntity? ward,
   ) {
@@ -177,29 +154,35 @@ class Register extends _$Register {
     // reset state trước
     state = state.copyWith(
       status: Status.loading,
+      isValid: false,
       error: null,
       listError: null,
     );
 
     // 1) Call API 1
-    final result1 = await _checkExitingPhoneEmailUseCase.call(
+    final result = await _checkExitingPhoneEmailUseCase.call(
       phone: phone,
       email: email,
     );
 
-    switch (result1) {
+    switch (result) {
       case Success(:final data):
         state = state.copyWith(
           status: Status.success,
-          //isValidCheck: data.isValid,
           listError: data.errors,
+          isValid: data.isValid,
         );
       case Error(:final error):
-        state = state.copyWith(status: Status.error, error: error);
-      default:
         state = state.copyWith(
           status: Status.error,
-          error: 'Something went wrong',
+          isValid: false,
+          listError: [FieldErrorModel.general(error)],
+        );
+      default:
+        state = state.copyWith(
+          isValid: false,
+          status: Status.error,
+          listError: [FieldErrorModel.general('Something went wrong')],
         );
         return;
     }

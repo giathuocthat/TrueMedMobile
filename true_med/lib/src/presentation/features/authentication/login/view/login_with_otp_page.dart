@@ -1,19 +1,17 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
-import '../../../../../core/constants/app_colors.dart';
-import '../../../../../core/constants/app_text_styles.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
+import '../../otp/view/confirm_otp_args.dart';
 import '../../otp/view/widget/header_info_section.dart';
-import '../../otp/view/widget/otp_info_section.dart';
-import '../../registration/riverpod/register_provider.dart';
-import '../../registration/riverpod/register_state.dart';
+import '../../registration/view/widget/login_otp_info_form.dart';
 import '../../registration/view/widget/register_btnNext_footer.dart';
 import '../../registration/view/widget/register_navigation_bar.dart';
+import '../riverpod/login_provider.dart';
+import '../riverpod/login_state.dart';
 
 class LoginWithOTPPage extends ConsumerStatefulWidget {
   const LoginWithOTPPage({super.key});
@@ -25,101 +23,52 @@ class LoginWithOTPPage extends ConsumerStatefulWidget {
 class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
   static const navBarHeight = 52.0;
   static const footerBuffer = 120.0; // 🔥 CHỈ buffer mềm
-
-  String otp = "";
-  static const int _initialTime = 120;
-
-  int _seconds = _initialTime;
-  Timer? _timer;
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController phoneController = TextEditingController();
+  var phoneNumber = '';
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _resendOTP();
-    });
-
-    ref.listenManual<RegisterState>(registerProvider, (previous, next) {
-      // 🔥 chỉ react khi từ false → true
+    ref.listenManual<LoginState>(loginProvider, (previous, next) {
       if (previous == null) return;
 
-      if (previous.isSubmitting && !next.isSubmitting) {
-        if (next.errorResgister != null) {
-          // ❌ Có lỗi → show message
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(next.errorResgister!)));
-        } else {
-          // ✅ Thành công
-          _onPushToScreen();
-        }
+      if (!previous.isValid && next.isValid) {
+        _onPushToScreen();
+        return;
       }
-    });
-  }
 
-  void _startTimer() {
-    _timer?.cancel();
-    _seconds = _initialTime;
-
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_seconds > 0) {
-        setState(() {
-          _seconds--;
-        });
-      } else {
-        timer.cancel();
-      }
-    });
-  }
-
-  void _resendOTP() {
-    _startTimer();
-    // ref.read(otpProvider.notifier).callSendOTP(widget.phone, widget.flow);
-  }
-
-  void _handleAction(String otp) {}
-
-  void _sendRegister(String otp) {
-    ref.read(registerProvider.notifier).callRegister(otp);
-  }
-
-  void _sendLogin(String otp) {
-    // ref.read(loginProvider.notifier).loginWithOTP(
-    //       phone: widget.phone,
-    //       otp: otp,
-    //     );
-  }
-  void _sendForgotPassword(String otp) {
-    // ref.read(loginProvider.notifier).loginWithOTP(
-    //       phone: widget.phone,
-    //       otp: otp,
-    //     );
-  }
-  void _onCheckExit() {
-    //if (_formKey.currentState!.validate()) {
-    ref
-        .read(registerProvider.notifier)
-        .checkPhoneAndEmailIsVaild(
-          'phoneController.text',
-          'emailController.text',
+      if (next.hasError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.firstError ?? 'Đã có lỗi xảy ra')),
         );
-    //}
+      }
+    });
+  }
+
+  void _onCheckExit() {
+    if (_formKey.currentState!.validate()) {
+      phoneNumber = phoneController.text;
+      ref.read(loginProvider.notifier).checkPhone(phoneNumber);
+    }
   }
 
   void _onPushToScreen() {
-    context.pushNamed(Routes.registerSuccess);
+    context.pushNamed(
+      Routes.confirmOTP,
+      extra: ConfirmOtpArgs(phone: phoneNumber, flow: OTPFlowType.login),
+    );
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    phoneController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    //final phoneNumber = widget.phone.maskedPhone;
+    final state = ref.watch(loginProvider);
     final navBarTotalHeight = navBarHeight + MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Stack(
@@ -146,15 +95,12 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
 
                 const SizedBox(height: 32),
 
-                OtpInfoSection(
-                  phoneNumber: 'phoneNumber',
-                  remain: _seconds,
-                  onRetry: () {
-                    _resendOTP();
-                  },
-                  onInputCompleted: (inputOtp) {
-                    otp = inputOtp;
-                  },
+                Form(
+                  key: _formKey,
+
+                  child: LoginOTPInfoForm(
+                    phoneController: TextEditingController(),
+                  ),
                 ),
               ],
             ),
@@ -168,7 +114,9 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
               bottom: false,
               child: SizedBox(
                 height: navBarHeight,
-                child: RegisterNavigationBar(),
+                child: RegisterNavigationBar(
+                  title: 'Đăng nhập bằng số điện thoại',
+                ),
               ),
             ),
           ),
@@ -179,13 +127,11 @@ class _LoginWithOTPPageState extends ConsumerState<LoginWithOTPPage> {
             right: 0,
             bottom: 0,
             child: ResgisterButtonNextFooter(
-              textDisplay: 'Xác nhận',
+              textDisplay: 'Nhận mã xác thực',
+
               isShowLogin: false,
-              onNext: otp.length == 4
-                  ? () {
-                      _handleAction(otp);
-                    }
-                  : null,
+              //onNext: state.status.isLoading ? null : _onCheckExit,
+              onNext: _onPushToScreen,
             ),
           ),
         ],

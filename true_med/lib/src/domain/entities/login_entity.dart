@@ -14,6 +14,18 @@ class LoginRequestEntity extends LoginEntity {
   final bool? shouldRemeber;
 }
 
+class LoginPhoneRequestEntity extends LoginEntity {
+  LoginPhoneRequestEntity({
+    required this.phoneNumber,
+    required this.otp,
+    this.shouldRemeber = false,
+  });
+
+  final String phoneNumber;
+  final String otp;
+  final bool? shouldRemeber;
+}
+
 class LoginResponseEntity extends LoginEntity {
   LoginResponseEntity({required this.accessToken, this.customer});
 

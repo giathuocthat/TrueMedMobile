@@ -40,13 +40,13 @@ class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
 
       if (!previous.isValid && next.isValid) {
         _onPushToScreen();
-      } else {
-        if (next.listError?.isNotEmpty == true) {
-          final message = next.listError![0].errorMessage;
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(message)));
-        }
+        return;
+      }
+
+      if (next.hasError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.firstError ?? 'Đã có lỗi xảy ra')),
+        );
       }
     });
   }
@@ -74,7 +74,7 @@ class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
   void _onPushToScreen() {
     ref
         .read(registerProvider.notifier)
-        .setAcountInfo(
+        .updateAccountInfo(
           phoneController.text,
           passwordController.text,
           emailController.text,

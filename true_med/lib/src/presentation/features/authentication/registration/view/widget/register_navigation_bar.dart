@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/constants/app_assets.dart';
+import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../core/constants/app_text_styles.dart';
 import 'step_progress_header.dart';
 
 class RegisterNavigationBar extends StatelessWidget {
+  final String? title;
   final int? currentStep;
   final int? totalSteps;
-  const RegisterNavigationBar({super.key, this.currentStep, this.totalSteps});
+
+  const RegisterNavigationBar({
+    super.key,
+    this.title,
+    this.currentStep,
+    this.totalSteps,
+  });
   bool get hasProgress => currentStep != null && totalSteps != null;
 
   @override
@@ -41,7 +50,21 @@ class RegisterNavigationBar extends StatelessWidget {
                     currentStep: currentStep!,
                     totalSteps: totalSteps!,
                   )
-                : const SizedBox(), // hoặc Spacer()
+                : title != null
+                ? Container(
+                    margin: const EdgeInsets.only(right: 32),
+                    child: Center(
+                      child: Text(
+                        title ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.bodyTextMdSemiBold.copyWith(
+                          color: AppColors.fgPrimary,
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
           ),
         ],
       ),

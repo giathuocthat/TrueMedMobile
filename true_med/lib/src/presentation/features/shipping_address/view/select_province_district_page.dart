@@ -147,7 +147,9 @@ class _SelectProvinceDistrictPageState
 
   void _chooseAdress(int wardId) {
     _ward = _listWard.firstWhere((e) => e.id == wardId);
-    ref.read(registerProvider.notifier).setAddressPick(_province, _ward);
+    ref
+        .read(registerProvider.notifier)
+        .updateBussinessAddress(_province, _ward);
     context.pop();
   }
 

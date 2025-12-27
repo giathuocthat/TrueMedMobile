@@ -2,8 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../data/models/api_response_error_model.dart';
 import '../../../../../domain/entities/bussiness_type_entity.dart';
-import '../../../../../domain/entities/product_entity.dart';
-import '../../../../../domain/entities/province_detail_entity .dart';
 import '../../../../../domain/entities/province_entity.dart';
 import '../../../../../domain/entities/ward_entity.dart';
 import '../../../../core/base/status.dart';
@@ -29,11 +27,12 @@ abstract class RegisterState<T> with _$RegisterState<T> {
 
     String? error,
 
-    //@Default([]) List<int> bussinessTypesSelectedIds,
     BussinessTypeResponseEntity? businessTypeSelected,
 
     @Default([]) List<BussinessTypeResponseEntity> bussinessTypes,
+
     //@Default(false) bool isValidCheck,
+    @Default(false) bool isValid,
     List<FieldErrorModel>? listError,
 
     ProvinceResponseEntity? provinceSelected,
@@ -43,5 +42,8 @@ abstract class RegisterState<T> with _$RegisterState<T> {
   }) = _RegisterState<T>;
 
   const RegisterState._();
-  bool get isValid => listError?.isEmpty == true;
+  bool get hasError => listError?.isNotEmpty == true;
+
+  String? get firstError =>
+      listError?.isNotEmpty == true ? listError!.first.message : null;
 }

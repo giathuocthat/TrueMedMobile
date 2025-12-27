@@ -28,6 +28,9 @@ abstract class RestClient {
   @POST(Endpoints.login)
   Future<HttpResponse> login(@Body() Map<String, dynamic> request);
 
+  @POST(Endpoints.loginPhone)
+  Future<HttpResponse> loginPhone(@Body() Map<String, dynamic> request);
+
   @POST(Endpoints.register)
   Future<HttpResponse<ApiErrorResponseModel>> register(
     @Body() Map<String, dynamic> request,
