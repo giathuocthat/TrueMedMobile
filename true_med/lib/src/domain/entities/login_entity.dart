@@ -32,3 +32,17 @@ class LoginResponseEntity extends LoginEntity {
   final String accessToken;
   final CustomerResponseEntity? customer;
 }
+
+class RegisterResponseEntity extends LoginEntity {
+  RegisterResponseEntity({
+    required this.accessToken,
+    required this.message,
+    this.customer,
+    required this.isSuccess,
+  });
+
+  final String accessToken;
+  final String message;
+  final bool isSuccess;
+  final CustomerResponseEntity? customer;
+}

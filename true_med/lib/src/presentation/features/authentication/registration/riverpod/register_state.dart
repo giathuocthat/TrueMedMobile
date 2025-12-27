@@ -4,6 +4,7 @@ import '../../../../../data/models/api_response_error_model.dart';
 import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../../domain/entities/province_entity.dart';
 import '../../../../../domain/entities/ward_entity.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/base/status.dart';
 
 export 'package:true_med/src/presentation/core/base/status.dart';
@@ -31,14 +32,14 @@ abstract class RegisterState<T> with _$RegisterState<T> {
 
     @Default([]) List<BussinessTypeResponseEntity> bussinessTypes,
 
-    //@Default(false) bool isValidCheck,
-    @Default(false) bool isValid,
     List<FieldErrorModel>? listError,
 
     ProvinceResponseEntity? provinceSelected,
     WardResponseEntity? wardSelected,
     String? errorResgister,
     @Default(false) bool isSubmitting,
+
+    @Default(AuthFlowStep.idle) AuthFlowStep authFlowStep,
   }) = _RegisterState<T>;
 
   const RegisterState._();

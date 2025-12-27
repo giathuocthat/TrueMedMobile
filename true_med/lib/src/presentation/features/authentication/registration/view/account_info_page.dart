@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
 import '../../otp/view/widget/header_info_section.dart';
 import '../riverpod/register_provider.dart';
@@ -38,12 +39,13 @@ class _AccountInfoPageState extends ConsumerState<AccountInfoPage> {
       // 🔥 chỉ react khi từ false → true
       if (previous == null) return;
 
-      if (!previous.isValid && next.isValid) {
+      if (previous.authFlowStep != AuthFlowStep.needOtp &&
+          next.authFlowStep == AuthFlowStep.needOtp) {
         _onPushToScreen();
         return;
       }
 
-      if (next.hasError) {
+      if (!previous.status.isInvalid && next.status.isInvalid) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(next.firstError ?? 'Đã có lỗi xảy ra')),
         );

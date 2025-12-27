@@ -7,12 +7,14 @@ import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/extensions/validation.dart';
 import '../../../../../core/utiliity/validation/validation.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../../shared/app_checkbox.dart';
 import '../../../../core/base/status.dart';
 import '../../../../core/router/routes.dart';
 import '../../../../core/widgets/link_text.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../features/authentication/login/riverpod/login_provider.dart';
+import '../../otp/view/confirm_otp_args.dart';
 import '../widgets/login_header.dart';
 
 part '../widgets/login_form.dart';
@@ -137,6 +139,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         linkText: 'Đăng ký ngay',
                         onTap: () {
                           context.pushNamed(Routes.registration);
+                          // context.pushNamed(
+                          //   Routes.confirmOTP,
+                          //   extra: ConfirmOtpArgs(
+                          //     phone: '0976973927',
+                          //     flow: OTPFlowType.register,
+                          //   ),
+                          // );
                         },
                       ),
                     ],

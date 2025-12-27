@@ -57,7 +57,7 @@ class _RegisterSuccessPageState extends State<RegisterSuccessPage> {
 
                 OutlinedButtonWithShadow(
                   onPressed: () {
-                    context.pushNamed(Routes.login);
+                    context.pushNamed(Routes.home);
                   },
                   child: const Text('Về trang chủ'),
                 ),

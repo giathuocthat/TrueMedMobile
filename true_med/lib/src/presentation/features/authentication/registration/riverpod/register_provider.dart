@@ -8,6 +8,7 @@ import '../../../../../domain/entities/bussiness_type_entity.dart';
 import '../../../../../domain/entities/province_entity.dart';
 import '../../../../../domain/entities/sign_up_entity.dart';
 import '../../../../../domain/entities/ward_entity.dart';
+import '../../../../../domain/enum/app_enums.dart';
 import '../../../../../domain/use_cases/authentication_use_case.dart';
 import '../../../../../domain/use_cases/bussiness_usecase .dart';
 import 'register_state.dart';
@@ -98,15 +99,25 @@ class Register extends _$Register {
         wardId: state.wardSelected?.id ?? 0,
         address: state.addressFinal,
         otpCode: state.otp,
+        // fullName: 'Phòng khám',
+        // email: 'test6@gmail.com',
+        // phoneNumber: '0938084821',
+        // password: '123456',
+        // confirmPassword: '123456',
+        // businessTypeId: 3,
+        // provinceId: 29,
+        // wardId: 2780,
+        // address: 'tan binh',
+        // otpCode: '1234',
       ),
     );
 
     switch (result1) {
       case Success(:final data):
         state = state.copyWith(
-          status: Status.success,
-          isSubmitting: false,
-          errorResgister: data.message,
+          status: data.isSuccess == true ? Status.success : Status.error,
+          error: data.isSuccess ? null : data.message,
+          authFlowStep: AuthFlowStep.success,
         );
       case Error(:final error):
         state = state.copyWith(
@@ -154,7 +165,7 @@ class Register extends _$Register {
     // reset state trước
     state = state.copyWith(
       status: Status.loading,
-      isValid: false,
+      authFlowStep: AuthFlowStep.checkingPhone,
       error: null,
       listError: null,
     );
@@ -167,22 +178,21 @@ class Register extends _$Register {
 
     switch (result) {
       case Success(:final data):
+        final phoneIsValid = data.isValid;
         state = state.copyWith(
-          status: Status.success,
+          status: phoneIsValid ? Status.success : Status.invalid,
+          authFlowStep: phoneIsValid ? AuthFlowStep.needOtp : AuthFlowStep.idle,
           listError: data.errors,
-          isValid: data.isValid,
         );
       case Error(:final error):
         state = state.copyWith(
           status: Status.error,
-          isValid: false,
           listError: [FieldErrorModel.general(error)],
         );
       default:
         state = state.copyWith(
-          isValid: false,
-          status: Status.error,
           listError: [FieldErrorModel.general('Something went wrong')],
+          status: Status.error,
         );
         return;
     }

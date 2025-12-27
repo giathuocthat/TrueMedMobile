@@ -178,11 +178,6 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
       final model = LoginRequestModel.fromEntity(request);
       final response = await remote.login(model.toJson());
 
-      // final base = BaseResponseModel.fromJson(
-      //   response.data,
-      //   (json) => LoginResponseModel.fromJson(json),
-      // );
-
       final base = BaseResponseModel.fromJson(
         response.data,
         (json) => AuthenResponseModel.fromJson(json),
@@ -200,13 +195,23 @@ final class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Result<ApiErrorResponseModel, Failure>> register(
+  Future<Result<RegisterResponseEntity, Failure>> register(
     SignUpRequestEntity data,
   ) async {
     return asyncGuard(() async {
       final response = await remote.register(data.toJson());
 
-      return response.data;
+      // Save the session if the user has selected the "Remember Me" option
+      //if (request.shouldRemeber ?? false)
+      //await _saveSession();
+
+      //return base.data!;
+      return RegisterResponseEntity(
+        accessToken: response.data.accessToken ?? '',
+        customer: response.data.customer,
+        message: response.data.message ?? response.data.detail ?? '',
+        isSuccess: response.data.customer != null ? true : false,
+      );
     });
   }
 }

@@ -61,7 +61,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Container(color: Colors.red, height: 2),
+                /// ---------- STEPPER ----------
                 RegisterStepper(),
               ],
             ),

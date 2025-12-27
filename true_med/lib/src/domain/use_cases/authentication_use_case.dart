@@ -1,6 +1,5 @@
 import '../../core/base/result.dart';
 import '../../data/models/api_response_error_model.dart';
-import '../../data/models/api_response_meta_model.dart';
 import '../entities/login_entity.dart';
 import '../entities/sign_up_entity.dart';
 import '../repositories/authentication_repository.dart';
@@ -10,7 +9,7 @@ final class RegisterUseCase {
 
   final AuthenticationRepository repository;
 
-  Future<Result<ApiErrorResponseModel, String>> call(
+  Future<Result<RegisterResponseEntity, String>> call(
     SignUpRequestEntity request,
   ) async {
     final result = await repository.register(request);

@@ -9,7 +9,6 @@ import '../../../../../core/extensions/string.dart';
 import '../../../../../domain/enum/app_enums.dart';
 import '../../../../core/router/routes.dart';
 import '../../login/riverpod/login_provider.dart';
-import '../../login/riverpod/login_state.dart';
 import '../../registration/riverpod/register_provider.dart';
 import '../../registration/riverpod/register_state.dart';
 import '../riverpod/otp_provider.dart';
@@ -49,16 +48,16 @@ class _ConfirmOTPPageState extends ConsumerState<ConfirmOTPPage> {
       // 🔥 chỉ react khi từ false → true
       if (previous == null) return;
 
-      if (previous.isSubmitting && !next.isSubmitting) {
-        if (next.errorResgister != null) {
-          // ❌ Có lỗi → show message
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(next.errorResgister!)));
-        } else {
-          // ✅ Thành công
-          _onPushToRegisterSuccess();
-        }
+      if (previous.authFlowStep != AuthFlowStep.success &&
+          next.authFlowStep == AuthFlowStep.success &&
+          next.status.isSuccess) {
+        _onPushToRegisterSuccess();
+      }
+
+      if (!previous.status.isError && next.status.isError) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.error!)));
       }
     });
 

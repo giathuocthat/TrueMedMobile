@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../models/address_shipping_model.dart';
 import '../../models/api_response_error_model.dart';
 import '../../models/api_response_meta_model.dart';
+import '../../models/authen_model.dart';
 import '../../models/base_list_model.dart';
 import '../../models/base_object_model.dart';
 import '../../models/bussiness_type_model.dart';
@@ -32,7 +33,7 @@ abstract class RestClient {
   Future<HttpResponse> loginPhone(@Body() Map<String, dynamic> request);
 
   @POST(Endpoints.register)
-  Future<HttpResponse<ApiErrorResponseModel>> register(
+  Future<HttpResponse<AuthenResponseModel>> register(
     @Body() Map<String, dynamic> request,
   );
 

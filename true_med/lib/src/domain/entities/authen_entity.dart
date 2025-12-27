@@ -17,6 +17,6 @@ class AuthenRequestEntity extends AuthenEntity {
 class AuthenResponseEntity extends AuthenEntity {
   AuthenResponseEntity({required this.accessToken, this.customer});
 
-  final String accessToken;
+  final String? accessToken;
   final CustomerResponseEntity? customer;
 }
